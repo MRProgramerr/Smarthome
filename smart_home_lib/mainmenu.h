@@ -5,12 +5,6 @@
 #include <QStringList>
 #include <QTextStream>
 
-// DELETE THESE INCLUDES WHEN YOU ARE NO LONGER USING THE NETWORK MANAGER EXAMPLE
-#include "network/requestmessage.h"
-#include "network/responsemessage.h"
-#include "network/qthttpnetworkmanager.h"
-#include "network/defaultmessagefactory.h"
-#include <QSharedPointer>
 
 class MainMenu : public QObject
 {
@@ -39,16 +33,8 @@ private:
   QTextStream &_display;
   QTextStream &_input;
 
-  // Delete the below once you are done using it as an example of how to set up and use
-  // the NetworkManager. The Unit Tests also show similar, but this is less cluttered.
-private:
-  void exampleNetworkManagerUsage();
-  network::DefaultMessageFactory _factory{};
-  network::QtHttpNetworkManager* _manager{};
 
-private slots:
-  void handleRequest(QSharedPointer<network::RequestMessage> request);
-  void handleResponse(QSharedPointer<network::ResponseMessage> response);
+
 };
 
 #endif // MAINMENU_H
