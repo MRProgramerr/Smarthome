@@ -11,6 +11,8 @@ public:
 
     explicit Device(QObject *parent = nullptr);
 
+    Device(QString deviceName);
+
     /**
      * @brief getDeviceName : The getter function for the deviceName
      * @return the name of the device

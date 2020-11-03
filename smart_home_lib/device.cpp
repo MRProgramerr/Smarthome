@@ -6,6 +6,8 @@ Device::Device(QObject *parent) : QObject(parent)
 
 }
 
+Device::Device(QString deviceName) : _deviceName(deviceName){}
+
 QString Device::getDeviceName(){
     return _deviceName;
 
