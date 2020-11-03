@@ -8,15 +8,28 @@ class Device : public QObject
 {
     Q_OBJECT
 public:
+
     explicit Device(QObject *parent = nullptr);
+
+    /**
+     * @brief getDeviceName : The getter function for the deviceName
+     * @return the name of the device
+     */
+    QString getDeviceName();
+
+
+    /**
+     * @brief setDeviceName : The setter function for the device name
+     * @param deviceName  : The name of the device to be set
+     */
+    void setDeviceName(QString deviceName);
 
 signals:
 
 
+
 private:
-    QString deviceName;
-
-
+    QString _deviceName;
 
 };
 
