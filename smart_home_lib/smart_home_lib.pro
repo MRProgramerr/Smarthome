@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         csvfile.cpp \
+        device.cpp \
         deviceinfo.cpp \
         mainmenu.cpp \
         measurement.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
 
 HEADERS += \
         csvfile.h \
+        device.h \
         deviceinfo.h \
         mainmenu.h \
         measurement.h \
