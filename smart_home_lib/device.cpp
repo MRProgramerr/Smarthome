@@ -16,3 +16,21 @@ QString Device::getDeviceName(){
 void Device::setDeviceName(QString deviceName){
     _deviceName = deviceName;
 }
+
+QString Device::getIPAddressController(){
+    return _IPAddressController;
+}
+
+void Device::setIPAddressController(QString IPAddress){
+    _IPAddressController = IPAddress;
+}
+
+QString Device::getPortNumberController(){
+    return _PortNumberController;
+}
+
+void Device::setPortNumberController(QString portNumber){
+    _PortNumberController = portNumber;
+}
+
+

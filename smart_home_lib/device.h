@@ -26,12 +26,42 @@ public:
      */
     void setDeviceName(QString deviceName);
 
+
+    /**
+     * @brief getIPAddressController  : The getter function for the controller's ip address
+     * @return Ip Address of the controller
+     */
+    QString getIPAddressController();
+
+    /**
+     * @brief setIPAddressController : The setter function for the controller's ip address
+     * @param IPAddress
+     */
+    void setIPAddressController(QString IPAddress);
+
+    /**
+     * @brief getPortNumberController  : The getter function for the controller's port no
+     * @return Port Number
+     */
+    QString getPortNumberController();
+
+
+    /**
+     * @brief setPortNumberController : The setter function for the controller's port number
+     * @param portNumber
+     */
+    void setPortNumberController(QString portNumber);
+
+
 signals:
 
 
 
 private:
-    QString _deviceName;
+    QString _deviceName ;
+    QString _IPAddressController;
+    QString _PortNumberController;
+
 
 };
 

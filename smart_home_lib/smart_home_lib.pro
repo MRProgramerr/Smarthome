@@ -27,6 +27,7 @@ SOURCES += \
         csvfile.cpp \
         device.cpp \
         deviceinfo.cpp \
+        lightswitch.cpp \
         mainmenu.cpp \
         measurement.cpp \
         network/defaultmessagefactory.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
         csvfile.h \
         device.h \
         deviceinfo.h \
+        lightswitch.h \
         mainmenu.h \
         measurement.h \
         network/connection.h \
