@@ -21,6 +21,8 @@ public:
    */
   void displayWelcome(const QString &title, const QString &group, const QStringList &members) const;
 
+
+
 public slots:
   /**
    * @brief run Begin executing the main menu.
@@ -32,7 +34,7 @@ public slots:
 private:
   QTextStream &_display;
   QTextStream &_input;
-
+  int _userInput;
 
 
 };
