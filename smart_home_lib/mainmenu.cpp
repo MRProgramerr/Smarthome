@@ -31,18 +31,21 @@ void MainMenu::displayWelcome(const QString &title, const QString &group, const 
 
 void MainMenu::run()
 {
-//  // remove this line, or at least comment it out until you have got it set up yourself
-//  exampleNetworkManagerUsage();
 
-  _display << "Type (q) to quit" << endl;
+  _display << "Preparing to initialise Smart Home System" << endl;
+  _display << "What type of device do you want to configure?" <<endl;
+  _display << "1.Smart Home Controller" << endl << "2.Light Switch" << endl << "3.Thermostat" << endl << "4.Sprinkler System" <<endl;
 
-  for (QString selection{_input.read(1)}; selection.toLower() != "q"; selection = _input.read(1)) {
+  do{
 
-    if (selection != '\n') {
-      _display << "typed something" << selection << endl;
-      _input.readLine(); // skip the rest of the line
-    }
-  }
+      _input >> _userInput ;
+
+  }while(_userInput < 1 || _userInput > 4);
+
+
+
+
+
 
   // Need to exit the event loop to end the application
   QCoreApplication::instance()->quit();
