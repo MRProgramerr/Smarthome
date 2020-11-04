@@ -53,6 +53,11 @@ public:
     void setPortNumberController(QString portNumber);
 
 
+    /**
+     * @brief ~Device :  Virtual destructor for Device class
+     */
+    virtual ~Device(){};
+
 signals:
 
 

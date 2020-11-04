@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QString>
 #include "device.h"
+#include <QDebug>
+#include <QTextStream>
+#include <iostream>
+#include <stdio.h>
 
 class LightSwitch : public Device
 {
@@ -22,7 +26,7 @@ public:
      * @brief getIsOn
      * @return True if device is turned on, else false
      */
-    bool getIsOn() const;
+    bool getIsOn() ;
 
     /**
      * @brief setIsOn : Turns on the device
@@ -34,7 +38,7 @@ public:
      * @brief getIsOff
      * @return True if device is turned off, else false
      */
-    bool getIsOff() const;
+    bool getIsOff() ;
 
     /**
      * @brief setIsOff : Turns off the device
@@ -46,7 +50,7 @@ public:
      * @brief getBrightnessLevel
      * @return The brightness level of the lightSwitch(20-100)
      */
-    int getBrightnessLevel() const;
+    int getBrightnessLevel() ;
 
     /**
      * @brief setBrightnessLevel : Sets the brightness level of the lightSwitch
@@ -68,7 +72,7 @@ public:
     void brighten();
 
 
-    // Todo currentState();
+    // Todo currentState(); Using Measurement classes
 
 
     /**
@@ -87,13 +91,17 @@ private:
     bool _isOn = false;
     bool _isOff = false;
     int _brightnessLevel = 0;
+    int _userInput ;
+
 
 signals:
+
+    void reportChange(QString change);
 
 
 public slots:
 
-
+    void receiveChange(QString change);
 
 };
 
