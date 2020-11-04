@@ -25,7 +25,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         csvfile.cpp \
+        device.cpp \
         deviceinfo.cpp \
+        lightswitch.cpp \
         mainmenu.cpp \
         measurement.cpp \
         network/defaultmessagefactory.cpp \
@@ -34,11 +36,14 @@ SOURCES += \
         network/qthttpnetworkmanager.cpp \
         network/requestmessage.cpp \
         network/responsemessage.cpp \
-        smart_home_lib.cpp
+        smart_home_lib.cpp \
+        thermostat.cpp
 
 HEADERS += \
         csvfile.h \
+        device.h \
         deviceinfo.h \
+        lightswitch.h \
         mainmenu.h \
         measurement.h \
         network/connection.h \
@@ -49,7 +54,8 @@ HEADERS += \
         network/qthttpnetworkmanager.h \
         network/requestmessage.h \
         network/responsemessage.h \
-        smart_home_lib.h
+        smart_home_lib.h \
+        thermostat.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

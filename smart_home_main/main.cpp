@@ -2,6 +2,7 @@
 #include <QTextStream>
 #include <QThread>
 #include "mainmenu.h"
+#include "lightswitch.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,10 @@ int main(int argc, char *argv[])
   QObject::connect(&userThread, &QThread::finished, menu, &QObject::deleteLater);
   QObject::connect(&userThread, &QThread::started, menu, &MainMenu::run);
   userThread.start();
+
+
+  LightSwitch ls("Karan");
+  ls.menuLightSwitch();
 
 
   // Run the main event loop to keep the program running
