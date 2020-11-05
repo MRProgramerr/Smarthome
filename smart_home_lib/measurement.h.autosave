@@ -22,18 +22,6 @@ public:
     Measurement(T type);
     Device deviceName();
     T measurementType();
-//    LightSwitch on_off(bool onoff);
-//    void brightness_level(int val);
-//    void temperature (double val, std::_Setprecision());
-//    void temperature_setpoint(double, std::_Setprecision());
-//    Thermostat thermostat_state(int val);
-//    //sprinkler state(e
-//    void schedule_time(QDateTime);
-//    void schedule_duration(double val, std::_Setprecision());
-//    void total_water_usage(double val, std::_Setprecision());
-//    QDateTime timestamp();
-//    QVariant value();
-//    std::string unitOfMeasure();
     bool isFiltered();
     Measurement rawMeasurement();
 
