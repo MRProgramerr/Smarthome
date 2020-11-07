@@ -1,47 +1,47 @@
-//#include "rawmeasurement.h"
+#include "rawmeasurement.h"
 
-//template<>
-//std::string RawMeasurement<std::string>::deviceName(){
-//    return Name;
-//}
+template<>
+std::string RawMeasurement<std::string>::deviceName(){
+    return Name;
+}
 
-//template<>
-//void RawMeasurement<std::string>::setDeviceName(std::string name){
+template<>
+void RawMeasurement<std::string>::setDeviceName(std::string name){
     
-//    Name = name;
+    Name = name;
        
-//}
-//template <>
-//QDateTime RawMeasurement<QDateTime>::timestamp(){
+}
+template <>
+QDateTime RawMeasurement<QDateTime>::timestamp(){
     
-//    return QDateTime::currentDateTime();
-//}
+    return QDateTime::currentDateTime();
+}
 
-//template <>
-//void RawMeasurement<bool>::setfiltred(bool filter){
+template <>
+void RawMeasurement<bool>::setfiltred(bool filter){
     
-//    Filter = filter;
+    Filter = filter;
             
-//}
+}
 
-//template <>
-//bool RawMeasurement<bool>::isFiltered(){
+template <>
+bool RawMeasurement<bool>::isFiltered(){
     
-//    return Filter;
-//}
+    return Filter;
+}
 
-//template <>
-//void RawMeasurement<std::string>::setunitofMeasure(std::string uom){
+template <>
+void RawMeasurement<std::string>::setunitofMeasure(std::string uom){
     
-//    UOM = uom;
-//}
+    UOM = uom;
+}
 
-//template <>
-//std::string RawMeasurement<bool>::unitOfMeasure(){
+template <>
+std::string RawMeasurement<bool>::unitOfMeasure(){
     
-//    return UOM;
-//}
+    return UOM;
+}
 
-//template <class t>
-//RawMeasurement<QObject> rawMeasurement();
+template <class t>
+RawMeasurement<QObject> rawMeasurement();
 
