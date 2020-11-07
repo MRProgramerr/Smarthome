@@ -26,7 +26,7 @@ public:
   // MessageFactory interface
 public:
   RequestMessage *createGetStateRequest() override;
-  ResponseMessage *createGetStateResponse(const QList<Measurement *> &state, const QString &errorMessage = "") override;
+  ResponseMessage *createGetStateResponse(const QList<RawMeasurement *> &state, const QString &errorMessage = "") override;
   ResponseMessage *createGetStateResponse(const QByteArray &data, const QUrl &url = {"/state"}) override;
   RequestMessage *createPutStateRequest(const AllowedStates &state, const QMap<QString, QVariant> &parameters) override;
   RequestMessage *createPutStateRequest(const QUrl &path, const QByteArray &data) override;
@@ -34,21 +34,21 @@ public:
   ResponseMessage *createPutStateResponse(const QByteArray &data, const QUrl &url = {"/state"}) override;
   RequestMessage *createGetMeasurementsRequest(bool mostRecentOnly, const QMap<QString, QVariant> &filters) override;
   RequestMessage *createGetMeasurementsRequest(const QUrl &path, const QByteArray &data) override;
-  ResponseMessage *createGetMeasurementsResponse(const QList<Measurement *> &measurements) override;
+  ResponseMessage *createGetMeasurementsResponse(const QList<RawMeasurement *> &measurements) override;
   ResponseMessage *createGetMeasurementsResponse(const QByteArray &data, const QUrl &url = {"/measurements"}) override;
-  RequestMessage *createPostMeasurementsRequest(const QList<Measurement *> &measurements) override;
+  RequestMessage *createPostMeasurementsRequest(const QList<RawMeasurement *> &measurements) override;
   RequestMessage *createPostMeasurementsRequest(const QByteArray &data, const QUrl &url = {"/measurements"}) override;
   ResponseMessage *createPostMeasurementsResponse(const QString &errorMessage = "") override;
   ResponseMessage *createPostMeasurementsResponse(const QByteArray &data, const QUrl &url = {"/measurements"}) override;
   RequestMessage *createGetSetpointRequest() override;
-  ResponseMessage *createGetSetpointResponse(const Measurement *setpoint) override;
+  ResponseMessage *createGetSetpointResponse(const RawMeasurement *setpoint) override;
   ResponseMessage *createGetSetpointResponse(const QByteArray &data, const QUrl &url = {"/setpoint"}) override;
   RequestMessage *createPutSetpointRequest(const SetpointChange &changeType, const QMap<QString, QVariant> &parameters) override;
   RequestMessage *createPutSetpointRequest(const QUrl &path, const QByteArray &data) override;
   ResponseMessage *createPutSetpointResponse(const QString &errorMessage = "") override;
   ResponseMessage *createPutSetpointResponse(const QByteArray &data, const QUrl &url = {"/setpoint"}) override;
   RequestMessage *createGetUsageRequest() override;
-  ResponseMessage *createGetUsageResponse(const QList<Measurement *> &usage) override;
+  ResponseMessage *createGetUsageResponse(const QList<RawMeasurement *> &usage) override;
   ResponseMessage *createGetUsageResponse(const QByteArray &data, const QUrl &url = {"/usage"}) override;
   RequestMessage *createGetDevicesRequest() override;
   ResponseMessage *createGetDevicesResponse(const QList<DeviceInfo *> &devices) override;

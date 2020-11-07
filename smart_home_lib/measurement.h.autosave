@@ -17,16 +17,13 @@ class Measurement
 {
 
 public:
-    T value;
-    Measurement();
     Measurement(T type);
-    Device deviceName();
+    std::string deviceName();
+    void setDeviceName(std::string name);
     T measurementType();
     bool isFiltered();
     Measurement rawMeasurement();
 
-private:
-    T type;
 };
 
 // You may need this to make it compatiable with QVariant
