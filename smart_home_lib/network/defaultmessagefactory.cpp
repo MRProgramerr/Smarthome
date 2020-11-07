@@ -5,7 +5,7 @@ network::RequestMessage *network::DefaultMessageFactory::createGetStateRequest()
   return new RequestMessage("/state");
 }
 
-network::ResponseMessage *network::DefaultMessageFactory::createGetStateResponse([[maybe_unused]] const QList<Measurement *> &state, [[maybe_unused]] const QString &errorMessage)
+network::ResponseMessage *network::DefaultMessageFactory::createGetStateResponse([[maybe_unused]] const QList<RawMeasurement *> &state, [[maybe_unused]] const QString &errorMessage)
 {
   return new ResponseMessage("/state", StatusCode::NOT_IMPLEMENTED);
 }

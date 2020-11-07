@@ -82,7 +82,7 @@ public:
    * @param errorMessage (optional) error message to be included in the response
    * @return response for GET /state
    */
-  virtual ResponseMessage* createGetStateResponse(const QList<Measurement*> &state,
+  virtual ResponseMessage* createGetStateResponse(const QList<RawMeasurement*> &state,
                                                   const QString &errorMessage = "") = 0;
 
   /**
@@ -227,7 +227,7 @@ public:
    * @param measurements list of device sensor Measurements
    * @return response for GET /measurements[/last][?name={name},type={type}]
    */
-  virtual ResponseMessage* createGetMeasurementsResponse(const QList<Measurement*> &measurements) = 0;
+  virtual ResponseMessage* createGetMeasurementsResponse(const QList<RawMeasurement*> &measurements) = 0;
 
   /**
    * @brief createGetMeasurementsResponse Returns a ResponseMessage containing
@@ -254,7 +254,7 @@ public:
    * @param measurements the Measurements to report
    * @return request for POST /measurements
    */
-  virtual RequestMessage* createPostMeasurementsRequest(const QList<Measurement*> &measurements) = 0;
+  virtual RequestMessage* createPostMeasurementsRequest(const QList<RawMeasurement*> &measurements) = 0;
 
   /**
    * @brief createPostMeasurementsRequest Returns a RequestMessage built at the
@@ -326,7 +326,7 @@ public:
    * @param setpoint the Measurement representing the setpoint, or nullptr for error
    * @return response for GET /setpoint
    */
-  virtual ResponseMessage* createGetSetpointResponse(const Measurement* setpoint) = 0;
+  virtual ResponseMessage* createGetSetpointResponse(const RawMeasurement* setpoint) = 0;
 
   /**
    * @brief createGetSetpointResponse Returns a ResponseMessage containing
@@ -441,7 +441,7 @@ public:
    * @param usage list of device usage Measurements
    * @return response for GET /usage
    */
-  virtual ResponseMessage* createGetUsageResponse(const QList<Measurement*> &usage) = 0;
+  virtual ResponseMessage* createGetUsageResponse(const QList<RawMeasurement*> &usage) = 0;
 
   /**
    * @brief createGetUsageResponse Returns a ResponseMessage containing
