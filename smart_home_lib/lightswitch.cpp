@@ -76,16 +76,10 @@ void LightSwitch::receiveChange(QString change){
 
 void LightSwitch::menuLightSwitch(){
 
-    int _userInput;
+    std::string _userInput;
 
-    qDebug() << endl << "-----------------Light Switch---------------" << endl;
+    std::getline(std::cin,_userInput);
 
-    qDebug() << "Press 1 to Turn On" << endl << "Press 2 to Turn Off" << endl
-             << "Press 3 to Dim Light" << endl << "Press 4 to Brigthen light" <<endl;
-
-
-    std::cin >> _userInput;
-    std::cin.ignore();
     std::cout << _userInput << std::endl;
 
 

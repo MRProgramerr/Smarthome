@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
   QTextStream input{stdin};
   QTextStream output{stdout};
   MainMenu* menu{new MainMenu{output, input}};
-  menu->displayWelcome("Smart Home System Base Project", "WE WHO SHALL NOT BE NAMED", {"Alessio, Harkaran, Husain, Shivam Verma"});
+  menu->displayWelcome("Smart Home System Base Project", "WE WHO SHALL NOT BE NAMED", {"Alessio", "Harkaran", "Husain", "Shivam Verma"});
 
   // Configure a separate thread for the menu to run in
   QThread userThread{};
@@ -24,11 +24,7 @@ int main(int argc, char *argv[])
   userThread.start();
 
 
-  LightSwitch ls("Karan");
-  ls.menuLightSwitch();
 
-//    SprinklerSystem ss("Sprinkler1");
-//    ss.schedule(1,1);
 
 
   // Run the main event loop to keep the program running

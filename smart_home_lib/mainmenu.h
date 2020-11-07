@@ -21,6 +21,9 @@ public:
    */
   void displayWelcome(const QString &title, const QString &group, const QStringList &members) const;
 
+  void detailedUserInput(QString chosenDevice);
+
+  void initialisingDevice(QString chosenDevice, QString deviceName);
 
 
 public slots:
@@ -35,7 +38,9 @@ private:
   QTextStream &_display;
   QTextStream &_input;
   int _userInput;
-
+  QString _inputDeviceName;
+  QString _inputDeviceUrl;
+  QString _chosenDevice;
 
 };
 
