@@ -101,6 +101,9 @@ void MainMenu::detailedUserInput(QString chosenDevice)
 void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 {
 
+    // Remove this line
+    _display << deviceName << endl;
+
     if(chosenDevice == "Smart Home Controller"){
         // Logic here
 
