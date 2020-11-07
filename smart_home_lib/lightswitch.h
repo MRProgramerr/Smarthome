@@ -8,6 +8,8 @@
 #include <QTextStream>
 #include <iostream>
 #include <stdio.h>
+#include <measurement.h>
+#include <vector>
 
 class LightSwitch : public Device
 {
@@ -32,19 +34,13 @@ public:
      * @brief setIsOn : Turns on the device
      * @param value
      */
-    void turnOn(bool value);
-
-    /**
-     * @brief getIsOff
-     * @return True if device is turned off, else false
-     */
-    bool getIsOff() ;
+    void turnOn();
 
     /**
      * @brief setIsOff : Turns off the device
      * @param value
      */
-    void turnOff(bool value);
+    void turnOff();
 
     /**
      * @brief getBrightnessLevel
@@ -72,7 +68,8 @@ public:
     void brighten();
 
 
-    // Todo currentState(); Using Measurement classes
+    std::vector<Measurement> currentState();
+
 
 
     /**
@@ -89,7 +86,6 @@ public:
 private:
 
     bool _isOn = false;
-    bool _isOff = false;
     int _brightnessLevel = 0;
     int _userInput ;
 

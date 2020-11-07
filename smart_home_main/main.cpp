@@ -3,6 +3,8 @@
 #include <QThread>
 #include "mainmenu.h"
 #include "lightswitch.h"
+#include "sprinklersystem.h"
+#include <limits>
 
 int main(int argc, char *argv[])
 {
@@ -24,6 +26,9 @@ int main(int argc, char *argv[])
 
   LightSwitch ls("Karan");
   ls.menuLightSwitch();
+
+//    SprinklerSystem ss("Sprinkler1");
+//    ss.schedule(1,1);
 
 
   // Run the main event loop to keep the program running

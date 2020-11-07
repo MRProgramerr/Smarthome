@@ -1,5 +1,6 @@
 #include "lightswitch.h"
 
+
 LightSwitch::LightSwitch(QString name) : Device(name)
 {
 
@@ -10,21 +11,17 @@ bool LightSwitch::getIsOn()
     return _isOn;
 }
 
-void LightSwitch::turnOn(bool value)
+void LightSwitch::turnOn()
 {
-    _isOn = value;
-}
-
-bool LightSwitch::getIsOff()
-{
-    return _isOff;
-    emit reportChange("The light switch has turned Off");
-}
-
-void LightSwitch::turnOff(bool value)
-{
-    _isOff = value;
+    _isOn = true;
     emit reportChange("The light switch has turned On");
+}
+
+
+void LightSwitch::turnOff( )
+{
+    _isOn = false;
+    emit reportChange("The light switch has turned Off");
 }
 
 int LightSwitch::getBrightnessLevel()
@@ -61,6 +58,16 @@ void LightSwitch::brighten(){
 
 }
 
+std::vector<Measurement> LightSwitch::currentState()
+{
+
+    // Placeholder
+    std::vector<Measurement> s;
+    // Logic here
+
+    return s;
+}
+
 void LightSwitch::receiveChange(QString change){
 
     qDebug() << change ;
@@ -69,12 +76,17 @@ void LightSwitch::receiveChange(QString change){
 
 void LightSwitch::menuLightSwitch(){
 
+    int _userInput;
+
     qDebug() << endl << "-----------------Light Switch---------------" << endl;
 
     qDebug() << "Press 1 to Turn On" << endl << "Press 2 to Turn Off" << endl
              << "Press 3 to Dim Light" << endl << "Press 4 to Brigthen light" <<endl;
 
-    std::cout << "Hello";
+
+    std::cin >> _userInput;
+    std::cin.ignore();
+    std::cout << _userInput << std::endl;
 
 
     qDebug() << "--------------------------------------------" << endl;

@@ -37,6 +37,7 @@ SOURCES += \
         network/requestmessage.cpp \
         network/responsemessage.cpp \
         smart_home_lib.cpp \
+        sprinklersystem.cpp \
         thermostat.cpp
 
 HEADERS += \
@@ -55,6 +56,7 @@ HEADERS += \
         network/requestmessage.h \
         network/responsemessage.h \
         smart_home_lib.h \
+        sprinklersystem.h \
         thermostat.h
 unix {
     target.path = /usr/lib
