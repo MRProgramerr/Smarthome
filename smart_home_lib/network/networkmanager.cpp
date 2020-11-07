@@ -1,8 +1,8 @@
-#include "networkmanager.h"
+//#include "networkmanager.h"
 
-using namespace network;
+//using namespace network;
 
-NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
-{
+//NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
+//{
 
-}
+//}

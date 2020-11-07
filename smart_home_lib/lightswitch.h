@@ -69,19 +69,6 @@ public:
     void brighten() override;
 
 
-    std::vector<Measurement> currentState() override;
-
-
-
-    /**
-     * @brief menuLightSwitch
-     * @details This is the main menu for the lightSwitch device
-     * it will allow the controller or even the local instance of the light
-     * switch to change its paramters
-     * A signal and slot mechanism will be used to report each state change to commandLine
-     * and to the controller
-     */
-    void menuLightSwitch();
 
 
 private:

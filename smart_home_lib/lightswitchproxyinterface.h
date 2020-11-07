@@ -16,7 +16,7 @@ public:
     virtual void turnOff() = 0;
     virtual void brighten() = 0;
     virtual void dim() = 0;
-    virtual std::vector<Measurement> currentState() = 0;
+//    virtual std::vector<Measurement<>> currentState() = 0;
 
 
 

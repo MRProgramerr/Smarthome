@@ -38,6 +38,7 @@ SOURCES += \
         network/qthttpnetworkmanager.cpp \
         network/requestmessage.cpp \
         network/responsemessage.cpp \
+        rawmeasurement.cpp \
         smart_home_lib.cpp \
         sprinklersystem.cpp \
         thermostat.cpp
@@ -59,6 +60,7 @@ HEADERS += \
         network/qthttpnetworkmanager.h \
         network/requestmessage.h \
         network/responsemessage.h \
+        rawmeasurement.h \
         smart_home_lib.h \
         sprinklersystem.h \
         thermostat.h

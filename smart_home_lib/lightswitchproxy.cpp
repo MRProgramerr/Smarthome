@@ -1,6 +1,27 @@
 #include "lightswitchproxy.h"
 
-LightSwitchProxy::LightSwitchProxy()
+LightSwitchProxy::LightSwitchProxy(QString name) : _lightSwitch(name)
 {
 
 }
+
+void LightSwitchProxy::turnOn()
+{
+    _lightSwitch.turnOn();
+}
+
+void LightSwitchProxy::turnOff()
+{
+    _lightSwitch.turnOff();
+}
+
+void LightSwitchProxy::brighten()
+{
+    _lightSwitch.brighten();
+}
+
+void LightSwitchProxy::dim()
+{
+    _lightSwitch.dim();
+}
+
