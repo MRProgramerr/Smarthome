@@ -10,8 +10,9 @@
 #include <stdio.h>
 #include <measurement.h>
 #include <vector>
+#include "lightswitchproxyinterface.h"
 
-class LightSwitch : public Device
+class LightSwitch : public Device, public LightSwitchProxyInterface
 {
     Q_OBJECT
 
@@ -31,16 +32,16 @@ public:
     bool getIsOn() ;
 
     /**
-     * @brief setIsOn : Turns on the device
+     * @brief setIsOn : Turns on the sdevice
      * @param value
      */
-    void turnOn();
+    void turnOn() override;
 
     /**
      * @brief setIsOff : Turns off the device
      * @param value
      */
-    void turnOff();
+    void turnOff() override;
 
     /**
      * @brief getBrightnessLevel
@@ -59,16 +60,16 @@ public:
      * @brief dim : Reduce the 'brightness level' by 20 points
      * if currently greater than 20
      */
-    void dim();
+    void dim() override;
 
     /**
      * @brief brighten : Increases the brighness level by 20 points
      * if less than 100
      */
-    void brighten();
+    void brighten() override;
 
 
-    std::vector<Measurement> currentState();
+    std::vector<Measurement> currentState() override;
 
 
 

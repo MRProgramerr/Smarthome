@@ -28,6 +28,8 @@ SOURCES += \
         device.cpp \
         deviceinfo.cpp \
         lightswitch.cpp \
+        lightswitchproxy.cpp \
+        lightswitchproxyinterface.cpp \
         mainmenu.cpp \
         measurement.cpp \
         network/defaultmessagefactory.cpp \
@@ -45,6 +47,8 @@ HEADERS += \
         device.h \
         deviceinfo.h \
         lightswitch.h \
+        lightswitchproxy.h \
+        lightswitchproxyinterface.h \
         mainmenu.h \
         measurement.h \
         network/connection.h \
