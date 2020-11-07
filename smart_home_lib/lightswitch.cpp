@@ -58,15 +58,15 @@ void LightSwitch::brighten(){
 
 }
 
-std::vector<Measurement> LightSwitch::currentState()
-{
+//std::vector<Measurement> LightSwitch::currentState()
+//{
 
-    // Placeholder
-    std::vector<Measurement> s;
-    // Logic here
+//    // Placeholder
+//    std::vector<Measurement> s;
+//    // Logic here
 
-    return s;
-}
+//    return s;
+//}
 
 void LightSwitch::receiveChange(QString change){
 

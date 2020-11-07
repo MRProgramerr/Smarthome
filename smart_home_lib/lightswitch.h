@@ -67,8 +67,8 @@ public:
      */
     void brighten();
 
-    template<>
-    Measurement<std::vector> currentState();
+//    template<>
+//    std::vector<Measurement<double>> currentState();
 
 
 
