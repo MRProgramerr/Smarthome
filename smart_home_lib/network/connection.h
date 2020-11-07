@@ -1,28 +1,28 @@
-#ifndef CONNECTION_H
-#define CONNECTION_H
+//#ifndef CONNECTION_H
+//#define CONNECTION_H
 
-#include <QMetaType>
-#include <QHostAddress>
-#include <QString>
+//#include <QMetaType>
+//#include <QHostAddress>
+//#include <QString>
 
-namespace network {
+//namespace network {
 
-/**
- * @brief The Connection struct simply holds network details
- * of a named connection and is used by the NetworkManager to
- * track its known communication partners.
- */
-struct Connection
-{
-  QString id;
-  QHostAddress address;
-  quint16 port;
-};
+///**
+// * @brief The Connection struct simply holds network details
+// * of a named connection and is used by the NetworkManager to
+// * track its known communication partners.
+// */
+//struct Connection
+//{
+//  QString id;
+//  QHostAddress address;
+//  quint16 port;
+//};
 
 
-} // namespace network
+//} // namespace network
 
-// Makes the class usable with QVariant
-Q_DECLARE_METATYPE(network::Connection)
+//// Makes the class usable with QVariant
+//Q_DECLARE_METATYPE(network::Connection)
 
-#endif // CONNECTION_H
+//#endif // CONNECTION_H
