@@ -29,8 +29,12 @@ SOURCES += \
         deviceinfo.cpp \
         lightswitch.cpp \
         lightswitchproxy.cpp \
+        lightswitchproxyfactory.cpp \
         mainmenu.cpp \
         measurement.cpp \
+        proxyabstractfactory.cpp \
+        proxyfactory.cpp \
+        proxyinterface.cpp \
         rawmeasurement.cpp \
         smart_home_lib.cpp \
         sprinklersystem.cpp \
@@ -43,8 +47,12 @@ HEADERS += \
         deviceinfo.h \
         lightswitch.h \
         lightswitchproxy.h \
+        lightswitchproxyfactory.h \
         mainmenu.h \
         measurement.h \
+        proxyabstractfactory.h \
+        proxyfactory.h \
+        proxyinterface.h \
         rawmeasurement.h \
         smart_home_lib.h \
         sprinklersystem.h \

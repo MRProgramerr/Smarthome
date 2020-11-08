@@ -11,6 +11,8 @@
 #include <QCoreApplication>
 #include "lightswitchproxy.h"
 #include <iostream>
+#include "lightswitchproxyfactory.h"
+#include "proxyfactory.h"
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
@@ -133,8 +135,16 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 void MainMenu::mainMenuLightSwitch(QString lsp)
 {
 
-    // Creating a lightswicth proxy
-    // To be replaced by factory pattern
+
+
+
+    ProxyFactory pf;
+    LightSwitchProxyFactory lf(lsp);
+
+    pf.createProxy(lf);
+
+
+
     LightSwitchProxy lightProxy{lsp};
     int _userInputLS = 0;
 

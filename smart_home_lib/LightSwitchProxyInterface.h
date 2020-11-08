@@ -3,8 +3,9 @@
 #define LIGHTSWITCHPROXYINTERFACE_H
 
 #include <vector>
+#include "proxyinterface.h"
 
-class LightSwitchProxyInterface
+class LightSwitchProxyInterface : public ProxyInterface
 {
 public:
 
