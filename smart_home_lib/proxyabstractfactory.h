@@ -9,7 +9,7 @@ public:
 
     virtual ~ProxyAbstractFactory(){};
 
-    virtual ProxyInterface createProxy() ;
+    virtual ProxyInterface* createProxy() = 0 ;
 
 };
 

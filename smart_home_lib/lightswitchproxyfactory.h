@@ -9,9 +9,7 @@ class LightSwitchProxyFactory : public ProxyAbstractFactory
 public:
     LightSwitchProxyFactory(QString name);
 
-    // ProxyAbstractFactory interface
-public:
-    ProxyInterface createProxy();
+    ProxyInterface* createProxy();
 
 private:
     QString _name;

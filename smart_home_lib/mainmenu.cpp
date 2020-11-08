@@ -135,66 +135,65 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 void MainMenu::mainMenuLightSwitch(QString lsp)
 {
 
-
-
-
-    ProxyFactory pf;
     LightSwitchProxyFactory lf(lsp);
 
-    pf.createProxy(lf);
+    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
+
+     ls->brighten();
 
 
 
-    LightSwitchProxy lightProxy{lsp};
-    int _userInputLS = 0;
-
-    while(_userInputLS !=5){
 
 
-        _display << "--------------- Light Switch Main Menu ---------------" << endl;
+//    int _userInputLS = 0;
+
+//    while(_userInputLS !=5){
 
 
-        _display << "Press 1 to Turn on" << endl;
-        _display << "Press 2 to Turn off" << endl;
-        _display << "Press 3 to Brigthen" << endl;
-        _display << "Press 4 to Dim" << endl;
-        _display << "Press 5 to exit" << endl;
+//        _display << "--------------- Light Switch Main Menu ---------------" << endl;
 
 
-        _input >> _userInputLS;
-
-        if(_userInputLS <0 || _userInputLS >5) _display << "Please enter a valid number" << endl;
-
-
-        if(_userInputLS == 1){
-
-            if(lightProxy.getIsOn()){
-                _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
-
-            }else{
-
-                lightProxy.turnOn();
-                _display <<"The light switch has turned on" << endl;
-            }
-
-        } else if(_userInputLS ==2){
-
-            if(!(lightProxy.getIsOn())){
-                _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
-
-            }else{
-
-                lightProxy.turnOff();
-                _display <<"The light switch has turned off" << endl;
-            }
-        }
-        else{
-            _display<<"Invalid Input" <<endl;
-        }
+//        _display << "Press 1 to Turn on" << endl;
+//        _display << "Press 2 to Turn off" << endl;
+//        _display << "Press 3 to Brigthen" << endl;
+//        _display << "Press 4 to Dim" << endl;
+//        _display << "Press 5 to exit" << endl;
 
 
+//        _input >> _userInputLS;
 
-    }
+//        if(_userInputLS <0 || _userInputLS >5) _display << "Please enter a valid number" << endl;
+
+
+//        if(_userInputLS == 1){
+
+//            if(lightProxy.getIsOn()){
+//                _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
+
+//            }else{
+
+//                lightProxy.turnOn();
+//                _display <<"The light switch has turned on" << endl;
+//            }
+
+//        } else if(_userInputLS ==2){
+
+//            if(!(lightProxy.getIsOn())){
+//                _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
+
+//            }else{
+
+//                lightProxy.turnOff();
+//                _display <<"The light switch has turned off" << endl;
+//            }
+//        }
+//        else{
+//            _display<<"Invalid Input" <<endl;
+//        }
+
+
+
+//    }
 
 
 

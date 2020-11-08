@@ -9,7 +9,7 @@ class ProxyFactory
 public:
     ProxyFactory();
 
-    ProxyInterface createProxy(ProxyAbstractFactory paf);
+    ProxyInterface* createProxy(ProxyAbstractFactory* paf);
 
 
 

@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QTextStream>
 #include <lightswitchproxy.h>
-
+#include "proxyfactory.h"
 
 class MainMenu : public QObject
 {
@@ -44,6 +44,8 @@ private:
   QString _inputDeviceName;
   QString _inputDeviceUrl;
   QString _chosenDevice;
+  ProxyFactory* _proxyFactory;
+
 
 };
 

@@ -7,12 +7,10 @@ LightSwitchProxyFactory::LightSwitchProxyFactory(QString name) : _name(name)
 
 }
 
-ProxyInterface LightSwitchProxyFactory::createProxy()
+ProxyInterface* LightSwitchProxyFactory::createProxy()
 {
 
-    LightSwitchProxy lsp(_name);
-
-    return std::move(lsp);
+    return new LightSwitchProxy(_name);
 
 
 }

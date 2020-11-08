@@ -5,7 +5,7 @@ ProxyFactory::ProxyFactory()
 
 }
 
-ProxyInterface ProxyFactory::createProxy(ProxyAbstractFactory paf)
+ProxyInterface* ProxyFactory::createProxy(ProxyAbstractFactory* paf)
 {
-    return paf.createProxy();
+    return paf->createProxy();
 }

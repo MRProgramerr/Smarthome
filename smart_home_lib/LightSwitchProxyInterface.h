@@ -5,7 +5,7 @@
 #include <vector>
 #include "proxyinterface.h"
 
-class LightSwitchProxyInterface : public ProxyInterface
+class LightSwitchProxyInterface
 {
 public:
 

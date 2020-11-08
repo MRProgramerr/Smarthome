@@ -6,6 +6,7 @@ class ProxyInterface
 {
 public:
     ProxyInterface();
+    virtual ~ProxyInterface(){};
 
 };
 

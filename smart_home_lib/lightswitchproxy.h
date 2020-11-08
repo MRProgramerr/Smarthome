@@ -3,6 +3,7 @@
 
 #include "LightSwitchProxyInterface.h"
 #include "lightswitch.h"
+#include "proxyinterface.h"
 
 /**
  * @brief The LightSwitchProxy class
@@ -11,7 +12,7 @@
  * device and will delegate the functions calls to it.
  */
 
-class LightSwitchProxy : public LightSwitchProxyInterface
+class LightSwitchProxy : public LightSwitchProxyInterface, public ProxyInterface
 {
 public:
 
