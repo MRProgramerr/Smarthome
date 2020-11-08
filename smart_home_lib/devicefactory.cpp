@@ -5,7 +5,7 @@ DeviceFactory::DeviceFactory()
 
 }
 
-Device *DeviceFactory::createDevice(DeviceAbstractFactory *daf)
+Device* DeviceFactory::createDevice(DeviceAbstractFactory* daf)
 {
     return daf->createDevice();
 }

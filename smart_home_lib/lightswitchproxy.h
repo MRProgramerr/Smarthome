@@ -4,6 +4,8 @@
 #include "LightSwitchProxyInterface.h"
 #include "lightswitch.h"
 #include "proxyinterface.h"
+#include "lightswitchdevicefactory.h"
+#include "devicefactory.h"
 
 /**
  * @brief The LightSwitchProxy class
@@ -62,7 +64,11 @@ private:
      * @brief _lightSwitch
      *
      */
-    LightSwitch _lightSwitch;
+
+
+    DeviceFactory* _deviceFactory;
+
+    LightSwitch* _lSwitch;
 
 
 };
