@@ -10,6 +10,7 @@
 #include <QUrl>
 #include <QCoreApplication>
 #include "lightswitchproxy.h"
+#include <iostream>
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
@@ -95,20 +96,21 @@ void MainMenu::detailedUserInput(QString chosenDevice)
 
     }while (_inputDeviceUrl == "");
 
+    _display << "Initialising....." << endl;
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     initialisingDevice(chosenDevice,_inputDeviceName);
 
 }
 
+// Call main menu for each concrete device
 void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 {
 
-    _display << chosenDevice;
 
     if(chosenDevice == "Smart Home Controller"){
         // Logic here
 
     } else if(chosenDevice == "Light Switch"){
-
 
         mainMenuLightSwitch(deviceName);
 
@@ -131,11 +133,58 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 void MainMenu::mainMenuLightSwitch(QString lsp)
 {
 
-
+    // Creating a lightswicth proxy
+    // To be replaced by factory pattern
     LightSwitchProxy lightProxy{lsp};
+    int _userInputLS = 0;
 
-    lightProxy.turnOn();
+    while(_userInputLS !=5){
 
+
+        _display << "--------------- Light Switch Main Menu ---------------" << endl;
+
+
+        _display << "Press 1 to Turn on" << endl;
+        _display << "Press 2 to Turn off" << endl;
+        _display << "Press 3 to Brigthen" << endl;
+        _display << "Press 4 to Dim" << endl;
+        _display << "Press 5 to exit" << endl;
+
+
+        _input >> _userInputLS;
+
+        if(_userInputLS <0 || _userInputLS >5) _display << "Please enter a valid number" << endl;
+
+
+        if(_userInputLS == 1){
+
+            if(lightProxy.getIsOn()){
+                _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
+
+            }else{
+
+                lightProxy.turnOn();
+                _display <<"The light switch has turned on" << endl;
+            }
+
+        } else if(_userInputLS ==2){
+
+            if(!(lightProxy.getIsOn())){
+                _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
+
+            }else{
+
+                lightProxy.turnOff();
+                _display <<"The light switch has turned off" << endl;
+            }
+        }
+        else{
+            _display<<"Invalid Input" <<endl;
+        }
+
+
+
+    }
 
 
 

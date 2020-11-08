@@ -10,7 +10,14 @@
 #include <stdio.h>
 #include <measurement.h>
 #include <vector>
-#include "lightswitchproxyinterface.h"
+#include "LightSwitchProxyInterface.h"
+
+/**
+ * @brief The LightSwitch class
+ * Concrete implementation of the lightswitch
+ * Inherits Abstract Device and the lightswitch proxy
+ * interface using multiple inheritance.
+ */
 
 class LightSwitch : public Device, public LightSwitchProxyInterface
 {

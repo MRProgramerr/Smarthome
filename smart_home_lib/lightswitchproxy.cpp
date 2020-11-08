@@ -25,3 +25,8 @@ void LightSwitchProxy::dim()
     _lightSwitch.dim();
 }
 
+bool LightSwitchProxy::getIsOn()
+{
+    return _lightSwitch.getIsOn();
+}
+

@@ -29,7 +29,6 @@ SOURCES += \
         deviceinfo.cpp \
         lightswitch.cpp \
         lightswitchproxy.cpp \
-        lightswitchproxyinterface.cpp \
         mainmenu.cpp \
         measurement.cpp \
         rawmeasurement.cpp \
@@ -38,12 +37,12 @@ SOURCES += \
         thermostat.cpp
 
 HEADERS += \
+        LightSwitchProxyInterface.h \
         csvfile.h \
         device.h \
         deviceinfo.h \
         lightswitch.h \
         lightswitchproxy.h \
-        lightswitchproxyinterface.h \
         mainmenu.h \
         measurement.h \
         rawmeasurement.h \

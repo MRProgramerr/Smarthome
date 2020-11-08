@@ -59,7 +59,6 @@ void LightSwitch::brighten(){
 }
 
 
-
 void LightSwitch::receiveChange(QString change){
 
     qDebug() << change ;
