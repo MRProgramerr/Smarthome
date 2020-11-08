@@ -32,12 +32,6 @@ SOURCES += \
         lightswitchproxyinterface.cpp \
         mainmenu.cpp \
         measurement.cpp \
-        network/defaultmessagefactory.cpp \
-        network/message.cpp \
-        network/networkmanager.cpp \
-        network/qthttpnetworkmanager.cpp \
-        network/requestmessage.cpp \
-        network/responsemessage.cpp \
         rawmeasurement.cpp \
         smart_home_lib.cpp \
         sprinklersystem.cpp \
@@ -52,14 +46,6 @@ HEADERS += \
         lightswitchproxyinterface.h \
         mainmenu.h \
         measurement.h \
-        network/connection.h \
-        network/defaultmessagefactory.h \
-        network/message.h \
-        network/messagefactory.h \
-        network/networkmanager.h \
-        network/qthttpnetworkmanager.h \
-        network/requestmessage.h \
-        network/responsemessage.h \
         rawmeasurement.h \
         smart_home_lib.h \
         sprinklersystem.h \

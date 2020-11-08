@@ -4,6 +4,7 @@
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
+#include <lightswitchproxy.h>
 
 
 class MainMenu : public QObject
@@ -24,6 +25,8 @@ public:
   void detailedUserInput(QString chosenDevice);
 
   void initialisingDevice(QString chosenDevice, QString deviceName);
+
+  void mainMenuLightSwitch(QString lsp);
 
 
 public slots:

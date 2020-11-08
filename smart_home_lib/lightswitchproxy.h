@@ -13,7 +13,7 @@ public:
     void turnOff() override;
     void brighten() override;
     void dim() override;
-//    std::vector<Measurement> currentState() override;
+// std::vector<Measurement> currentState() override;
 
 
 private:

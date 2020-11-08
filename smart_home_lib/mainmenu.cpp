@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QUrl>
 #include <QCoreApplication>
+#include "lightswitchproxy.h"
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
@@ -101,15 +102,15 @@ void MainMenu::detailedUserInput(QString chosenDevice)
 void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 {
 
-    // Remove this line
-    _display << deviceName << endl;
+    _display << chosenDevice;
 
     if(chosenDevice == "Smart Home Controller"){
         // Logic here
 
     } else if(chosenDevice == "Light Switch"){
 
-        // Logic here
+
+        mainMenuLightSwitch(deviceName);
 
     } else if(chosenDevice == "Thermostat"){
 
@@ -126,6 +127,20 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 
 
 }
+
+void MainMenu::mainMenuLightSwitch(QString lsp)
+{
+
+
+    LightSwitchProxy lightProxy{lsp};
+
+    lightProxy.turnOn();
+
+
+
+
+}
+
 
 
 

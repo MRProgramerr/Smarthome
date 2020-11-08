@@ -1,7 +1,6 @@
 #ifndef LIGHTSWITCHPROXYINTERFACE_H
 #define LIGHTSWITCHPROXYINTERFACE_H
 
-#include "measurement.h"
 #include <vector>
 
 class LightSwitchProxyInterface

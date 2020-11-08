@@ -35,13 +35,13 @@ public:
      * @brief setIsOn : Turns on the sdevice
      * @param value
      */
-    void turnOn() override;
+    void turnOn() ;
 
     /**
      * @brief setIsOff : Turns off the device
      * @param value
      */
-    void turnOff() override;
+    void turnOff() ;
 
     /**
      * @brief getBrightnessLevel
@@ -60,13 +60,13 @@ public:
      * @brief dim : Reduce the 'brightness level' by 20 points
      * if currently greater than 20
      */
-    void dim() override;
+    void dim() ;
 
     /**
      * @brief brighten : Increases the brighness level by 20 points
      * if less than 100
      */
-    void brighten() override;
+    void brighten() ;
 
 
 
