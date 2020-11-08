@@ -12,5 +12,4 @@ ProxyInterface* LightSwitchProxyFactory::createProxy()
 
     return new LightSwitchProxy(_name);
 
-
 }

@@ -26,8 +26,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         csvfile.cpp \
         device.cpp \
+        deviceabstractfactory.cpp \
+        devicefactory.cpp \
         deviceinfo.cpp \
         lightswitch.cpp \
+        lightswitchdevicefactory.cpp \
         lightswitchproxy.cpp \
         lightswitchproxyfactory.cpp \
         mainmenu.cpp \
@@ -44,8 +47,11 @@ HEADERS += \
         LightSwitchProxyInterface.h \
         csvfile.h \
         device.h \
+        deviceabstractfactory.h \
+        devicefactory.h \
         deviceinfo.h \
         lightswitch.h \
+        lightswitchdevicefactory.h \
         lightswitchproxy.h \
         lightswitchproxyfactory.h \
         mainmenu.h \
