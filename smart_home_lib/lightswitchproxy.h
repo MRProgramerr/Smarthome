@@ -14,7 +14,7 @@
  * device and will delegate the functions calls to it.
  */
 
-class LightSwitchProxy : public LightSwitchProxyInterface, public ProxyInterface
+class LightSwitchProxy : public LightSwitchProxyInterface
 {
 public:
 

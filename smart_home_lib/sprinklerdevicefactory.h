@@ -8,6 +8,7 @@ public:
       SprinklerDeviceFactory(QString name);
 
       Device *createDevice();
+
 private:
       QString _name;
 
