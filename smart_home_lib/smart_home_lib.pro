@@ -40,8 +40,10 @@ SOURCES += \
         proxyinterface.cpp \
         rawmeasurement.cpp \
         smart_home_lib.cpp \
+        sprinklerdevicefactory.cpp \
         sprinklersystem.cpp \
-        thermostat.cpp
+        thermostat.cpp \
+        thermostatdevicefactory.cpp
 
 HEADERS += \
         LightSwitchProxyInterface.h \
@@ -61,8 +63,10 @@ HEADERS += \
         proxyinterface.h \
         rawmeasurement.h \
         smart_home_lib.h \
+        sprinklerdevicefactory.h \
         sprinklersystem.h \
-        thermostat.h
+        thermostat.h \
+        thermostatdevicefactory.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

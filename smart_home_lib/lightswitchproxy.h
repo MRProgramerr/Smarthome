@@ -65,7 +65,6 @@ private:
      *
      */
 
-
     DeviceFactory* _deviceFactory;
 
     LightSwitch* _lSwitch;
