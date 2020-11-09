@@ -42,8 +42,14 @@ SOURCES += \
         smart_home_lib.cpp \
         sprinklerdevicefactory.cpp \
         sprinklersystem.cpp \
+        sprinklersystemproxy.cpp \
+        sprinklersystemproxyfactory.cpp \
+        sprinklersystemproxyinterface.cpp \
         thermostat.cpp \
-        thermostatdevicefactory.cpp
+        thermostatdevicefactory.cpp \
+        thermostatproxy.cpp \
+        thermostatproxyfactory.cpp \
+        thermostatproxyinterface.cpp
 
 HEADERS += \
         LightSwitchProxyInterface.h \
@@ -65,8 +71,14 @@ HEADERS += \
         smart_home_lib.h \
         sprinklerdevicefactory.h \
         sprinklersystem.h \
+        sprinklersystemproxy.h \
+        sprinklersystemproxyfactory.h \
+        sprinklersystemproxyinterface.h \
         thermostat.h \
-        thermostatdevicefactory.h
+        thermostatdevicefactory.h \
+        thermostatproxy.h \
+        thermostatproxyfactory.h \
+        thermostatproxyinterface.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
