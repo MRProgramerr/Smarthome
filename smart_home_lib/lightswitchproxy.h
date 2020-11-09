@@ -60,13 +60,14 @@ public:
 
 private:
 
+
+
+    DeviceFactory* _deviceFactory;
+
     /**
      * @brief _lightSwitch
      *
      */
-
-    DeviceFactory* _deviceFactory;
-
     LightSwitch* _lSwitch;
 
 
