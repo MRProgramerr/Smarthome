@@ -80,7 +80,7 @@ public:
 private:
 
     bool _isOn = false;
-    int _brightnessLevel = 0;
+    int _brightnessLevel = 20;
     int _userInput ;
 
 

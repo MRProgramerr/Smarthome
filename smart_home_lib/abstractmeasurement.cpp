@@ -1,7 +1,7 @@
 #include "abstractmeasurement.h"
 
-AbstractMeasurement::AbstractMeasurement(std::string deviceName, std::string measurementType, QVariant value)
-    : _deviceName(deviceName), _measurementType(measurementType), _value(value)
+AbstractMeasurement::AbstractMeasurement(std::string deviceName, std::string measurementType)
+    : _deviceName(deviceName), _measurementType(measurementType)
 {
 
 }
@@ -45,4 +45,6 @@ void AbstractMeasurement::setIsFiltered(bool isFiltered)
 {
     _isFiltered = isFiltered;
 }
+
+
 

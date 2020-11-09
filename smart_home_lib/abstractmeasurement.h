@@ -8,7 +8,7 @@
 class AbstractMeasurement
 {
 public:
-    AbstractMeasurement(std::string deviceName, std::string measurementType, QVariant value);
+    AbstractMeasurement(std::string deviceName, std::string measurementType);
 
     std::string deviceName();
 
@@ -27,15 +27,19 @@ public:
     bool isFiltered() ;
     void setIsFiltered(bool isFiltered);
 
-    virtual QVariant value() = 0;
+
+
+
+
 
 private:
 
     std::string _deviceName;
     std::string _measurementType;
-    QVariant _value;
+
     std::string _unitofMeasure;
     bool _isFiltered;
+
 
 
 };

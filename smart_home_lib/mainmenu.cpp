@@ -143,9 +143,12 @@ void MainMenu::mainMenuLightSwitch(QString lsp)
 
      ls->brighten();
 
-     MeasurementTemplate<double> rm("lightswitch","Hello", ls->getIsOn());
 
-     std::cout << rm.measurementType();
+
+    MeasurementTemplate<int> dm("karan","gill");
+    dm.setValue(20);
+     _display << dm.value().toString();
+
 
 
 
