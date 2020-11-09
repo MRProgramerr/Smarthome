@@ -13,6 +13,8 @@
 #include <iostream>
 #include "lightswitchproxyfactory.h"
 #include "proxyfactory.h"
+#include "measurementtemplate.h"
+#include "abstractmeasurement.h"
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
@@ -140,6 +142,14 @@ void MainMenu::mainMenuLightSwitch(QString lsp)
     LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
 
      ls->brighten();
+
+
+
+    MeasurementTemplate<int> dm("karan","gill");
+    dm.setValue(20);
+     _display << dm.value().toString();
+
+
 
 
 

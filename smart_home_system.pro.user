@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.2, 2020-11-09T01:29:01. -->
+<!-- Written by QtCreator 4.13.2, 2020-11-09T19:54:32. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -64,7 +64,25 @@
     <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:TestCsvFile">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:cleanupTestCase">Unchecked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:initTestCase">Unchecked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_commaSeparatedRowDataAccessible">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_doubleQuotedFields">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_doubleQuotedFieldsMixedWithUnquoted">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_doubleQuotesWithinFields">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_emptyFieldAtEndOfLine">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_headerFieldsCorrectlyRead">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_lineEndingOnLastLine">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_loadFailureForEmptyCsvFile">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_loadFailureOnRowWithDifferingNumberOfColumns">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_loadSuccessForHeaderButNoDataCsvFile">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_multipleRowsOfData">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_outOfRangeReturnsEmptyString">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_preservationOfWhitespaceInFields">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/Stark/Desktop/c++/smarthome/smart_home_tests/TestCsvFile/tst_testcsvfile.cpp:test_replacementOfBlackslashNInQuotedFieldsWithNewline">Checked</value>
+   </valuemap>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
