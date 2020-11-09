@@ -13,15 +13,14 @@ bool LightSwitch::getIsOn()
 
 void LightSwitch::turnOn()
 {
-    _isOn = true;
-    emit reportChange("The light switch has turned On");
+    _isOn = true;   
 }
 
 
 void LightSwitch::turnOff( )
 {
     _isOn = false;
-    emit reportChange("The light switch has turned Off");
+
 }
 
 int LightSwitch::getBrightnessLevel()
@@ -48,6 +47,8 @@ void LightSwitch::dim(){
 
 void LightSwitch::brighten(){
 
+    std::cout << "In here" << std::endl;
+
     // Ensures that the max brighness is 100
     if(getBrightnessLevel()+20 > 100){
         setBrightnessLevel(100);
@@ -58,32 +59,9 @@ void LightSwitch::brighten(){
 
 }
 
-//std::vector<Measurement> LightSwitch::currentState()
-//{
-
-//    // Placeholder
-//    std::vector<Measurement> s;
-//    // Logic here
-
-//    return s;
-//}
 
 void LightSwitch::receiveChange(QString change){
 
     qDebug() << change ;
 }
 
-
-void LightSwitch::menuLightSwitch(){
-
-    std::string _userInput;
-
-    std::getline(std::cin,_userInput);
-
-    std::cout << _userInput << std::endl;
-
-
-    qDebug() << "--------------------------------------------" << endl;
-
-
-}

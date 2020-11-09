@@ -10,8 +10,16 @@
 #include <stdio.h>
 #include <measurement.h>
 #include <vector>
+#include "LightSwitchProxyInterface.h"
 
-class LightSwitch : public Device
+/**
+ * @brief The LightSwitch class
+ * Concrete implementation of the lightswitch
+ * Inherits Abstract Device and the lightswitch proxy
+ * interface using multiple inheritance.
+ */
+
+class LightSwitch : public Device, public LightSwitchProxyInterface
 {
     Q_OBJECT
 
@@ -31,16 +39,16 @@ public:
     bool getIsOn() ;
 
     /**
-     * @brief setIsOn : Turns on the device
+     * @brief setIsOn : Turns on the sdevice
      * @param value
      */
-    void turnOn();
+    void turnOn() ;
 
     /**
      * @brief setIsOff : Turns off the device
      * @param value
      */
-    void turnOff();
+    void turnOff() ;
 
     /**
      * @brief getBrightnessLevel
@@ -59,28 +67,15 @@ public:
      * @brief dim : Reduce the 'brightness level' by 20 points
      * if currently greater than 20
      */
-    void dim();
+    void dim() ;
 
     /**
      * @brief brighten : Increases the brighness level by 20 points
      * if less than 100
      */
-    void brighten();
-
-//    template<>
-//    std::vector<Measurement<double>> currentState();
+    void brighten() ;
 
 
-
-    /**
-     * @brief menuLightSwitch
-     * @details This is the main menu for the lightSwitch device
-     * it will allow the controller or even the local instance of the light
-     * switch to change its paramters
-     * A signal and slot mechanism will be used to report each state change to commandLine
-     * and to the controller
-     */
-    void menuLightSwitch();
 
 
 private:

@@ -26,40 +26,59 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         csvfile.cpp \
         device.cpp \
+        deviceabstractfactory.cpp \
+        devicefactory.cpp \
         deviceinfo.cpp \
         lightswitch.cpp \
+        lightswitchdevicefactory.cpp \
+        lightswitchproxy.cpp \
+        lightswitchproxyfactory.cpp \
         mainmenu.cpp \
         measurement.cpp \
-        network/defaultmessagefactory.cpp \
-        network/message.cpp \
-        network/networkmanager.cpp \
-        network/qthttpnetworkmanager.cpp \
-        network/requestmessage.cpp \
-        network/responsemessage.cpp \
+        proxyabstractfactory.cpp \
+        proxyfactory.cpp \
+        proxyinterface.cpp \
         rawmeasurement.cpp \
         smart_home_lib.cpp \
+        sprinklerdevicefactory.cpp \
         sprinklersystem.cpp \
-        thermostat.cpp
+        sprinklersystemproxy.cpp \
+        sprinklersystemproxyfactory.cpp \
+        sprinklersystemproxyinterface.cpp \
+        thermostat.cpp \
+        thermostatdevicefactory.cpp \
+        thermostatproxy.cpp \
+        thermostatproxyfactory.cpp \
+        thermostatproxyinterface.cpp
 
 HEADERS += \
+        LightSwitchProxyInterface.h \
         csvfile.h \
         device.h \
+        deviceabstractfactory.h \
+        devicefactory.h \
         deviceinfo.h \
         lightswitch.h \
+        lightswitchdevicefactory.h \
+        lightswitchproxy.h \
+        lightswitchproxyfactory.h \
         mainmenu.h \
         measurement.h \
-        network/connection.h \
-        network/defaultmessagefactory.h \
-        network/message.h \
-        network/messagefactory.h \
-        network/networkmanager.h \
-        network/qthttpnetworkmanager.h \
-        network/requestmessage.h \
-        network/responsemessage.h \
+        proxyabstractfactory.h \
+        proxyfactory.h \
+        proxyinterface.h \
         rawmeasurement.h \
         smart_home_lib.h \
+        sprinklerdevicefactory.h \
         sprinklersystem.h \
-        thermostat.h
+        sprinklersystemproxy.h \
+        sprinklersystemproxyfactory.h \
+        sprinklersystemproxyinterface.h \
+        thermostat.h \
+        thermostatdevicefactory.h \
+        thermostatproxy.h \
+        thermostatproxyfactory.h \
+        thermostatproxyinterface.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

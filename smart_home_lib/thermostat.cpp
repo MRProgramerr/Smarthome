@@ -1,4 +1,4 @@
-//#include "thermostat.h"
+#include "thermostat.h"
 
 //Thermostat::Thermostat(QString name, QString port,QString IP_address, int updatefrequency, char UoM, double starttemperature): Device(name)
 //{

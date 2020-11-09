@@ -4,7 +4,8 @@
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
-
+#include <lightswitchproxy.h>
+#include "proxyfactory.h"
 
 class MainMenu : public QObject
 {
@@ -25,6 +26,8 @@ public:
 
   void initialisingDevice(QString chosenDevice, QString deviceName);
 
+  void mainMenuLightSwitch(QString lsp);
+
 
 public slots:
   /**
@@ -41,6 +44,8 @@ private:
   QString _inputDeviceName;
   QString _inputDeviceUrl;
   QString _chosenDevice;
+  ProxyFactory* _proxyFactory;
+
 
 };
 
