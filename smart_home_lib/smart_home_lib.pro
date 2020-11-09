@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        abstractmeasurement.cpp \
         csvfile.cpp \
         device.cpp \
         deviceabstractfactory.cpp \
@@ -34,11 +35,10 @@ SOURCES += \
         lightswitchproxy.cpp \
         lightswitchproxyfactory.cpp \
         mainmenu.cpp \
-        measurement.cpp \
+        measurementtemplate.cpp \
         proxyabstractfactory.cpp \
         proxyfactory.cpp \
         proxyinterface.cpp \
-        rawmeasurement.cpp \
         smart_home_lib.cpp \
         sprinklerdevicefactory.cpp \
         sprinklersystem.cpp \
@@ -53,6 +53,7 @@ SOURCES += \
 
 HEADERS += \
         LightSwitchProxyInterface.h \
+        abstractmeasurement.h \
         csvfile.h \
         device.h \
         deviceabstractfactory.h \
@@ -63,11 +64,10 @@ HEADERS += \
         lightswitchproxy.h \
         lightswitchproxyfactory.h \
         mainmenu.h \
-        measurement.h \
+        measurementtemplate.h \
         proxyabstractfactory.h \
         proxyfactory.h \
         proxyinterface.h \
-        rawmeasurement.h \
         smart_home_lib.h \
         sprinklerdevicefactory.h \
         sprinklersystem.h \

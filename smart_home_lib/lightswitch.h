@@ -8,7 +8,6 @@
 #include <QTextStream>
 #include <iostream>
 #include <stdio.h>
-#include <measurement.h>
 #include <vector>
 #include "LightSwitchProxyInterface.h"
 
