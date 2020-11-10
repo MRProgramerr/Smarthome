@@ -5,7 +5,9 @@
 #include "measurementtemplate.h"
 #include <QObject>
 #include <random>
-class Thermostat : public Device
+#include <thermostatproxyinterface.h>
+
+class Thermostat : public Device, public ThermostatProxyInterface
 {
     Q_OBJECT
 public:
