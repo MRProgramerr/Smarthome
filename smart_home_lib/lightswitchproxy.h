@@ -55,6 +55,8 @@ public:
 
     bool getIsOn() override;
 
+     std::vector<MeasurementTemplate<bool> > currentState() override;
+
 // std::vector<Measurement> currentState() override;
 
 
@@ -69,6 +71,9 @@ private:
      *
      */
     LightSwitch* _lSwitch;
+
+
+
 
 
 };

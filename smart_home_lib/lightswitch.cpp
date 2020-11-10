@@ -1,4 +1,6 @@
 #include "lightswitch.h"
+#include "measurementtemplate.h"
+
 
 
 LightSwitch::LightSwitch(QString name) : Device(name)
@@ -64,6 +66,21 @@ void LightSwitch::brighten(){
         emit reportChange("The brightness has been set to the maximum 100 units");
 
     }
+
+}
+
+std::vector<MeasurementTemplate<bool>> LightSwitch::currentState()
+{
+
+    MeasurementTemplate<bool> powerStatus("LightSwitch","Power");
+    powerStatus.setValue(_isOn);
+
+
+    _stateVector.push_back(powerStatus);
+
+    return _stateVector;
+
+
 
 }
 

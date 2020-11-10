@@ -24,6 +24,8 @@ public:
 
     virtual ~AbstractMeasurement(){};
 
+    virtual QVariant value() = 0;
+
     bool isFiltered() ;
     void setIsFiltered(bool isFiltered);
 

@@ -35,3 +35,8 @@ bool LightSwitchProxy::getIsOn()
     return _lSwitch->getIsOn();
 }
 
+std::vector<MeasurementTemplate<bool> > LightSwitchProxy::currentState()
+{
+    return _lSwitch->currentState();
+}
+

@@ -21,14 +21,19 @@ public:
         _value = value;
     }
 
-    QVariant value(){
+
+    QVariant value() override{
         return _value;
     }
+
 
     ~MeasurementTemplate(){};
 
 private:
     T _value;
+
+    // AbstractMeasurement interface
+
 };
 
 
@@ -43,10 +48,11 @@ public:
         _value = value;
     }
 
-    QVariant value(){
+    QVariant value() override{
         return std::round(_value*100)/100;
     }
 
+     ~MeasurementTemplate(){};
 
 private:
     double _value;
