@@ -39,7 +39,7 @@ double ThermostatProxy::getStartingTemperature()
     return _thermoStat->getStartingTemperature();
 }
 
-AbstractMeasurement *ThermostatProxy::lastMeasurement()
+MeasurementTemplate<double> *ThermostatProxy::lastMeasurement()
 {
     return _thermoStat->lastMeasurement();
 }
@@ -59,12 +59,12 @@ void ThermostatProxy::setthesetpoint(double temp)
     _thermoStat->setthesetpoint(temp);
 }
 
-AbstractMeasurement *ThermostatProxy::last5Measurement()
+MeasurementTemplate<std::vector<double>> *ThermostatProxy::last5Measurement()
 {
     return _thermoStat->last5Measurement();
 }
 
-AbstractMeasurement *ThermostatProxy::setpoint()
+MeasurementTemplate<double> *ThermostatProxy::setpoint()
 {
     return _thermoStat->setpoint();
 }

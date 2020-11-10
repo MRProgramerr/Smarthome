@@ -25,7 +25,7 @@ public:
 
     double getStartingTemperature()override;
 
-    AbstractMeasurement *lastMeasurement()override;
+    MeasurementTemplate<double> *lastMeasurement()override;
 
     void setlastMeasurement(double value)override;
 
@@ -33,9 +33,9 @@ public:
 
     void setthesetpoint(double temp)override;
 
-    AbstractMeasurement *last5Measurement()override;
+    MeasurementTemplate<std::vector<double>> *last5Measurement()override;
 
-    AbstractMeasurement *setpoint()override;
+    MeasurementTemplate<double> *setpoint()override;
 
     std::string currentState()override;
 
