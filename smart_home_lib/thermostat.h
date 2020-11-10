@@ -19,12 +19,12 @@ public:
     void setUnitofMeasure(std::string unitofMeasure);
     void setStartingTemperature(double starttemp);
     double getStartingTemperature();
-    AbstractMeasurement *lastMeasurement();
+    MeasurementTemplate<double> *lastMeasurement();
     void setlastMeasurement(double value);
     void storelastMeasurements(double addvalue);
     void setthesetpoint(double temp);
-    AbstractMeasurement *last5Measurement();
-    AbstractMeasurement *setpoint();
+    MeasurementTemplate<std::vector<double>> *last5Measurement();
+    MeasurementTemplate<double> *setpoint();
     std::string currentState();
     void warmer(double amount);
     void cooler(double amount);
@@ -38,7 +38,7 @@ private:
     int Value;
     double StartTemperature;
     std::string UoM;
-    AbstractMeasurement *am;
+
     MeasurementTemplate<double> *mt;
     MeasurementTemplate<std::vector<double>> *mt1;
     double plusminus;

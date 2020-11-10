@@ -47,22 +47,22 @@ void Thermostat::storelastMeasurements(double addvalue){
 void Thermostat::setthesetpoint(double currentval){
     this->currentvalue = currentval;
 }
-AbstractMeasurement *Thermostat::lastMeasurement(){
-    am = new AbstractMeasurement("Light Switch","last Measurement","C");
+MeasurementTemplate<double> *Thermostat::lastMeasurement(){
+    mt = new MeasurementTemplate<double>("Light Switch","last Measurement","C");
     mt->setValue(lastvalue);
-    return am;
+    return mt;
 }
-AbstractMeasurement *Thermostat::last5Measurement(){
+MeasurementTemplate<std::vector<double>> *Thermostat::last5Measurement(){
 
-    am = new AbstractMeasurement("Light Switch","last 5 Measurements ","C");
+    mt1 = new MeasurementTemplate<std::vector<double>>("Light Switch","last 5 Measurements ","C");
     mt1->setValue(last5values);
-    return am;
+    return mt1;
 }
-AbstractMeasurement *Thermostat::setpoint(){
+MeasurementTemplate<double> *Thermostat::setpoint(){
 
-    am = new AbstractMeasurement("Light Switch","temperature setpoint","C");
+    mt = new MeasurementTemplate<double>("Light Switch","temperature setpoint","C");
     mt->setValue(currentvalue);
-    return am;
+    return mt;
 }
 std::string Thermostat::currentState(){
 
