@@ -13,8 +13,6 @@ class MeasurementTemplate : public AbstractMeasurement
 public:
     MeasurementTemplate(std::string deviceName, std::string measurementType, std::string UoM)
         : AbstractMeasurement(deviceName,measurementType,UoM ){
-
-
     }
 
     void setValue(T value){
