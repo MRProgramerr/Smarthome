@@ -30,6 +30,8 @@ public:
     void cooler(double amount);
     double randomDouble();
     ~Thermostat();
+    std::string deviceType();
+    Device *realDevice();
 
 private:
     QString Name;
@@ -47,12 +49,12 @@ private:
     double lastvalue;
     double Temp;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))}; //random nuber generator
-       std::uniform_real_distribution<double> _realDistribution{0.0, 0.5};
+    std::uniform_real_distribution<double> _realDistribution{0.0, 0.5};
 
 
-       // ProxyInterface interface
-public:
-       Device *realDevice();
+
+
+
 };
 
 #endif // THERMOSTAT_H

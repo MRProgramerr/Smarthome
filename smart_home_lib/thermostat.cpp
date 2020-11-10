@@ -122,3 +122,9 @@ Device *Thermostat::realDevice()
 {
     return this;
 }
+
+
+std::string Thermostat::deviceType()
+{
+    return "Thermostat";
+}

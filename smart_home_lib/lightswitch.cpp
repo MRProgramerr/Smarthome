@@ -93,3 +93,9 @@ Device *LightSwitch::realDevice()
     return this;
 }
 
+
+
+std::string LightSwitch::deviceType()
+{
+    return "Light Switch";
+}

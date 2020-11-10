@@ -29,7 +29,9 @@ public:
     void turnOff();
 
     void schedule(int delay,int duration);
+    Device *realDevice();
 
+     std::string deviceType();
 
 
 
@@ -40,11 +42,6 @@ private:
     bool _isOn  = false;
 
 
-
-
-    // ProxyInterface interface
-public:
-    Device *realDevice();
 };
 
 #endif // SPRINKLERSYSTEM_H

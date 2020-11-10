@@ -7,6 +7,9 @@
 
 #include "lightswitchproxy.h"
 #include "proxyinterface.h"
+#include "thermostatproxy.h"
+#include "sprinklersystemproxy.h"
+
 
 
 class Controller : public Device
@@ -24,6 +27,7 @@ public:
     void addFilter();
     void clearFilter();
 
+     std::string deviceType();
 
 
     // REST API
@@ -33,6 +37,9 @@ public:
 private:
 
     std::vector<ProxyInterface*> _listDevices;
+
+
+
 
 
 };
