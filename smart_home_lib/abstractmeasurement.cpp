@@ -1,7 +1,7 @@
 #include "abstractmeasurement.h"
 
-AbstractMeasurement::AbstractMeasurement(std::string deviceName, std::string measurementType)
-    : _deviceName(deviceName), _measurementType(measurementType)
+AbstractMeasurement::AbstractMeasurement(std::string deviceName, std::string measurementType, std::string UoM)
+    : _deviceName(deviceName), _measurementType(measurementType), _unitofMeasure(UoM)
 {
 
 }

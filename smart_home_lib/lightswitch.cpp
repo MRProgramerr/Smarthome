@@ -72,7 +72,7 @@ void LightSwitch::brighten(){
 std::vector<MeasurementTemplate<bool>> LightSwitch::currentState()
 {
 
-    MeasurementTemplate<bool> powerStatus("LightSwitch","Power");
+    MeasurementTemplate<bool> powerStatus("LightSwitch","Power","");
     powerStatus.setValue(_isOn);
 
 
@@ -83,7 +83,6 @@ std::vector<MeasurementTemplate<bool>> LightSwitch::currentState()
 
 
 }
-
 void LightSwitch::receiveChange(QString change){
 
     qDebug() << "The Device replied:" << change ;

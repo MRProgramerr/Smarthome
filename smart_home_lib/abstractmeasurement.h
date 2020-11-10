@@ -1,3 +1,4 @@
+
 #ifndef ABSTRACTMEASUREMENT_H
 #define ABSTRACTMEASUREMENT_H
 #include <iostream>
@@ -8,7 +9,7 @@
 class AbstractMeasurement
 {
 public:
-    AbstractMeasurement(std::string deviceName, std::string measurementType);
+    AbstractMeasurement(std::string deviceName, std::string measurementType, std::string UoM);
 
     std::string deviceName();
 
@@ -24,13 +25,8 @@ public:
 
     virtual ~AbstractMeasurement(){};
 
-    virtual QVariant value() = 0;
-
     bool isFiltered() ;
     void setIsFiltered(bool isFiltered);
-
-
-
 
 
 
@@ -47,3 +43,4 @@ private:
 };
 
 #endif // ABSTRACTMEASUREMENT_H
+

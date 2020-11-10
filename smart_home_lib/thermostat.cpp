@@ -1,48 +1,118 @@
 #include "thermostat.h"
 
-//Thermostat::Thermostat(QString name, QString port,QString IP_address, int updatefrequency, char UoM, double starttemperature): Device(name)
-//{
-//    this->Name = name;
-//    this->IP_Address = IP_address;
-//    this->Port = port;
-//    this->UpdateFrequency = updatefrequency;
-//    this->UoM = UoM;
-//    this->StartTemperature = starttemperature;
+Thermostat::Thermostat(QString name): Device(name)
+{
+    this->Name = name;
 
-//}
+}
 
-//void Thermostat::setlastMeasurement(double value){
-//    this->lastvalue = value;
-//}
-//void Thermostat::storelastMeasurements(double addvalue){
-//    if(last5values.size()>5){
-//        last5values.erase(last5values.begin()+0);
-//    }
-//    this->last5values.push_back(addvalue);
+int Thermostat::getUpdateFrequency()
+{
+    return Value;
+}
 
-//}
-//void Thermostat::setcurrentdesiredtemperature(double temp){
-//    this->Temp = temp;
-//}
-//Measurement<double> Thermostat::lastMeasurement(){
-//    return this->lastvalue;
-//}
-//Measurement<std::vector<double>> Thermostat::last5Measurement(){
+void Thermostat::setUpdateFrequency(int value)
+{
+    Value = value;
+}
 
-//    return this->last5values;
-//}
-//double Thermostat::setpoint(){
+std::string Thermostat::unitofMeasure()
+{
+    return UoM;
+}
 
-//    return this->Temp;
-//}
-//int Thermostat::currentState(){
+void Thermostat::setUnitofMeasure(std::string unitofMeasure)
+{
+    UoM = unitofMeasure;
+}
 
-//}
-//void Thermostat::warmer(double amount){
-//    if(amount>0)
-//    setcurrentdesiredtemperature(setpoint()+amount);
-//}
-//void Thermostat::cooler(double amount){
-//    if(amount>0)
-//    setcurrentdesiredtemperature(setpoint()-amount);
-//}
+double Thermostat::getStartingTemperature()
+{
+    return StartTemperature;
+}
+
+void Thermostat::setStartingTemperature(double starttemp){
+    StartTemperature = starttemp;
+}
+void Thermostat::setlastMeasurement(double value){
+    this->lastvalue = value;
+}
+void Thermostat::storelastMeasurements(double addvalue){
+    if(last5values.size()>5){
+        last5values.erase(last5values.begin()+0);
+    }
+    this->last5values.push_back(addvalue);
+
+}
+void Thermostat::setthesetpoint(double currentval){
+    this->currentvalue = currentval;
+}
+AbstractMeasurement *Thermostat::lastMeasurement(){
+    am = new AbstractMeasurement("Light Switch","last Measurement","C");
+    mt->setValue(lastvalue);
+    return am;
+}
+AbstractMeasurement *Thermostat::last5Measurement(){
+
+    am = new AbstractMeasurement("Light Switch","last 5 Measurements ","C");
+    mt1->setValue(last5values);
+    return am;
+}
+AbstractMeasurement *Thermostat::setpoint(){
+
+    am = new AbstractMeasurement("Light Switch","temperature setpoint","C");
+    mt->setValue(currentvalue);
+    return am;
+}
+std::string Thermostat::currentState(){
+
+    if(lastvalue >= currentvalue - 0.5 && lastvalue <= currentvalue + 0.5){
+
+        plusminus = randomDouble();
+        lastvalue = currentvalue;
+        storelastMeasurements(lastvalue);
+
+        if(plusminus > 0.0 && plusminus<2.5)
+            currentvalue = currentvalue + randomDouble();
+
+        else
+            currentvalue = currentvalue - randomDouble();
+        return "STABLE";
+    }
+
+    else if(lastvalue < currentvalue + 0.5){
+        lastvalue = currentvalue;
+        storelastMeasurements(lastvalue);
+        if(0.5>((currentvalue - lastvalue)/10))
+            currentvalue = lastvalue + 0.5;
+        else
+           currentvalue = lastvalue + ((currentvalue - lastvalue)/10);
+        return "HEATING";
+    }
+    else if(lastvalue > currentvalue + 0.5){
+
+        lastvalue = currentvalue;
+        storelastMeasurements(lastvalue);
+
+        if(0.5>((currentvalue - lastvalue)/10))
+            currentvalue = lastvalue - 0.5;
+        else
+           currentvalue =  lastvalue - ((currentvalue - lastvalue)/10);
+        return "COOLING";
+    }
+    return "";
+}
+void Thermostat::warmer(double amount){
+    if(amount>0)
+    setthesetpoint(currentvalue+amount);
+}
+void Thermostat::cooler(double amount){
+    if(amount>0)
+    setthesetpoint(currentvalue-amount);
+}
+
+double Thermostat::randomDouble()
+{
+        return _realDistribution(_randomGenerator);
+
+}
