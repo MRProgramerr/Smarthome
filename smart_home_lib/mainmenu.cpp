@@ -158,7 +158,7 @@ void MainMenu::mainMenuLightSwitch(QString lsp)
 
 
 
-    MeasurementTemplate<int> dm("karan","gill");
+    MeasurementTemplate<int> dm("karan","gill","");
     dm.setValue(20);
      _display << dm.value().toString();
 
