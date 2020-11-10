@@ -21,7 +21,7 @@ public:
         _value = value;
     }
 
-    QVariant value(){
+    QVariant value() override{
         return _value;
     }
 
@@ -43,7 +43,7 @@ public:
         _value = value;
     }
 
-    QVariant value(){
+    QVariant value() override{
         return std::round(_value*100)/100;
     }
 
