@@ -49,6 +49,10 @@ private:
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))}; //random nuber generator
        std::uniform_real_distribution<double> _realDistribution{0.0, 0.5};
 
+
+       // ProxyInterface interface
+public:
+       Device *realDevice();
 };
 
 #endif // THERMOSTAT_H

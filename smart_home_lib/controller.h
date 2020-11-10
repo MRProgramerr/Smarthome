@@ -1,0 +1,40 @@
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
+#include "device.h"
+#include <QString>
+#include <vector>
+#include <iostream>
+
+#include "lightswitchproxy.h"
+#include "proxyinterface.h"
+
+
+class Controller : public Device
+{
+    Q_OBJECT
+public:
+    Controller(QString name);
+    void registerDevice(QString deviceName, QString deviceType, QString URL);
+    std::vector<std::string> registeredDevices();
+    void unregisterDevice(QString name);
+
+    QString currentState(QString name,QString type);
+
+
+    void addFilter();
+    void clearFilter();
+
+
+
+    // REST API
+    // report(Measurement[1..*]
+    // Not implemented -> non-networking project
+
+private:
+
+    std::vector<ProxyInterface*> _listDevices;
+
+
+};
+
+#endif // CONTROLLER_H

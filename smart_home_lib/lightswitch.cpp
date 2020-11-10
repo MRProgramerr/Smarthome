@@ -88,3 +88,8 @@ void LightSwitch::receiveChange(QString change){
     qDebug() << "The Device replied:" << change ;
 }
 
+Device *LightSwitch::realDevice()
+{
+    return this;
+}
+

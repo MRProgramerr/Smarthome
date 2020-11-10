@@ -60,3 +60,8 @@ void SprinklerSystem::schedule(int delay, int duration)
 
 
 }
+
+Device *SprinklerSystem::realDevice()
+{
+ return this;
+}

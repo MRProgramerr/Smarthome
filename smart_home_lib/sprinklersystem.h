@@ -7,8 +7,9 @@
 #include <thread>
 #include <future>
 #include <iostream>
+#include "sprinklersystemproxyinterface.h"
 
-class SprinklerSystem : public Device
+class SprinklerSystem : public Device,public SprinklerSystemProxyInterface
 {
     Q_OBJECT
 public:
@@ -40,6 +41,10 @@ private:
 
 
 
+
+    // ProxyInterface interface
+public:
+    Device *realDevice();
 };
 
 #endif // SPRINKLERSYSTEM_H

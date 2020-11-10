@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         abstractmeasurement.cpp \
+        controller.cpp \
         csvfile.cpp \
         device.cpp \
         deviceabstractfactory.cpp \
@@ -54,6 +55,7 @@ SOURCES += \
 HEADERS += \
         LightSwitchProxyInterface.h \
         abstractmeasurement.h \
+        controller.h \
         csvfile.h \
         device.h \
         deviceabstractfactory.h \

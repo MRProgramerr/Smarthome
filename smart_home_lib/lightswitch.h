@@ -98,6 +98,10 @@ public slots:
 
     void receiveChange(QString change);
 
+
+    // ProxyInterface interface
+public:
+    Device *realDevice();
 };
 
 #endif // LIGHTSWITCH_H

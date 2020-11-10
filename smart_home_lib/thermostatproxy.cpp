@@ -88,3 +88,8 @@ double ThermostatProxy::randomDouble()
 {
     return _thermoStat->randomDouble();
 }
+
+Device *ThermostatProxy::realDevice()
+{
+    return _thermoStat;
+}

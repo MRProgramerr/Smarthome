@@ -116,3 +116,9 @@ double Thermostat::randomDouble()
         return _realDistribution(_randomGenerator);
 
 }
+
+
+Device *Thermostat::realDevice()
+{
+    return this;
+}

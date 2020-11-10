@@ -7,6 +7,7 @@
 #include "lightswitchdevicefactory.h"
 #include "devicefactory.h"
 
+
 /**
  * @brief The LightSwitchProxy class
  * @details This is the proxy for the lightswitch
@@ -76,6 +77,9 @@ private:
 
 
 
+    // ProxyInterface interface
+public:
+    Device *realDevice() override;
 };
 
 #endif // LIGHTSWITCHPROXY_H

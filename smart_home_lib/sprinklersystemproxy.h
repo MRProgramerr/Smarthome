@@ -20,6 +20,10 @@ private:
 
      SprinklerSystem* _sprinklerSystem;
 
+
+     // ProxyInterface interface
+public:
+     Device *realDevice();
 };
 
 #endif // SPRINKLERSYSTEMPROXY_H
