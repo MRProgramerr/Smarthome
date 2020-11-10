@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "proxyinterface.h"
+#include "measurementtemplate.h"
 
 class LightSwitchProxyInterface : public ProxyInterface
 {
@@ -16,6 +17,9 @@ public:
     virtual void brighten() = 0;
     virtual void dim() = 0;
     virtual bool getIsOn() = 0;
+
+
+    virtual std::vector<MeasurementTemplate<bool>> currentState() = 0;
 //    virtual std::vector<Measurement<>> currentState() = 0;
 
 

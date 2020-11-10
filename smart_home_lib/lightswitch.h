@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <vector>
 #include "LightSwitchProxyInterface.h"
+#include "abstractmeasurement.h"
+#include "measurementtemplate.h"
 
 /**
  * @brief The LightSwitch class
@@ -74,6 +76,7 @@ public:
      */
     void brighten() ;
 
+    std::vector<MeasurementTemplate<bool>> currentState();
 
 
 
@@ -82,6 +85,8 @@ private:
     bool _isOn = false;
     int _brightnessLevel = 20;
     int _userInput ;
+
+    std::vector<MeasurementTemplate<bool>> _stateVector;
 
 
 signals:

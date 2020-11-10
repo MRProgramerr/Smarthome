@@ -41,6 +41,19 @@ void MainMenu::displayWelcome(const QString &title, const QString &group, const 
 void MainMenu::run()
 {
 
+    LightSwitchProxyFactory lf("karan");
+
+    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
+
+    ls->turnOn();
+
+    for(auto elem : ls->currentState()){
+        _display << elem.value().toString();
+    }
+
+
+
+
   _display << "Preparing to initialise Smart Home System" << endl;
   _display << "What type of device do you want to configure?" <<endl;
   _display << "1.Smart Home Controller" << endl << "2.Light Switch" << endl << "3.Thermostat" << endl << "4.Sprinkler System" <<endl;
