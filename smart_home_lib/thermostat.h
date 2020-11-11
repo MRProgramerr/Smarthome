@@ -41,11 +41,11 @@ private:
 
     MeasurementTemplate<double> *mt;
     MeasurementTemplate<std::vector<double>> *mt1;
-    double plusminus;
-    double currentvalue;
+    double plusminus = 0.00;
+    double currentvalue = 0.00;
     std::vector<double> last5values;
-    double lastvalue;
-    double Temp;
+    double lastvalue = 0.00;
+    double Temp = 0.00;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))}; //random nuber generator
        std::uniform_real_distribution<double> _realDistribution{0.0, 0.5};
 

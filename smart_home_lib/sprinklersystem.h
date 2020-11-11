@@ -45,14 +45,14 @@ private:
     double _waterConsumptionPerInterval =  0;
     double totalConsumption;
     bool _isOn  = false;
-    QString Name;
+    QString Name = "";
     QTime Duration;
     QTime Delay;
-    std::string thestate;
-    AbstractMeasurement *am;
+    std::string thestate = "";
+    AbstractMeasurement *am = nullptr;
     std::vector<AbstractMeasurement*> abvector;
-    MeasurementTemplate<QTime> *mtstate;
-    MeasurementTemplate<double> *mtusage;
+    MeasurementTemplate<QTime> *mtstate = nullptr;
+    MeasurementTemplate<double> *mtusage = nullptr;
     std::vector<MeasurementTemplate<QTime>*> mtvectorstate;
     std::vector<MeasurementTemplate<double>*> mtvectorusage;
 

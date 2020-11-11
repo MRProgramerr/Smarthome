@@ -47,7 +47,7 @@ public:
 
 
 private:
-    double _value;
+    double _value = 0.00;
 
 };
 

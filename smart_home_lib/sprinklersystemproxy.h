@@ -35,9 +35,9 @@ public:
     std::vector<MeasurementTemplate<double>*> waterUsage()override;
 private:
 
-     DeviceFactory* _deviceFactory;
+     DeviceFactory* _deviceFactory = nullptr;
 
-     SprinklerSystem* _sprinklerSystem;
+     SprinklerSystem* _sprinklerSystem = nullptr;
 
 };
 

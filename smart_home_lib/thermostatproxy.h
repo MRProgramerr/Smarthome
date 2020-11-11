@@ -48,9 +48,9 @@ public:
     ~ThermostatProxy();
 private:
 
-    DeviceFactory* _deviceFactory;
+    DeviceFactory* _deviceFactory = nullptr;
 
-    Thermostat* _thermoStat;
+    Thermostat* _thermoStat = nullptr;
 
 };
 
