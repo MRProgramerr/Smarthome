@@ -2,5 +2,6 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     LightSwitch \
-    TestCsvFile \
+    TestCsvFile \ \
+    Thermostat
 
