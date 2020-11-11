@@ -58,6 +58,10 @@ public:
      */
     virtual ~Device(){};
 
+    virtual std::string deviceType() =0;
+
+
+
 signals:
 
 
@@ -66,6 +70,7 @@ private:
     QString _deviceName ;
     QString _IPAddressController;
     QString _PortNumberController;
+
 
 
 };

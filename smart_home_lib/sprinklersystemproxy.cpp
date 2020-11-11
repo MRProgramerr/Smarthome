@@ -10,3 +10,8 @@ SprinklerSystemProxy::SprinklerSystemProxy(QString name)
 
 }
 
+Device *SprinklerSystemProxy::realDevice()
+{
+    return _sprinklerSystem;
+}
+

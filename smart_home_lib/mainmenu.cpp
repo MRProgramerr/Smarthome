@@ -2,6 +2,7 @@
 #include "lightswitch.h"
 #include <thread>
 #include <chrono>
+#include "controller.h"
 
 // If you want, change all of the QTextStream stuff to std:istream and std::ostream
 // to stay with what you are familiar. Just keep in mind that it will not understand
@@ -41,17 +42,18 @@ void MainMenu::displayWelcome(const QString &title, const QString &group, const 
 void MainMenu::run()
 {
 
-    LightSwitchProxyFactory lf("karan");
+//    LightSwitchProxyFactory lf("karan");
 
-    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
+//    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
 
-    ls->turnOn();
+//    ls->turnOn();
 
-    for(auto elem : ls->currentState()){
-        _display << elem.value().toString();
-    }
+//    for(auto elem : ls->currentState()){
+//        _display << elem.value().toString();
+//    }
 
 
+//    Controller c("karan");
 
 
   _display << "Preparing to initialise Smart Home System" << endl;

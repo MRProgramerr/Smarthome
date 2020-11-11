@@ -52,6 +52,10 @@ private:
 
     Thermostat* _thermoStat;
 
+
+    // ProxyInterface interface
+public:
+    Device *realDevice() override;
 };
 
 #endif // THERMOSTATPROXY_H
