@@ -37,6 +37,14 @@ namespace data {
 class CsvFile
 {
 public:
+    // checks if input stream is empty
+    bool isEmpty;
+
+    // creates 2d vector
+    std::vector<std::vector<std::string>> vec;
+
+
+
   /**
    * @brief CsvFile constructor, initialises internal data structures
    * with CSV content from the input stream.
