@@ -61,7 +61,6 @@ public:
 signals:
 
 
-
 private:
     QString _deviceName ;
     QString _IPAddressController;

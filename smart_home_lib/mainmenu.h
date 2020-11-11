@@ -65,12 +65,12 @@ private:
 
   QTextStream &_display;
   QTextStream &_input;
-  int _userInput;
+  int _userInput = 0;
   QString _inputDeviceName;
   QString _inputDeviceUrl;
   QString _chosenDevice;
-  ProxyFactory* _proxyFactory;
-  QString _inputProxy;
+  ProxyFactory* _proxyFactory = nullptr;
+  QString _inputPort;
 
 };
 
