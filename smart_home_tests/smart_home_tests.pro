@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    Controller \
     LightSwitch \
     Measurement \
     SprinklerSystem \
