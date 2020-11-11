@@ -20,11 +20,11 @@ void Controller::registerDevice(QString deviceName, QString deviceType, QString 
     }
 }
 
-std::vector<std::string> Controller::registeredDevices()
+std::vector<std::vector<std::string>> Controller::registeredDevices()
 {
-
-    std::vector<std::string> output;
-
+    //  A vector of vectors to store information about each device in the
+    // controller's list of devcices.
+    std::vector<std::vector<std::string>> output;
 
     if(_listDevices.size() != 0){
         for(auto elem: _listDevices){
@@ -36,6 +36,13 @@ std::vector<std::string> Controller::registeredDevices()
 
            std::string Port = elem->realDevice()->getPortNumberController().toUtf8().constData();
 
+
+           std::vector<std::string> deviceInfo;
+           deviceInfo.push_back(name);
+           deviceInfo.push_back(URL);
+           deviceInfo.push_back(Port);
+
+           output.push_back(deviceInfo);
 
         }
     }
