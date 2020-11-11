@@ -30,6 +30,8 @@ public:
     void cooler(double amount);
     double randomDouble();
     ~Thermostat();
+    std::string deviceType();
+    Device *realDevice();
 
 private:
     QString Name;
@@ -47,7 +49,11 @@ private:
     double lastvalue = 0.00;
     double Temp = 0.00;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))}; //random nuber generator
-       std::uniform_real_distribution<double> _realDistribution{0.0, 0.5};
+    std::uniform_real_distribution<double> _realDistribution{0.0, 0.5};
+
+
+
+
 
 };
 

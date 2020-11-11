@@ -113,3 +113,13 @@ std::vector<MeasurementTemplate<double> *> SprinklerSystem::waterUsage()
 }
 
 
+Device *SprinklerSystem::realDevice()
+{
+ return this;
+}
+
+
+std::string SprinklerSystem::deviceType()
+{
+    return "Sprinkler System";
+}

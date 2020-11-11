@@ -33,6 +33,8 @@ public:
     void setcurrrentState(std::string state)override;
     std::vector<MeasurementTemplate<QTime>*> currentState()override;
     std::vector<MeasurementTemplate<double>*> waterUsage()override;
+    Device *realDevice() override;
+
 private:
 
      DeviceFactory* _deviceFactory = nullptr;

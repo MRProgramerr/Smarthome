@@ -40,3 +40,8 @@ std::vector<MeasurementTemplate<bool> > LightSwitchProxy::currentState()
     return _lSwitch->currentState();
 }
 
+Device *LightSwitchProxy::realDevice()
+{
+    return _lSwitch;
+}
+

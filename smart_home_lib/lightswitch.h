@@ -78,7 +78,9 @@ public:
 
     std::vector<MeasurementTemplate<bool>> currentState();
 
+    Device *realDevice();
 
+    std::string deviceType();
 
 private:
 
@@ -97,6 +99,8 @@ signals:
 public slots:
 
     void receiveChange(QString change);
+
+
 
 };
 

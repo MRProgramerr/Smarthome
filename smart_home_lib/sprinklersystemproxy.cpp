@@ -68,3 +68,8 @@ std::vector<MeasurementTemplate<double>*> SprinklerSystemProxy::waterUsage()
 {
     return _sprinklerSystem->waterUsage();
 }
+Device *SprinklerSystemProxy::realDevice()
+{
+    return _sprinklerSystem;
+}
+

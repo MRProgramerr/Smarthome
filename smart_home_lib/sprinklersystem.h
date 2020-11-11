@@ -9,8 +9,9 @@
 #include <iostream>
 #include "measurementtemplate.h"
 #include "abstractmeasurement.h"
+#include "sprinklersystemproxyinterface.h"
 
-class SprinklerSystem : public Device
+class SprinklerSystem : public Device,public SprinklerSystemProxyInterface
 {
     Q_OBJECT
 public:
@@ -36,6 +37,9 @@ public:
     void setcurrrentState(std::string state);
     std::vector<MeasurementTemplate<QTime>*> currentState();
     std::vector<MeasurementTemplate<double>*> waterUsage();
+    Device *realDevice();
+
+     std::string deviceType();
 
 
 
@@ -55,6 +59,7 @@ private:
     MeasurementTemplate<double> *mtusage = nullptr;
     std::vector<MeasurementTemplate<QTime>*> mtvectorstate;
     std::vector<MeasurementTemplate<double>*> mtvectorusage;
+
 
 };
 
