@@ -44,7 +44,7 @@ private:
   QString _inputDeviceName;
   QString _inputDeviceUrl;
   QString _chosenDevice;
-  ProxyFactory* _proxyFactory;
+  ProxyFactory* _proxyFactory = nullptr;
 
 
 };

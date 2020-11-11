@@ -19,13 +19,13 @@ public:
     void setUnitofMeasure(std::string unitofMeasure);
     void setStartingTemperature(double starttemp);
     double getStartingTemperature();
-    AbstractMeasurement *lastMeasurement();
+    MeasurementTemplate<double> *lastMeasurement();
     void setlastMeasurement(double value);
     void storelastMeasurements(double addvalue);
     void setthesetpoint(double temp);
-    AbstractMeasurement *last5Measurement();
-    AbstractMeasurement *setpoint();
-    std::string currentState();
+    MeasurementTemplate<std::vector<double>> *last5Measurement();
+    MeasurementTemplate<double> *setpoint();
+    MeasurementTemplate<double> *currentState();
     void warmer(double amount);
     void cooler(double amount);
     double randomDouble();
@@ -40,14 +40,14 @@ private:
     int Value;
     double StartTemperature;
     std::string UoM;
-    AbstractMeasurement *am;
+
     MeasurementTemplate<double> *mt;
     MeasurementTemplate<std::vector<double>> *mt1;
-    double plusminus;
-    double currentvalue;
+    double plusminus = 0.00;
+    double currentvalue = 0.00;
     std::vector<double> last5values;
-    double lastvalue;
-    double Temp;
+    double lastvalue = 0.00;
+    double Temp = 0.00;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))}; //random nuber generator
     std::uniform_real_distribution<double> _realDistribution{0.0, 0.5};
 
