@@ -40,3 +40,14 @@ std::vector<MeasurementTemplate<bool> > LightSwitchProxy::currentState()
     return _lSwitch->currentState();
 }
 
+void LightSwitchProxy::setPortController(QString port)
+{
+    _lSwitch->setPortNumberController(port);
+}
+
+
+
+void LightSwitchProxy::setIPAddressController(QString IPAddress)
+{
+    _lSwitch->setIPAddressController(IPAddress);
+}

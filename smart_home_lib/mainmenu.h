@@ -37,8 +37,10 @@ public:
    * abstract factory pattern
    * @param chosenDevice
    * @param deviceName
+   * @param inputDeviceUrl
+   * @param inputProxy
    */
-  void initialisingDevice(QString chosenDevice, QString deviceName);
+  void initialisingDevice(QString chosenDevice, QString deviceName,QString inputDeviceUrl,QString inputProxy);
 
   /**
    * @brief mainMenuLightSwitch
@@ -47,7 +49,7 @@ public:
    * real device for input and output
    * @param lsp
    */
-  void mainMenuLightSwitch(QString lsp);
+  void mainMenuLightSwitch(LightSwitchProxy* proxy);
 
 
 
@@ -68,7 +70,7 @@ private:
   QString _inputDeviceUrl;
   QString _chosenDevice;
   ProxyFactory* _proxyFactory;
-
+  QString _inputProxy;
 
 };
 

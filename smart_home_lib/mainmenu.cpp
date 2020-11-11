@@ -2,11 +2,6 @@
 #include "lightswitch.h"
 #include <thread>
 #include <chrono>
-
-// If you want, change all of the QTextStream stuff to std:istream and std::ostream
-// to stay with what you are familiar. Just keep in mind that it will not understand
-// the various Qt objects that you might try to output.
-#include <QTextStream>
 #include <QUrl>
 #include <QCoreApplication>
 #include "lightswitchproxy.h"
@@ -15,6 +10,7 @@
 #include "proxyfactory.h"
 #include "measurementtemplate.h"
 #include "abstractmeasurement.h"
+
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
   : QObject{parent}, _display{display}, _input{input}
@@ -41,34 +37,25 @@ void MainMenu::displayWelcome(const QString &title, const QString &group, const 
 void MainMenu::run()
 {
 
-    LightSwitchProxyFactory lf("karan");
-
-    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
-
-    ls->turnOn();
-
-    for(auto elem : ls->currentState()){
-        _display << elem.value().toString();
-    }
-
-
-
-
   _display << "Preparing to initialise Smart Home System" << endl;
   _display << "What type of device do you want to configure?" <<endl;
   _display << "1.Smart Home Controller" << endl << "2.Light Switch" << endl << "3.Thermostat" << endl << "4.Sprinkler System" <<endl;
 
-  // Validation
+  // User-Input Validation
   do{
 
       _input >> _userInput ;
 
+      // Displays an error if input not in the valid range
       if(_userInput < 1 || _userInput > 4){
           _display << "Please enter a valid number" << endl;
       }
 
+   // Loops until a correct input is provided.
   }while(_userInput < 1 || _userInput > 4);
 
+  // Switch to accomodate
+  // the different user inputs
   switch (_userInput) {
 
   case 1 : {
@@ -90,6 +77,7 @@ void MainMenu::run()
 
   }
 
+  // Calls the detailed user input function
   detailedUserInput(_chosenDevice);
 
   // Need to exit the event loop to end the application
@@ -101,26 +89,40 @@ void MainMenu::detailedUserInput(QString chosenDevice)
 {
     _display << "What would you like to call this " << chosenDevice << " ?" << endl;
 
+    // User-validation
     do{
         _input >> _inputDeviceName;
 
     }while(_inputDeviceName == "");
 
+    // Prompts for the URl
+    // Note -> URL is not used anywhere in this
+    // application (Non-networking)
     _display << "What is the Url for the controller?" << endl;
 
+    // Validation
     do{
         _input >> _inputDeviceUrl;
 
     }while (_inputDeviceUrl == "");
 
+    _display << "What is the PORT for the controller?" << endl;
+
+    // Validation
+    do{
+        _input >> _inputProxy;
+
+    }while (_inputDeviceUrl == "");
+
+
     _display << "Initialising....." << endl;
     std::this_thread::sleep_for(std::chrono::seconds(3));
-    initialisingDevice(chosenDevice,_inputDeviceName);
+    initialisingDevice(chosenDevice,_inputDeviceName,_inputDeviceUrl,_inputProxy);
 
 }
 
 // Call main menu for each concrete device
-void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
+void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QString inputDeviceUrl,QString inputProxy)
 {
 
 
@@ -129,7 +131,13 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 
     } else if(chosenDevice == "Light Switch"){
 
-        mainMenuLightSwitch(deviceName);
+        // Creates a lightSwitchProxy Factory
+        // and then uses it to create a concrete
+        // Light Switch proxy object
+        LightSwitchProxyFactory lf(deviceName);
+        LightSwitchProxy* lProxy =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
+
+        mainMenuLightSwitch(lProxy);
 
     } else if(chosenDevice == "Thermostat"){
 
@@ -147,20 +155,23 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 
 }
 
-void MainMenu::mainMenuLightSwitch(QString lsp)
+void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 {
 
-    LightSwitchProxyFactory lf(lsp);
-
-    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
-
-     ls->brighten();
 
 
 
-    MeasurementTemplate<int> dm("karan","gill","");
-    dm.setValue(20);
-     _display << dm.value().toString();
+//    LightSwitchProxyFactory lf(lsp);
+
+//    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
+
+//     ls->brighten();
+
+
+
+//    MeasurementTemplate<int> dm("karan","gill","");
+//    dm.setValue(20);
+//     _display << dm.value().toString();
 
 
 
