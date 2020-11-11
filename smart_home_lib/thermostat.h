@@ -25,7 +25,7 @@ public:
     void setthesetpoint(double temp);
     MeasurementTemplate<std::vector<double>> *last5Measurement();
     MeasurementTemplate<double> *setpoint();
-    std::string currentState();
+    MeasurementTemplate<double> *currentState();
     void warmer(double amount);
     void cooler(double amount);
     double randomDouble();

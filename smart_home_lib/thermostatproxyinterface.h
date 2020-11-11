@@ -20,7 +20,7 @@ public:
     virtual void setthesetpoint(double temp)=0;
     virtual AbstractMeasurement *last5Measurement()=0;
     virtual AbstractMeasurement *setpoint()=0;
-    virtual std::string currentState()=0;
+    virtual MeasurementTemplate<double> *currentState()=0;
     virtual void warmer(double amount)=0;
     virtual void cooler(double amount)=0;
     virtual double randomDouble()=0;

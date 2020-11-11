@@ -69,7 +69,7 @@ MeasurementTemplate<double> *ThermostatProxy::setpoint()
     return _thermoStat->setpoint();
 }
 
-std::string ThermostatProxy::currentState()
+MeasurementTemplate<double> *ThermostatProxy::currentState()
 {
     return _thermoStat->currentState();
 }

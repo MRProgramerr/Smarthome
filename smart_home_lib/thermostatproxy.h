@@ -37,7 +37,7 @@ public:
 
     MeasurementTemplate<double> *setpoint()override;
 
-    std::string currentState()override;
+    MeasurementTemplate<double> *currentState()override;
 
     void warmer(double amount)override;
 

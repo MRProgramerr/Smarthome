@@ -86,7 +86,7 @@ std::vector<MeasurementTemplate<QTime>*> SprinklerSystem::currentState()
         mtstate->setValue(Delay);
         mtvectorstate.push_back(mtstate);
 
-        mtstate = new MeasurementTemplate<QTime>(Name.toStdString(),"Durationg","Seconds");
+        mtstate = new MeasurementTemplate<QTime>(Name.toStdString(),"Duration","Seconds");
         mtstate->setValue(Duration);
         mtvectorstate.push_back(mtstate);
 
