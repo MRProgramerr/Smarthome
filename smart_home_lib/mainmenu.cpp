@@ -305,9 +305,43 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
         if(_userInputSS ==1){
 
+            if(!sProxy->getIsOn()) {
+                 sProxy->turnOn();
+                 _display << "Sprinkler System turned on! "<<endl;
+            }
+
+            else {
+                _display << "Sprinkler System already turned on! Did u mean turn off? "<<endl;
+            }
+
         }else if(_userInputSS ==2){
 
+            if(sProxy->getIsOn()) {
+                 sProxy->turnOff();
+                 _display << "Sprinkler System turned off! "<<endl;
+            }
+
+            else {
+                _display << "Sprinkler System already turned off! Did u mean turn on? "<<endl;
+            }
+
         }else if(_userInputSS ==3){
+
+            _display <<"Enter water consumption per interval(litres) " <<endl;
+            _input >> _waterCons;
+            for (;;) {
+
+                if (_waterCons >=1 && _waterCons <=5) {
+                    break;
+                } else {
+                    _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
+                    _input >> _waterCons;
+
+                }
+            }
+
+            sProxy->setWaterConsumptionPerInterval(_waterCons);
+            _display << "Water consumption set to " << _waterCons << " litres per interval" << endl;
 
         }else if(_userInputSS ==4){
 
