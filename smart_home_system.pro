@@ -4,6 +4,7 @@ SUBDIRS += \
     qhttp-embed \
     smart_home_lib \
     smart_home_main \
+    smart_home_tests/Test_LightSwitch \
     smart_home_tests\
 
 smart_home_main.depends = smart_home_lib qhttp-embed
