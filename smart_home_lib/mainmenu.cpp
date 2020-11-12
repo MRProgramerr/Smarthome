@@ -10,6 +10,8 @@
 #include "proxyfactory.h"
 #include "measurementtemplate.h"
 #include "abstractmeasurement.h"
+#include "sprinklersystemproxyfactory.h"
+#include "sprinklersystem.h"
 
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
@@ -151,7 +153,16 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 
     } else if(chosenDevice == "Sprinkler System"){
 
-        // Logic here
+        //Creates a sprinkler system proxy factory
+        // and then uses it to create a concrete
+        // Sprinkler proxy object
+        SprinklerSystemProxyFactory sdf(deviceName);
+        SprinklerSystemProxy* sProxy =  dynamic_cast<SprinklerSystemProxy*>( _proxyFactory->createProxy(&sdf));
+
+        // Calls out the main menu for the
+        // sprinkler system
+        mainMenuSprinklerSystem(sProxy);
+
 
     } else{
         _display << "Fatal error!" << endl;
@@ -246,6 +257,12 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 
     }
 
+
+
+}
+
+void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *proxy)
+{
 
 
 }

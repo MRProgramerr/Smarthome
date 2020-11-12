@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <lightswitchproxy.h>
 #include "proxyfactory.h"
+#include "sprinklersystemproxy.h"
 
 class MainMenu : public QObject
 {
@@ -52,8 +53,14 @@ public:
   void mainMenuLightSwitch(LightSwitchProxy* proxy);
 
 
-
-
+  /**
+   * @brief mainMenuSprinklerSystem
+   * The main menu for the sprinkler system concrete
+   * device. Uses proxies to talk to the real device
+   * for input device and output device.
+   * @param proxy
+   */
+  void mainMenuSprinklerSystem(SprinklerSystemProxy* proxy);
 
 public slots:
   /**
