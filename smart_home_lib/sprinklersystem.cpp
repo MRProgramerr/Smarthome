@@ -44,6 +44,7 @@ void SprinklerSystem::turnOn()
 {
     _isOn = true;
     setcurrrentState("ON");
+
 }
 
 
@@ -63,10 +64,15 @@ void SprinklerSystem::schedule(QTime delay, QTime duration)
             std::this_thread::sleep_for(std::chrono::seconds{delay.second()});
 
             this->turnOn();
+            std::cout << "Sprinkler System turned on"<< std::endl;
         } );
 
         std::this_thread::sleep_for( std::chrono::seconds{duration.second()});
             this->turnOff();
+            std::cout << "Sprinkler System turned off"<< std::endl;
+
+            // Some arbitary rate of water usage
+            std::cout << "Sprinkler System used" << (_waterConsumptionPerInterval*duration.second()/15) << " litre(s) of water " << std::endl;
 
 
 }
@@ -82,11 +88,11 @@ std::vector<MeasurementTemplate<QTime>*> SprinklerSystem::currentState()
         mtstate = new MeasurementTemplate<QTime>(Name.toStdString(),"Current State","SCHEDULED");
         mtvectorstate.push_back(mtstate);
 
-        mtstate = new MeasurementTemplate<QTime>(Name.toStdString(),"Delay","Seconds");
+        mtstate2 = new MeasurementTemplate<QTime>(Name.toStdString(),"Delay","Seconds");
         mtstate->setValue(Delay);
         mtvectorstate.push_back(mtstate);
 
-        mtstate = new MeasurementTemplate<QTime>(Name.toStdString(),"Duration","Seconds");
+        mtstate3 = new MeasurementTemplate<QTime>(Name.toStdString(),"Duration","Seconds");
         mtstate->setValue(Duration);
         mtvectorstate.push_back(mtstate);
 
@@ -105,7 +111,7 @@ std::vector<MeasurementTemplate<double> *> SprinklerSystem::waterUsage()
        mtusage->setValue(getWaterConsumptionPerInterval());
        mtvectorusage.push_back(mtusage);
 
-       mtusage = new MeasurementTemplate<double>(Name.toStdString(),"Lifetime Water Consumption","L");
+       mtusage2 = new MeasurementTemplate<double>(Name.toStdString(),"Lifetime Water Consumption","L");
        mtusage->setValue(getlifetimeConsumption());
        mtvectorusage.push_back(mtusage);
 
@@ -123,3 +129,5 @@ std::string SprinklerSystem::deviceType()
 {
     return "Sprinkler System";
 }
+
+

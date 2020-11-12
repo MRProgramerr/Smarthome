@@ -29,6 +29,8 @@ public:
     virtual void setcurrrentState(std::string state)=0;
     virtual std::vector<MeasurementTemplate<QTime>*> currentState()=0;
     virtual std::vector<MeasurementTemplate<double>*> waterUsage()=0;
+
+
 };
 
 #endif // SPRINKLERSYSTEMPROXYINTERFACE_H

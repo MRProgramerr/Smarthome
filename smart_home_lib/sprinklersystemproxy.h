@@ -35,6 +35,11 @@ public:
     std::vector<MeasurementTemplate<double>*> waterUsage()override;
     Device *realDevice() override;
 
+    void setPortController(QString port);
+    void setIPAddressController(QString IPAddress) ;
+
+
+
 private:
 
      DeviceFactory* _deviceFactory = nullptr;
