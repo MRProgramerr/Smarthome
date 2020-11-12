@@ -1,4 +1,5 @@
 #include "lightswitch.h"
+
 #include "measurementtemplate.h"
 
 

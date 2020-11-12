@@ -1,9 +1,9 @@
-QT += testlib
-QT -= gui
+#QT += testlib
+#QT -= gui
 
-CONFIG += qt console warn_on depend_includepath testcase
-CONFIG -= app_bundle
+#CONFIG += qt console warn_on depend_includepath testcase
+#CONFIG -= app_bundle
 
-TEMPLATE = app
+#TEMPLATE = app
 
-SOURCES +=  tst_controller.cpp
+#SOURCES +=  tst_controller.cpp

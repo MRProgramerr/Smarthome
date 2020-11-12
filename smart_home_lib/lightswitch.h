@@ -82,6 +82,7 @@ public:
 
     std::string deviceType();
 
+
 private:
 
     bool _isOn = false;

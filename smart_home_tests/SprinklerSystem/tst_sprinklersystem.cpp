@@ -72,4 +72,4 @@ void tst_sprinklersystem::testwaterUsage()
 
 QTEST_MAIN(tst_sprinklersystem)
 
-#include "tst_sprinklersystem.moc"
+//#include "tst_sprinklersystem.moc"

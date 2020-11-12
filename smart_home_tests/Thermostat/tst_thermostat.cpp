@@ -1,47 +1,77 @@
 #include <QtTest>
+#include <QCoreApplication>
 
 // add necessary includes here
 
-class thermostat : public QObject
+class tst_Thermostat : public QObject
 {
     Q_OBJECT
 
 public:
-    thermostat();
-    ~thermostat();
+    tst_Thermostat();
+    ~tst_Thermostat();
 
 private slots:
-    void initTestCase();
-    void cleanupTestCase();
-    void test_case1();
+    void testID();
+    void testIPaddress();
+    void testcurrentState();
+    void testlastMeasurement();
+    void testlast5Measurements();
+    void testsetpoint();
+    void testtempChange();
+
+
 
 };
 
-thermostat::thermostat()
+// Using a macro to ensure the QVERIFY2 has the correct location in the source file
+// Otherwise these tests are not very useful.
+#define equal(expected, actual, failMessage) \
+  ++_assertionCount; \
+  if (not (expected == actual)) ++_failureCount; \
+  QVERIFY2(expected == actual, failMessage);
+
+tst_Thermostat::tst_Thermostat()
 {
 
 }
 
-thermostat::~thermostat()
+tst_Thermostat::~tst_Thermostat()
 {
 
 }
 
-void thermostat::initTestCase()
+void tst_Thermostat::testID()
 {
 
 }
 
-void thermostat::cleanupTestCase()
+void tst_Thermostat::testIPaddress()
 {
 
 }
 
-void thermostat::test_case1()
+void tst_Thermostat::testcurrentState()
+{
+
+}
+void tst_Thermostat::testlastMeasurement()
+{
+
+}
+void tst_Thermostat::testlast5Measurements()
+{
+
+}
+void tst_Thermostat::testsetpoint()
+{
+
+}
+void tst_Thermostat::testtempChange()
 {
 
 }
 
-QTEST_APPLESS_MAIN(thermostat)
+QTEST_MAIN(tst_Thermostat)
 
-#include "tst_thermostat.moc"
+//#include "tst_thermostat.moc"
