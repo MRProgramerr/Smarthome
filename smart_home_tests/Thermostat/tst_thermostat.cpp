@@ -44,12 +44,14 @@ tst_Thermostat::~tst_Thermostat()
 
 void tst_Thermostat::testID()
 {
-
+    ts.setDeviceName("Thermostat");
+    QCOMPARE(ts.getDeviceName(),"Thermostat");
 }
 
 void tst_Thermostat::testIPaddress()
 {
-
+    ts.setIPAddressController("Thermostat IP");
+    QCOMPARE(ts.getIPAddressController(), "Thermostat IP");
 }
 
 void tst_Thermostat::testcurrentState()

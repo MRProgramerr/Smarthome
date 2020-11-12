@@ -47,12 +47,14 @@ tst_LightSwitch::~tst_LightSwitch()
 
 void tst_LightSwitch::testID()
 {
-
+    ls.setDeviceName("Light Switch");
+    QCOMPARE(ls.getDeviceName(),"Light Switch");
 }
 
 void tst_LightSwitch::testIPaddress()
 {
-
+    ls.setIPAddressController("LS IP");
+    QCOMPARE(ls.getIPAddressController(), "LS IP");
 }
 
 void tst_LightSwitch::testcurrentState()
