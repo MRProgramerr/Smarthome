@@ -370,7 +370,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         }else if(_userInputSS ==7){
             if(sProxy->getIsOn()) _display << "Sprinkler is still on" <<endl;
             else{
-                start-end;
+
             }
         }
 
