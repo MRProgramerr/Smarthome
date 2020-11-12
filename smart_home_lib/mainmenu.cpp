@@ -164,80 +164,87 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 {
 
 
-        int _userInputLS = 0;
+    int _userInputLS = 0;
 
-        while(_userInputLS !=6){
+    while(_userInputLS !=6){
 
-
-            _display << "--------------- Light Switch Main Menu ---------------" << endl;
-
-
-            _display << "Press 1 to Turn on" << endl;
-            _display << "Press 2 to Turn off" << endl;
-            _display << "Press 3 to Brigthen" << endl;
-            _display << "Press 4 to Dim" << endl;
-            _display << "Press 5 to view status" << endl;
-            _display << "Press 6 to exit" << endl;
+        _display << endl;
+        _display << "--------------- Light Switch Main Menu ---------------" << endl;
 
 
-
-            _input >> _userInputLS;
-
-            for (;;) {
-
-                if (_userInputLS >=1 && _userInputLS <=6) {
-                    break;
-                } else {
-                    _display << "Please enter a valid option (1-6)" << endl;
-                    _input >> _userInputLS;
-
-                }
-            }
-
-            if(_userInputLS ==6) break;
-
-            if(_userInputLS == 1){
-
-                if(lProxy->getIsOn()){
-                    _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
-
-                }else{
-
-                    lProxy->turnOn();
-                    _display <<"The light switch has turned on" << endl;
-                }
-
-            } else if(_userInputLS ==2){
-
-                if(!(lProxy->getIsOn())){
-                    _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
-
-                }else{
-
-                    lProxy->turnOff();
-                    _display <<"The light switch has turned off" << endl;
-                }
-
-            } else if(_userInputLS ==3){
-                lProxy->brighten();
-            } else if(_userInputLS ==4){
-                lProxy->dim();
-            } else if(_userInputLS == 5){
+        _display << "Press 1 to Turn on" << endl;
+        _display << "Press 2 to Turn off" << endl;
+        _display << "Press 3 to Brigthen" << endl;
+        _display << "Press 4 to Dim" << endl;
+        _display << "Press 5 to view status" << endl;
+        _display << "Press 6 to exit" << endl;
 
 
-               _display << lProxy->powerStatus().value().toString();
 
+        _input >> _userInputLS;
+
+        for (;;) {
+
+            if (_userInputLS >=1 && _userInputLS <=6) {
+                break;
+            } else {
+                _display << "Please enter a valid option (1-6)" << endl;
+                _input >> _userInputLS;
 
             }
+        }
+
+        if(_userInputLS ==6) break;
+
+        if(_userInputLS == 1){
+
+            if(lProxy->getIsOn()){
+                _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
+
+            }else{
+
+                lProxy->turnOn();
+                _display <<"The light switch has turned on" << endl;
+            }
+
+        } else if(_userInputLS ==2){
+
+            if(!(lProxy->getIsOn())){
+                _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
+
+            }else{
+
+                lProxy->turnOff();
+                _display <<"The light switch has turned off" << endl;
+            }
+
+        } else if(_userInputLS ==3){
+
+            lProxy->brighten();
+            _display << "The Brighness has been increased to :" + lProxy->brightnessStatus().value().toString();
+
+        } else if(_userInputLS ==4){
+
+            lProxy->dim();
+            _display << "The Brighness has been decreased to :" + lProxy->brightnessStatus().value().toString();
+
+        } else if(_userInputLS == 5){
 
 
+            if(lProxy->powerStatus().value().toString().toLower()=="true"){
+                _display << "Power Status : Turned ON" << endl;
+
+            } else{
+                _display << "Power Status : Turned OFF" << endl;
+            }
 
 
-
-
+            _display << "Brightness Level: " << lProxy->brightnessStatus().value().toString()<<endl;
 
 
         }
+
+    }
 
 
 

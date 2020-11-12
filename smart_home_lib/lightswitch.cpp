@@ -55,7 +55,7 @@ void LightSwitch::dim(){
 
 void LightSwitch::brighten(){
 
-    std::cout << "In here" << std::endl;
+
 
     // Ensures that the max brighness is 100
     if(getBrightnessLevel()+20 > 100){
@@ -78,6 +78,16 @@ MeasurementTemplate<bool> LightSwitch::powerStatus()
     return powerStatus;
 
 }
+
+MeasurementTemplate<int> LightSwitch::brightnessStatus()
+{
+    MeasurementTemplate<int> brightness("LightSwitch","Power","%");
+    brightness.setValue(getBrightnessLevel());
+
+    return brightness;
+
+}
+
 void LightSwitch::receiveChange(QString change){
 
     qDebug() << "The Device replied:" << change ;
@@ -94,3 +104,5 @@ std::string LightSwitch::deviceType()
 {
     return "Light Switch";
 }
+
+

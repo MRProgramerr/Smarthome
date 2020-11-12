@@ -56,3 +56,8 @@ Device *LightSwitchProxy::realDevice()
 {
     return _lSwitch;
 }
+
+MeasurementTemplate<int> LightSwitchProxy::brightnessStatus()
+{
+    return _lSwitch->brightnessStatus();
+}
