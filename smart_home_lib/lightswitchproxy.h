@@ -58,8 +58,8 @@ public:
 
      std::vector<MeasurementTemplate<bool> > currentState() override;
 
-// std::vector<Measurement> currentState() override;
-
+    void setPortController(QString port);
+    void setIPAddressController(QString IPAddress) ;
 
 private:
 

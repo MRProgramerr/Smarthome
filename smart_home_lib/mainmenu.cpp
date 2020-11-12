@@ -2,12 +2,6 @@
 #include "lightswitch.h"
 #include <thread>
 #include <chrono>
-#include "controller.h"
-
-// If you want, change all of the QTextStream stuff to std:istream and std::ostream
-// to stay with what you are familiar. Just keep in mind that it will not understand
-// the various Qt objects that you might try to output.
-#include <QTextStream>
 #include <QUrl>
 #include <QCoreApplication>
 #include "lightswitchproxy.h"
@@ -17,24 +11,25 @@
 #include "measurementtemplate.h"
 #include "abstractmeasurement.h"
 
+
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
-  : QObject{parent}, _display{display}, _input{input}
+    : QObject{parent}, _display{display}, _input{input}
 {
 }
 
 void MainMenu::displayWelcome(const QString &title, const QString &group, const QStringList &members) const
 {
-  QString welcomeText{"Welcome to " + title};
-  QString groupText{"Developed by " + group + ":"};
+    QString welcomeText{"Welcome to " + title};
+    QString groupText{"Developed by " + group + ":"};
 
-  _display << welcomeText << endl
-           << groupText << endl;
+    _display << welcomeText << endl
+             << groupText << endl;
 
-  for (auto name: members) {
-    _display << "- " << name << endl;
-  }
+    for (auto name: members) {
+        _display << "- " << name << endl;
+    }
 
-  _display << "COMP 3023 Software Development with C++" << endl << endl;
+    _display << "COMP 3023 Software Development with C++" << endl << endl;
 
 }
 
@@ -42,60 +37,51 @@ void MainMenu::displayWelcome(const QString &title, const QString &group, const 
 void MainMenu::run()
 {
 
-//    LightSwitchProxyFactory lf("karan");
+    _display << "Preparing to initialise Smart Home System" << endl;
+    _display << "What type of device do you want to configure?" <<endl;
+    _display << "1.Smart Home Controller" << endl << "2.Light Switch" << endl << "3.Thermostat" << endl << "4.Sprinkler System" <<endl;
 
-//    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
+    // User-Input Validation
+    do{
 
-//    ls->turnOn();
+        _input >> _userInput ;
 
-//    for(auto elem : ls->currentState()){
-//        _display << elem.value().toString();
-//    }
+        // Displays an error if input not in the valid range
+        if(_userInput < 1 || _userInput > 4){
+            _display << "Please enter a valid number" << endl;
+        }
 
+        // Loops until a correct input is provided.
+    }while(_userInput < 1 || _userInput > 4);
 
-//    Controller c("karan");
+    // Switch to accomodate
+    // the different user inputs
+    switch (_userInput) {
 
+    case 1 : {
+        _chosenDevice = "Smart Home Controller";
+        break;
+    }
+    case 2 : {
+        _chosenDevice = "Light Switch";
+        break;
+    }
+    case 3 : {
+        _chosenDevice = "Thermostat";
+        break;
+    }
+    case 4 : {
+        _chosenDevice = "Sprinkler System";
+        break;
+    }
 
-  _display << "Preparing to initialise Smart Home System" << endl;
-  _display << "What type of device do you want to configure?" <<endl;
-  _display << "1.Smart Home Controller" << endl << "2.Light Switch" << endl << "3.Thermostat" << endl << "4.Sprinkler System" <<endl;
+    }
 
-  // Validation
-  do{
+    // Calls the detailed user input function
+    detailedUserInput(_chosenDevice);
 
-      _input >> _userInput ;
-
-      if(_userInput < 1 || _userInput > 4){
-          _display << "Please enter a valid number" << endl;
-      }
-
-  }while(_userInput < 1 || _userInput > 4);
-
-  switch (_userInput) {
-
-  case 1 : {
-      _chosenDevice = "Smart Home Controller";
-      break;
-  }
-  case 2 : {
-      _chosenDevice = "Light Switch";
-      break;
-  }
-  case 3 : {
-      _chosenDevice = "Thermostat";
-      break;
-  }
-  case 4 : {
-      _chosenDevice = "Sprinkler System";
-      break;
-  }
-
-  }
-
-  detailedUserInput(_chosenDevice);
-
-  // Need to exit the event loop to end the application
-  QCoreApplication::instance()->quit();
+    // Need to exit the event loop to end the application
+    QCoreApplication::instance()->quit();
 }
 
 
@@ -103,26 +89,40 @@ void MainMenu::detailedUserInput(QString chosenDevice)
 {
     _display << "What would you like to call this " << chosenDevice << " ?" << endl;
 
+    // User-validation
     do{
         _input >> _inputDeviceName;
 
     }while(_inputDeviceName == "");
 
+    // Prompts for the URl
+    // Note -> URL is not used anywhere in this
+    // application (Non-networking)
     _display << "What is the Url for the controller?" << endl;
 
+    // Validation
     do{
         _input >> _inputDeviceUrl;
 
     }while (_inputDeviceUrl == "");
 
+    _display << "What is the PORT for the controller?" << endl;
+
+    // Validation
+    do{
+        _input >> _inputPort;
+
+    }while (_inputPort == "");
+
+
     _display << "Initialising....." << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(3));
-    initialisingDevice(chosenDevice,_inputDeviceName);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    initialisingDevice(chosenDevice,_inputDeviceName,_inputDeviceUrl,_inputPort);
 
 }
 
 // Call main menu for each concrete device
-void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
+void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QString inputDeviceUrl,QString inputPort)
 {
 
 
@@ -131,7 +131,19 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 
     } else if(chosenDevice == "Light Switch"){
 
-        mainMenuLightSwitch(deviceName);
+        // Creates a lightSwitchProxy Factory
+        // and then uses it to create a concrete
+        // Light Switch proxy object
+        LightSwitchProxyFactory lf(deviceName);
+        LightSwitchProxy* lProxy =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
+
+        // Sets the paramters such as URL, Port
+        lProxy->setIPAddressController(inputDeviceUrl);
+        lProxy->setPortController(inputPort);
+
+        // Calls out the main menu for the
+        // light switch
+        mainMenuLightSwitch(lProxy);
 
     } else if(chosenDevice == "Thermostat"){
 
@@ -146,79 +158,73 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName)
 
     }
 
-
 }
 
-void MainMenu::mainMenuLightSwitch(QString lsp)
+void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 {
 
-    LightSwitchProxyFactory lf(lsp);
 
-    LightSwitchProxy* ls =  dynamic_cast<LightSwitchProxy*>( _proxyFactory->createProxy(&lf));
+        int _userInputLS = 0;
 
-     ls->brighten();
-
+        while(_userInputLS !=6){
 
 
-    MeasurementTemplate<int> dm("karan","gill","");
-    dm.setValue(20);
-     _display << dm.value().toString();
+            _display << "--------------- Light Switch Main Menu ---------------" << endl;
 
 
-
-
-
-
-
-//    int _userInputLS = 0;
-
-//    while(_userInputLS !=5){
-
-
-//        _display << "--------------- Light Switch Main Menu ---------------" << endl;
-
-
-//        _display << "Press 1 to Turn on" << endl;
-//        _display << "Press 2 to Turn off" << endl;
-//        _display << "Press 3 to Brigthen" << endl;
-//        _display << "Press 4 to Dim" << endl;
-//        _display << "Press 5 to exit" << endl;
-
-
-//        _input >> _userInputLS;
-
-//        if(_userInputLS <0 || _userInputLS >5) _display << "Please enter a valid number" << endl;
-
-
-//        if(_userInputLS == 1){
-
-//            if(lightProxy.getIsOn()){
-//                _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
-
-//            }else{
-
-//                lightProxy.turnOn();
-//                _display <<"The light switch has turned on" << endl;
-//            }
-
-//        } else if(_userInputLS ==2){
-
-//            if(!(lightProxy.getIsOn())){
-//                _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
-
-//            }else{
-
-//                lightProxy.turnOff();
-//                _display <<"The light switch has turned off" << endl;
-//            }
-//        }
-//        else{
-//            _display<<"Invalid Input" <<endl;
-//        }
+            _display << "Press 1 to Turn on" << endl;
+            _display << "Press 2 to Turn off" << endl;
+            _display << "Press 3 to Brigthen" << endl;
+            _display << "Press 4 to Dim" << endl;
+            _display << "Press 5 to view status" << endl;
+            _display << "Press 6 to exit" << endl;
 
 
 
-//    }
+            _input >> _userInputLS;
+
+            for (;;) {
+
+                if (_userInputLS >=1 && _userInputLS <=6) {
+                    break;
+                } else {
+                    _display << "Please enter a valid option (1-6)" << endl;
+                    _input >> _userInputLS;
+
+                }
+            }
+
+            if(_userInputLS ==6) break;
+
+            if(_userInputLS == 1){
+
+                if(lProxy->getIsOn()){
+                    _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
+
+                }else{
+
+                    lProxy->turnOn();
+                    _display <<"The light switch has turned on" << endl;
+                }
+
+            } else if(_userInputLS ==2){
+
+                if(!(lProxy->getIsOn())){
+                    _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
+
+                }else{
+
+                    lProxy->turnOff();
+                    _display <<"The light switch has turned off" << endl;
+                }
+            }
+            else{
+                _display<<"Invalid Input" <<endl;
+            }
+
+
+
+        }
 
 
 
