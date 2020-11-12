@@ -217,10 +217,23 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
                     lProxy->turnOff();
                     _display <<"The light switch has turned off" << endl;
                 }
+
+            } else if(_userInputLS ==3){
+                lProxy->brighten();
+            } else if(_userInputLS ==4){
+                lProxy->dim();
+            } else if(_userInputLS == 5){
+
+
+               _display << lProxy->powerStatus().value().toString();
+
+
             }
-            else{
-                _display<<"Invalid Input" <<endl;
-            }
+
+
+
+
+
 
 
 

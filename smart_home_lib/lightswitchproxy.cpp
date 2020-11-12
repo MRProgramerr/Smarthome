@@ -35,9 +35,9 @@ bool LightSwitchProxy::getIsOn()
     return _lSwitch->getIsOn();
 }
 
-std::vector<MeasurementTemplate<bool> > LightSwitchProxy::currentState()
+MeasurementTemplate<bool>  LightSwitchProxy::powerStatus()
 {
-    return _lSwitch->currentState();
+    return _lSwitch->powerStatus();
 }
 
 void LightSwitchProxy::setPortController(QString port)

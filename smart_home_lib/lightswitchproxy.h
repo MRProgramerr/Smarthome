@@ -56,7 +56,7 @@ public:
 
     bool getIsOn() override;
 
-     std::vector<MeasurementTemplate<bool> > currentState() override;
+    MeasurementTemplate<bool>  powerStatus() override;
 
     void setPortController(QString port);
     void setIPAddressController(QString IPAddress) ;
