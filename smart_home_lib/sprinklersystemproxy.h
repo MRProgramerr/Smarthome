@@ -39,6 +39,7 @@ public:
     void setIPAddressController(QString IPAddress) ;
 
 
+
 private:
 
      DeviceFactory* _deviceFactory = nullptr;

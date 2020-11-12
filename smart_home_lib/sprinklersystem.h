@@ -43,6 +43,7 @@ public:
 
 
 
+
 private:
 
     int _updateFrequency = 5;
@@ -59,6 +60,10 @@ private:
     MeasurementTemplate<double> *mtusage = nullptr;
     std::vector<MeasurementTemplate<QTime>*> mtvectorstate;
     std::vector<MeasurementTemplate<double>*> mtvectorusage;
+    QDateTime onStamp;
+    QDateTime offStamp;
+    std::chrono::seconds start;
+    std::chrono::seconds end;
 
 
 };

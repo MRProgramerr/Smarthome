@@ -83,3 +83,4 @@ void SprinklerSystemProxy::setIPAddressController(QString IPAddress)
     _sprinklerSystem->setIPAddressController(IPAddress);
 }
 
+

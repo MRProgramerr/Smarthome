@@ -12,7 +12,7 @@
 #include "abstractmeasurement.h"
 #include "sprinklersystemproxyfactory.h"
 #include "sprinklersystem.h"
-
+#include <QTimer>
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
     : QObject{parent}, _display{display}, _input{input}
@@ -288,6 +288,8 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
     while(_userInputSS !=8){
 
+
+
         _display << endl;
         _display << "--------------- Sprinkler System Main Menu ---------------" << endl;
 
@@ -298,7 +300,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         _display << "Press 4 to schedule a timer" << endl;
         _display << "Press 5 to view live water consumption updates" << endl;
         _display << "Press 6 to view the current state of sprinkler" << endl;
-        _display << "Press 7 to view the water consumption of sprinkler" << endl;
+        _display << "Press 7 to view the last cycle's water consumption of sprinkler" << endl;
         _display << "Press 8 to exit " << endl;
 
         _input >> _userInputSS;
@@ -306,8 +308,9 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         if(_userInputSS ==1){
 
             if(!sProxy->getIsOn()) {
-                 sProxy->turnOn();
-                 _display << "Sprinkler System turned on! "<<endl;
+
+                sProxy->turnOn();
+                _display << "Sprinkler System turned on! "<<endl;
             }
 
             else {
@@ -317,8 +320,9 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         }else if(_userInputSS ==2){
 
             if(sProxy->getIsOn()) {
-                 sProxy->turnOff();
-                 _display << "Sprinkler System turned off! "<<endl;
+
+                sProxy->turnOff();
+                _display << "Sprinkler System turned off! "<<endl;
             }
 
             else {
@@ -345,17 +349,33 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
         }else if(_userInputSS ==4){
 
+            double delaySeconds =0;
+            double durationSeconds =0;
+
+            _display << "What is the delay after which you wanna turn the System?" << endl;
+            _input >> delaySeconds;
+
+            _display << "What is the duration for which you wanna turn the System?" << endl;
+            _input >> durationSeconds;
+
+            _display << "System scheduled to turn on after " << delaySeconds << " for " << durationSeconds << " seconds duration" << endl;
+            sProxy->schedule(QTime(0,0,delaySeconds),QTime(0,0,durationSeconds));
+
+
         }else if(_userInputSS ==5){
+
 
         }else if(_userInputSS ==6){
 
         }else if(_userInputSS ==7){
-
+            if(sProxy->getIsOn()) _display << "Sprinkler is still on" <<endl;
+            else{
+                start-end;
+            }
         }
 
 
 
-    }
 
 
 
@@ -368,7 +388,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
 
 
-
+}
 
 
 
