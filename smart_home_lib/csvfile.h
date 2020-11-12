@@ -36,14 +36,19 @@ namespace data {
  */
 class CsvFile
 {
-public:
-    // checks if input stream is empty
-    bool isEmpty;
+
+private:
+
+    // determines if input stream failed to load
+    bool loadFail {false};
 
     // creates 2d vector
     std::vector<std::vector<std::string>> vec;
 
 
+
+
+public:
 
   /**
    * @brief CsvFile constructor, initialises internal data structures
