@@ -60,7 +60,7 @@ public:
    * for input device and output device.
    * @param proxy
    */
-  void mainMenuSprinklerSystem(SprinklerSystemProxy* proxy);
+  void mainMenuSprinklerSystem(SprinklerSystemProxy* sProxy);
 
 public slots:
   /**

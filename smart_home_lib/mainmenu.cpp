@@ -159,6 +159,8 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
         SprinklerSystemProxyFactory sdf(deviceName);
         SprinklerSystemProxy* sProxy =  dynamic_cast<SprinklerSystemProxy*>( _proxyFactory->createProxy(&sdf));
 
+        sProxy->setIPAddressController(inputDeviceUrl);
+        sProxy->setPortController(inputPort);
 
 
         // Calls out the main menu for the
@@ -263,9 +265,44 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 
 }
 
-void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *proxy)
+void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 {
 
+    int _userInputSS =0;
+    double _waterCons = 0;
+
+    _display <<"Enter water consumption per interval(litres) " <<endl;
+    _input >> _waterCons;
+    for (;;) {
+
+        if (_waterCons >=1 && _waterCons <=5) {
+            break;
+        } else {
+            _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
+            _input >> _waterCons;
+
+        }
+    }
+
+    sProxy->setWaterConsumptionPerInterval(_waterCons);
+
+    while(_userInputSS !=8){
+
+        _display << endl;
+        _display << "--------------- Sprinkler System Main Menu ---------------" << endl;
+
+        _display << endl;
+        _display << "Press 1 to Turn on" << endl;
+        _display << "Press 2 to Turn off" << endl;
+        _display << "Press 3 to change water consumption per interval" << endl;
+        _display << "Press 4 to schedule a timer" << endl;
+        _display << "Press 5 to view live water consumption updates" << endl;
+        _display << "Press 6 to view the current state of sprinkler" << endl;
+        _display << "Press 7 to view the water consumption of sprinkler" << endl;
+        _display << "Press 8 to exit " << endl;
+
+        _input >> _userInputSS;
+    }
 
 
 
