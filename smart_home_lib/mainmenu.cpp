@@ -279,7 +279,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             break;
         } else {
             _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
-            _input >> _waterCons;
+            _input >> _waterCons;b
 
         }
     }
@@ -376,20 +376,46 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
 
 
-
-
-
-
+    }
 
 
 }
 
 
+    void MainMenu::mainMenuThermostat(ThermostatProxy *sProxy)
+    {
+        int _userInputSS =0;
+         double _waterCons = 0;
+          while(confirm != "Y" || "y"){
+            _display <<"Do you to change the -Update Frequency- default value: 3 seconds [Y/N]" <<endl;
+             std::cin>>confirm;
+
+             if(confirm =="Y" || "y" ){
+                 _display<<"Enter the update frequency"<<endl;
+                    std::cin>>thermoupdatefrequency;
+             }
+             else if(confirm =="N" || "n"){
+                 _display<<endl;
+             }
+             else
+                 _display<<"INVALID SELECTION!!"<<endl;
+          }
+            for (;;) {
+
+                if (_waterCons >=1 && _waterCons <=5) {
+                    break;
+                } else {
+                    _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
+                    _input >> _waterCons;
+
+                }
+            }
+
+            //sProxy->setWaterConsmptionPerInterval(_waterCons);
 
 
 
 }
-
 
 
 
