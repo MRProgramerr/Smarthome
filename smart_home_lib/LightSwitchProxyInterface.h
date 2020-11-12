@@ -19,7 +19,8 @@ public:
     virtual bool getIsOn() = 0;
 
 
-    virtual std::vector<MeasurementTemplate<bool>> currentState() = 0;
+
+    virtual MeasurementTemplate<bool> powerStatus() = 0;
 //    virtual std::vector<Measurement<>> currentState() = 0;
 
 

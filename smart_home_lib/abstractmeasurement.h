@@ -32,11 +32,11 @@ public:
 
 private:
 
-    std::string _deviceName;
-    std::string _measurementType;
+    std::string _deviceName = "";
+    std::string _measurementType = "";
 
-    std::string _unitofMeasure;
-    bool _isFiltered;
+    std::string _unitofMeasure ="";
+    bool _isFiltered = true;
 
 
 

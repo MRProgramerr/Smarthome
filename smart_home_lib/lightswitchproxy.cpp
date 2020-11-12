@@ -35,13 +35,24 @@ bool LightSwitchProxy::getIsOn()
     return _lSwitch->getIsOn();
 }
 
-std::vector<MeasurementTemplate<bool> > LightSwitchProxy::currentState()
+MeasurementTemplate<bool>  LightSwitchProxy::powerStatus()
 {
-    return _lSwitch->currentState();
+    return _lSwitch->powerStatus();
+}
+
+void LightSwitchProxy::setPortController(QString port)
+{
+    _lSwitch->setPortNumberController(port);
+}
+
+
+
+void LightSwitchProxy::setIPAddressController(QString IPAddress)
+{
+    _lSwitch->setIPAddressController(IPAddress);
 }
 
 Device *LightSwitchProxy::realDevice()
 {
     return _lSwitch;
 }
-

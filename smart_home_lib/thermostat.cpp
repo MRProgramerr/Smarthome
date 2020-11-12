@@ -47,24 +47,24 @@ void Thermostat::storelastMeasurements(double addvalue){
 void Thermostat::setthesetpoint(double currentval){
     this->currentvalue = currentval;
 }
-AbstractMeasurement *Thermostat::lastMeasurement(){
-    am = new AbstractMeasurement("Light Switch","last Measurement","C");
+MeasurementTemplate<double> *Thermostat::lastMeasurement(){
+    mt = new MeasurementTemplate<double>("Light Switch","last Measurement","C");
     mt->setValue(lastvalue);
-    return am;
+    return mt;
 }
-AbstractMeasurement *Thermostat::last5Measurement(){
+MeasurementTemplate<std::vector<double>> *Thermostat::last5Measurement(){
 
-    am = new AbstractMeasurement("Light Switch","last 5 Measurements ","C");
+    mt1 = new MeasurementTemplate<std::vector<double>>("Light Switch","last 5 Measurements ","C");
     mt1->setValue(last5values);
-    return am;
+    return mt1;
 }
-AbstractMeasurement *Thermostat::setpoint(){
+MeasurementTemplate<double> *Thermostat::setpoint(){
 
-    am = new AbstractMeasurement("Light Switch","temperature setpoint","C");
+    mt = new MeasurementTemplate<double>("Light Switch","temperature setpoint","C");
     mt->setValue(currentvalue);
-    return am;
+    return mt;
 }
-std::string Thermostat::currentState(){
+MeasurementTemplate<double> *Thermostat::currentState(){
 
     if(lastvalue >= currentvalue - 0.5 && lastvalue <= currentvalue + 0.5){
 
@@ -77,7 +77,10 @@ std::string Thermostat::currentState(){
 
         else
             currentvalue = currentvalue - randomDouble();
-        return "STABLE";
+
+        mt = new MeasurementTemplate<double>("Light Switch","Current State","STABLE");
+        mt->setValue(0);
+        return mt;
     }
 
     else if(lastvalue < currentvalue + 0.5){
@@ -87,7 +90,9 @@ std::string Thermostat::currentState(){
             currentvalue = lastvalue + 0.5;
         else
            currentvalue = lastvalue + ((currentvalue - lastvalue)/10);
-        return "HEATING";
+        mt = new MeasurementTemplate<double>("Light Switch","Current State","HEATING");
+        mt->setValue(1);
+        return mt;
     }
     else if(lastvalue > currentvalue + 0.5){
 
@@ -98,9 +103,11 @@ std::string Thermostat::currentState(){
             currentvalue = lastvalue - 0.5;
         else
            currentvalue =  lastvalue - ((currentvalue - lastvalue)/10);
-        return "COOLING";
+
     }
-    return "";
+    mt = new MeasurementTemplate<double>("Light Switch","Current State","COOLING");
+    mt->setValue(-1);
+    return mt ;
 }
 void Thermostat::warmer(double amount){
     if(amount>0)

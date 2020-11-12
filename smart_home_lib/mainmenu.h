@@ -18,15 +18,39 @@ public:
    * @brief displayWelcome display an intial welcome message including the
    * student's name and game title.
    * @param author the name of the student
-   * @param title the name of the game
+   * @param title the name of the assignment
    */
   void displayWelcome(const QString &title, const QString &group, const QStringList &members) const;
 
+  /**
+   * @brief detailedUserInput
+   * The function to ask the user for specific details about
+   * a chosen device
+   * @param chosenDevice the device chosen by the user
+   *
+   */
   void detailedUserInput(QString chosenDevice);
 
-  void initialisingDevice(QString chosenDevice, QString deviceName);
+  /**
+   * @brief initialisingDevice
+   * The function to create a proxy using the
+   * abstract factory pattern
+   * @param chosenDevice
+   * @param deviceName
+   * @param inputDeviceUrl
+   * @param inputProxy
+   */
+  void initialisingDevice(QString chosenDevice, QString deviceName,QString inputDeviceUrl,QString inputProxy);
 
-  void mainMenuLightSwitch(QString lsp);
+  /**
+   * @brief mainMenuLightSwitch
+   * The main menu for the lightSwitch concrete
+   * device. Uses proxies to talk to the
+   * real device for input and output
+   * @param lsp
+   */
+  void mainMenuLightSwitch(LightSwitchProxy* proxy);
+
 
 
 public slots:
@@ -38,14 +62,15 @@ public slots:
   void run();
 
 private:
+
   QTextStream &_display;
   QTextStream &_input;
-  int _userInput;
+  int _userInput = 0;
   QString _inputDeviceName;
   QString _inputDeviceUrl;
   QString _chosenDevice;
-  ProxyFactory* _proxyFactory;
-
+  ProxyFactory* _proxyFactory = nullptr;
+  QString _inputPort;
 
 };
 

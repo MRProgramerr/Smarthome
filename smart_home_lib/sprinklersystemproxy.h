@@ -13,17 +13,34 @@ class SprinklerSystemProxy : public SprinklerSystemProxyInterface
 public:
     SprinklerSystemProxy(QString name);
 
-    // Required functions overrides here
+
+    int getUpdateFrequency() override;
+    void setUpdateFrequency(int value)override;
+
+    double getWaterConsumptionPerInterval() override;
+    void setWaterConsumptionPerInterval(double value)override;
+
+    double getlifetimeConsumption()override;
+    void setlifetimeConsumption(double value)override;
+
+    bool getIsOn()override ;
+    void turnOn()override;
+
+    void turnOff()override;
+
+    void schedule(QTime delay, QTime duration)override;
+
+    void setcurrrentState(std::string state)override;
+    std::vector<MeasurementTemplate<QTime>*> currentState()override;
+    std::vector<MeasurementTemplate<double>*> waterUsage()override;
+    Device *realDevice() override;
+
 private:
 
-     DeviceFactory* _deviceFactory;
+     DeviceFactory* _deviceFactory = nullptr;
 
-     SprinklerSystem* _sprinklerSystem;
+     SprinklerSystem* _sprinklerSystem = nullptr;
 
-
-     // ProxyInterface interface
-public:
-     Device *realDevice();
 };
 
 #endif // SPRINKLERSYSTEMPROXY_H

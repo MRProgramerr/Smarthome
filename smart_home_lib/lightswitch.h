@@ -76,7 +76,7 @@ public:
      */
     void brighten() ;
 
-    std::vector<MeasurementTemplate<bool>> currentState();
+    MeasurementTemplate<bool> powerStatus();
 
     Device *realDevice();
 
@@ -85,7 +85,7 @@ public:
 
 private:
 
-    bool _isOn = false;
+    bool _isOn = true;
     int _brightnessLevel = 20;
     int _userInput ;
 
