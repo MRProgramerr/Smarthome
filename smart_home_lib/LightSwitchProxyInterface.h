@@ -24,8 +24,7 @@ public:
 //    virtual std::vector<Measurement<>> currentState() = 0;
 
 
-
-
+    virtual Device *realDevice() = 0;
 };
 
 #endif // LIGHTSWITCHPROXYINTERFACE_H
