@@ -159,6 +159,8 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
         SprinklerSystemProxyFactory sdf(deviceName);
         SprinklerSystemProxy* sProxy =  dynamic_cast<SprinklerSystemProxy*>( _proxyFactory->createProxy(&sdf));
 
+
+
         // Calls out the main menu for the
         // sprinkler system
         mainMenuSprinklerSystem(sProxy);
@@ -263,6 +265,11 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 
 void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *proxy)
 {
+
+
+
+
+
 
 
 }

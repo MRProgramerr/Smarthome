@@ -73,3 +73,13 @@ Device *SprinklerSystemProxy::realDevice()
     return _sprinklerSystem;
 }
 
+void SprinklerSystemProxy::setPortController(QString port)
+{
+    _sprinklerSystem->setPortNumberController(port);
+}
+
+void SprinklerSystemProxy::setIPAddressController(QString IPAddress)
+{
+    _sprinklerSystem->setIPAddressController(IPAddress);
+}
+
