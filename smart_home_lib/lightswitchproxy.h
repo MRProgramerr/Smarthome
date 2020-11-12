@@ -80,6 +80,10 @@ private:
     // ProxyInterface interface
 public:
     Device *realDevice() override;
+
+    // LightSwitchProxyInterface interface
+public:
+    MeasurementTemplate<int> brightnessStatus() override;
 };
 
 #endif // LIGHTSWITCHPROXY_H

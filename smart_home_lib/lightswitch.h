@@ -78,9 +78,13 @@ public:
 
     MeasurementTemplate<bool> powerStatus();
 
+    MeasurementTemplate<int> brightnessStatus();
+
     Device *realDevice();
 
     std::string deviceType();
+
+
 
 private:
 
