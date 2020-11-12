@@ -42,14 +42,17 @@ tst_sprinklersystem::~tst_sprinklersystem()
 }
 void tst_sprinklersystem::testID()
 {
-
+    ss.setDeviceName("Sprinkler");
+    QCOMPARE(ss.getDeviceName(), "Sprinkler");
 }
 void tst_sprinklersystem::testIPaddress()
 {
-
+    ss.setIPAddressController("Sprinkler IP");
+    QCOMPARE(ss.getIPAddressController(), "Sprinkler IP");
 }
 void tst_sprinklersystem::testcurrentState()
 {
+    ss.setcurrrentState("null");
 
 }
 void tst_sprinklersystem::testturnOn()
@@ -67,7 +70,9 @@ void tst_sprinklersystem::testturnOff()
 }
 void tst_sprinklersystem::testschedule()
 {
-
+    ss.turnOff();
+    ss.turnOn();
+    QCOMPARE(ss.currentState(), "SCHEDULED");
 }
 void tst_sprinklersystem::testwaterUsage()
 {
