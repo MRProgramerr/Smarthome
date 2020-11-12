@@ -302,6 +302,25 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         _display << "Press 8 to exit " << endl;
 
         _input >> _userInputSS;
+
+        if(_userInputSS ==1){
+
+        }else if(_userInputSS ==2){
+
+        }else if(_userInputSS ==3){
+
+        }else if(_userInputSS ==4){
+
+        }else if(_userInputSS ==5){
+
+        }else if(_userInputSS ==6){
+
+        }else if(_userInputSS ==7){
+
+        }
+
+
+
     }
 
 
