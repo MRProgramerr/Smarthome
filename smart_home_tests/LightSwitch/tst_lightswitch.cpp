@@ -1,8 +1,7 @@
 #include <QtTest>
 #include "lightswitch.h"
 // add necessary includes here
-#include <QString>
-#include <iostream>I
+
 
 class tst_LightSwitch : public QObject
 {
@@ -12,6 +11,7 @@ public:
     tst_LightSwitch();
     ~tst_LightSwitch();
 
+private:
     LightSwitch ls;
 private slots:
    void testID();
@@ -35,7 +35,7 @@ private slots:
 };
 
 
-tst_LightSwitch::tst_LightSwitch() : ls("k")
+tst_LightSwitch::tst_LightSwitch() : ls("Hussain")
 {
 
 }
@@ -61,10 +61,15 @@ void tst_LightSwitch::testcurrentState()
 }
 void tst_LightSwitch::testbrighten()
 {
-
+    ls.setBrightnessLevel(20);
+    ls.brighten();
+    QCOMPARE(ls.getBrightnessLevel(),40);
 }
 void tst_LightSwitch::testdim()
 {
+    ls.setBrightnessLevel(100);
+    ls.dim();
+    QCOMPARE(ls.getBrightnessLevel(),80);
 
 }
 void tst_LightSwitch::testturnOn()
@@ -77,6 +82,10 @@ void tst_LightSwitch::testturnOn()
 }
 void tst_LightSwitch::testturnOff()
 {
+
+    ls.turnOn();
+    ls.turnOff();
+    QCOMPARE(ls.getIsOn(),false);
 
 }
 

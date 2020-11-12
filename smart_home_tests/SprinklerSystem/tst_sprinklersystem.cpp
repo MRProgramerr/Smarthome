@@ -1,6 +1,6 @@
 #include <QtTest>
 #include <QCoreApplication>
-
+#include "sprinklersystem.h"
 // add necessary includes here
 
 class tst_sprinklersystem : public QObject
@@ -10,7 +10,8 @@ class tst_sprinklersystem : public QObject
 public:
     tst_sprinklersystem();
     ~tst_sprinklersystem();
-
+private:
+    SprinklerSystem ss;
 private slots:
     void testID();
     void testIPaddress();
@@ -30,7 +31,7 @@ private slots:
   QVERIFY2(expected == actual, failMessage);
 
 
-tst_sprinklersystem::tst_sprinklersystem()
+tst_sprinklersystem::tst_sprinklersystem() : ss("shiv")
 {
 
 }
@@ -53,11 +54,16 @@ void tst_sprinklersystem::testcurrentState()
 }
 void tst_sprinklersystem::testturnOn()
 {
+    ss.turnOff();
+    ss.turnOn();
+    QCOMPARE(ss.getIsOn(),true);
 
 }
 void tst_sprinklersystem::testturnOff()
 {
-
+    ss.turnOn();
+    ss.turnOff();
+    QCOMPARE(ss.getIsOn(),false);
 }
 void tst_sprinklersystem::testschedule()
 {

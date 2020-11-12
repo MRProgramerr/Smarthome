@@ -1,6 +1,6 @@
 #include <QtTest>
 #include <QCoreApplication>
-
+#include "thermostat.h"
 // add necessary includes here
 
 class tst_Thermostat : public QObject
@@ -10,7 +10,8 @@ class tst_Thermostat : public QObject
 public:
     tst_Thermostat();
     ~tst_Thermostat();
-
+private:
+    Thermostat ts;
 private slots:
     void testID();
     void testIPaddress();
@@ -31,7 +32,7 @@ private slots:
   if (not (expected == actual)) ++_failureCount; \
   QVERIFY2(expected == actual, failMessage);
 
-tst_Thermostat::tst_Thermostat()
+tst_Thermostat::tst_Thermostat() : ts("HH")
 {
 
 }
@@ -74,4 +75,4 @@ void tst_Thermostat::testtempChange()
 
 QTEST_MAIN(tst_Thermostat)
 
-//#include "tst_thermostat.moc"
+#include "tst_thermostat.moc"
