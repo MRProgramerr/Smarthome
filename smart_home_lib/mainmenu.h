@@ -92,7 +92,8 @@ private:
   QString _inputPort;
   int thermoupdatefrequency = 3;
   std::string confirm ="";
-
+  double starttemp =0;
+  std::string uom;
 };
 
 #endif // MAINMENU_H

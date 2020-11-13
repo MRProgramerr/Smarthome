@@ -279,8 +279,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             break;
         } else {
             _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
-            _input >> _waterCons;b
-
+            _input >> _waterCons;
         }
     }
 
@@ -386,20 +385,21 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
     {
         int _userInputSS =0;
          double _waterCons = 0;
-          while(confirm != "Y" || "y"){
+          while(confirm != "Y" ||confirm != "y"){
             _display <<"Do you to change the -Update Frequency- default value: 3 seconds [Y/N]" <<endl;
              std::cin>>confirm;
 
-             if(confirm =="Y" || "y" ){
+             if(confirm =="Y" || confirm !="y" ){
                  _display<<"Enter the update frequency"<<endl;
                     std::cin>>thermoupdatefrequency;
              }
-             else if(confirm =="N" || "n"){
+             else if(confirm =="N" ||confirm != "n"){
                  _display<<endl;
              }
              else
                  _display<<"INVALID SELECTION!!"<<endl;
           }
+
             for (;;) {
 
                 if (_waterCons >=1 && _waterCons <=5) {
