@@ -46,7 +46,8 @@ double SprinklerSystem::waterConsumptionPerCycle(QDateTime on, QDateTime off)
 
     qint64 diff = on.msecsTo(off);
 
-    return diff;
+    // Some arbitary rate of water flow
+    return diff * (getWaterConsumptionPerInterval()/9);
 
 
 }
