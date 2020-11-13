@@ -21,16 +21,6 @@ private slots:
     void testschedule();
     void testwaterUsage();
 };
-
-
-// Using a macro to ensure the QVERIFY2 has the correct location in the source file
-// Otherwise these tests are not very useful.
-#define equal(expected, actual, failMessage) \
-  ++_assertionCount; \
-  if (not (expected == actual)) ++_failureCount; \
-  QVERIFY2(expected == actual, failMessage);
-
-
 tst_sprinklersystem::tst_sprinklersystem() : ss("shiv")
 {
 
@@ -83,4 +73,4 @@ void tst_sprinklersystem::testwaterUsage()
 
 QTEST_MAIN(tst_sprinklersystem)
 
-//#include "tst_sprinklersystem.moc"
+#include "tst_sprinklersystem.moc"

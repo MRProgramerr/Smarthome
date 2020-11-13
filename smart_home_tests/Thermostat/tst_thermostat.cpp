@@ -20,17 +20,7 @@ private slots:
     void testlast5Measurements();
     void testsetpoint();
     void testtempChange();
-
-
-
 };
-
-// Using a macro to ensure the QVERIFY2 has the correct location in the source file
-// Otherwise these tests are not very useful.
-#define equal(expected, actual, failMessage) \
-  ++_assertionCount; \
-  if (not (expected == actual)) ++_failureCount; \
-  QVERIFY2(expected == actual, failMessage);
 
 tst_Thermostat::tst_Thermostat() : ts("HH")
 {

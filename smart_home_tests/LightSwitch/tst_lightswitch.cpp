@@ -2,7 +2,6 @@
 #include "lightswitch.h"
 // add necessary includes here
 
-
 class tst_LightSwitch : public QObject
 {
     Q_OBJECT
@@ -23,13 +22,6 @@ private slots:
    void testturnOff();
 
 
-
-   // Using a macro to ensure the QVERIFY2 has the correct location in the source file
-   // Otherwise these tests are not very useful.
-   #define equal(expected, actual, failMessage) \
-     ++_assertionCount; \
-     if (not (expected == actual)) ++_failureCount; \
-     QVERIFY2(expected == actual, failMessage);
 
 
 };
@@ -90,10 +82,6 @@ void tst_LightSwitch::testturnOff()
     QCOMPARE(ls.getIsOn(),false);
 
 }
-
-
-
-
 
 QTEST_MAIN(tst_LightSwitch)
 

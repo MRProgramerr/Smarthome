@@ -1,63 +1,63 @@
-//#include <QtTest>
+#include <QtTest>
+#include "controller.h"
+// add necessary includes here
 
-//// add necessary includes here
+class tst_controller : public QObject
+{
+    Q_OBJECT
 
-//class Controller : public QObject
-//{
-//    Q_OBJECT
+public:
+    tst_controller();
+    ~tst_controller();
+private:
+    Controller c;
+private slots:
+    void testID();
+    void testIPaddress();
+    void testcurrentState();
+    void testregisteredDevice();
+    void testaddFilter();
+    void testclearFilter();
 
-//public:
-//    Controller();
-//    ~Controller();
+};
 
-//private slots:
-//    void testID();
-//    void testIPaddress();
-//    void testcurrentState();
-//    void testregisteredDevice();
-//    void testaddFilter();
-//    void testclearFilter();
-//};
-//// Using a macro to ensure the QVERIFY2 has the correct location in the source file
-//// Otherwise these tests are not very useful.
-//#define equal(expected, actual, failMessage) \
-//  ++_assertionCount; \
-//  if (not (expected == actual)) ++_failureCount; \
-//  QVERIFY2(expected == actual, failMessage);
+tst_controller::tst_controller() : c("Ale")
+{
 
+}
 
-//Controller::Controller()
-//{
+tst_controller::~tst_controller()
+{
 
-//}
-//Controller::~Controller()
-//{
+}
 
-//}
+void tst_controller::testID()
+{
+    c.setDeviceName("Controller");
+    QCOMPARE(c.getDeviceName(), "Controller");
+}
+void tst_controller::testIPaddress()
+{
+    c.setIPAddressController("Controller IP");
+    QCOMPARE(c.getIPAddressController(), "Controller IP");
+}
+void tst_controller::testcurrentState()
+{
 
-//void Controller::testID()
-//{
+}
+void tst_controller::testregisteredDevice()
+{
 
-//}
-//void Controller::testIPaddress()
-//{
+}
+void tst_controller::testaddFilter()
+{
 
-//}
-//void Controller::testcurrentState()
-//{
+}
+void tst_controller::testclearFilter()
+{
 
-//}
-//void Controller::testregisteredDevice()
-//{
+}
 
-//}
-//void Controller::testaddFilter()
-//{
+QTEST_APPLESS_MAIN(tst_controller)
 
-//}
-//void Controller::testclearFilter()
-//{
-
-//}
-
-////#include "tst_Controller.moc"
+#include "tst_controller.moc"

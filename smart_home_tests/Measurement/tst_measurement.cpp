@@ -1,15 +1,16 @@
 #include <QtTest>
-
+#include "measurementtemplate.h"
 // add necessary includes here
 
-class Measurement : public QObject
+class tst_Measurement : public QObject
 {
     Q_OBJECT
 
 public:
-    Measurement();
-    ~Measurement();
-
+    tst_Measurement();
+    ~tst_Measurement();
+private:
+    MeasurementTemplate mt;
 private slots:
     void testmeasurementType();
     void testdeviceName();
@@ -24,65 +25,59 @@ private slots:
 
 };
 
-// Using a macro to ensure the QVERIFY2 has the correct location in the source file
-// Otherwise these tests are not very useful.
-#define equal(expected, actual, failMessage) \
-  ++_assertionCount; \
-  if (not (expected == actual)) ++_failureCount; \
-  QVERIFY2(expected == actual, failMessage);
 
 
-Measurement::Measurement()
+tst_Measurement::tst_Measurement()
 {
 
 }
 
-Measurement::~Measurement()
+tst_Measurement::~tst_Measurement()
 {
 
 }
 
-void Measurement::testmeasurementType()
+void tst_Measurement::testmeasurementType()
 {
 
 }
-void Measurement::testdeviceName()
+void tst_Measurement::testdeviceName()
 {
 
 }
-void Measurement::testtempConversion()
+void tst_Measurement::testtempConversion()
 {
 
 }
-void Measurement::testminvalConversion()
+void tst_Measurement::testminvalConversion()
 {
 
 }
-void Measurement::testmaxvalConversion()
+void tst_Measurement::testmaxvalConversion()
 {
 
 }
-void Measurement::testexactvalConversion()
+void tst_Measurement::testexactvalConversion()
 {
 
 }
-void Measurement::testtimeStamp()
+void tst_Measurement::testtimeStamp()
 {
 
 }
-void Measurement::testvalue()
+void tst_Measurement::testvalue()
 {
 
 }
-void Measurement::testrawMeasurement()
+void tst_Measurement::testrawMeasurement()
 {
 
 }
-void Measurement::testFilters()
+void tst_Measurement::testFilters()
 {
 
 }
 
-QTEST_APPLESS_MAIN(Measurement)
+QTEST_APPLESS_MAIN(tst_Measurement)
 
-//#include "tst_measurement.moc"
+#include "tst_measurement.moc"
