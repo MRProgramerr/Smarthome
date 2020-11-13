@@ -45,6 +45,9 @@ public:
 
     double randomDouble()override;
 
+    void setPortController(QString port);
+    void setIPAddressController(QString IPAddress) ;
+
     ~ThermostatProxy();
 private:
 
