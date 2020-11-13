@@ -282,6 +282,12 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 {
 
+    QDateTime on;
+    QDateTime off;
+    QDateTime current;
+    double totalOn = 0;
+
+
     int _userInputSS =0;
     double _waterCons = 0;
 
@@ -299,7 +305,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
     sProxy->setWaterConsumptionPerInterval(_waterCons);
 
-    while(_userInputSS !=8){
+    while(_userInputSS !=7){
 
 
 
@@ -313,8 +319,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         _display << "Press 4 to schedule a timer" << endl;
         _display << "Press 5 to view live water consumption updates" << endl;
         _display << "Press 6 to view the current state of sprinkler" << endl;
-        _display << "Press 7 to view the last cycle's water consumption of sprinkler" << endl;
-        _display << "Press 8 to exit " << endl;
+        _display << "Press 7 to exit " << endl;
 
         _input >> _userInputSS;
 
@@ -323,10 +328,15 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             if(!sProxy->getIsOn()) {
 
                 sProxy->turnOn();
+                on = QDateTime::currentDateTime();
+
+                _display << endl;
                 _display << "Sprinkler System turned on! "<<endl;
             }
 
             else {
+
+                _display << endl;
                 _display << "Sprinkler System already turned on! Did u mean turn off? "<<endl;
             }
 
@@ -335,15 +345,24 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             if(sProxy->getIsOn()) {
 
                 sProxy->turnOff();
+                off = QDateTime::currentDateTime();
+                _display << endl;
                 _display << "Sprinkler System turned off! "<<endl;
+                _display << "Sprinkler System was on for: "<<sProxy->waterConsumptionPerCycle(on,off)/(sProxy->getWaterConsumptionPerInterval()/5)/1000 <<" seconds. " <<endl;
+                _display << "Sprinkler System used: "<<sProxy->waterConsumptionPerCycle(on,off)/1000 <<" litre(s) water. " <<endl;
+                totalOn += sProxy->waterConsumptionPerCycle(on,off)/(sProxy->getWaterConsumptionPerInterval()/9)/1000;
+
+
             }
 
             else {
+                _display << endl;
                 _display << "Sprinkler System already turned off! Did u mean turn on? "<<endl;
             }
 
         }else if(_userInputSS ==3){
 
+            _display << endl;
             _display <<"Enter water consumption per interval(litres) " <<endl;
             _input >> _waterCons;
             for (;;) {
@@ -351,6 +370,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
                 if (_waterCons >=1 && _waterCons <=5) {
                     break;
                 } else {
+                    _display << endl;
                     _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
                     _input >> _waterCons;
 
@@ -358,6 +378,8 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             }
 
             sProxy->setWaterConsumptionPerInterval(_waterCons);
+
+            _display << endl;
             _display << "Water consumption set to " << _waterCons << " litres per interval" << endl;
 
         }else if(_userInputSS ==4){
@@ -365,32 +387,40 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             double delaySeconds =0;
             double durationSeconds =0;
 
+            _display << endl;
             _display << "What is the delay after which you wanna turn the System?" << endl;
             _input >> delaySeconds;
 
+            _display << endl;
             _display << "What is the duration for which you wanna turn the System?" << endl;
             _input >> durationSeconds;
 
+            _display << endl;
             _display << "System scheduled to turn on after " << delaySeconds << " for " << durationSeconds << " seconds duration" << endl;
             sProxy->schedule(QTime(0,0,delaySeconds),QTime(0,0,durationSeconds));
-
+            _display << endl;
+            _display << "Sprinkler System was on for: "<< durationSeconds <<" seconds. " <<endl;
+            _display << "Sprinkler System used: "<<durationSeconds*sProxy->getWaterConsumptionPerInterval()/9 <<" litre(s) water. " <<endl;
 
         }else if(_userInputSS ==5){
 
 
-        }else if(_userInputSS ==6){
+            if(sProxy->getIsOn()){
 
-        }else if(_userInputSS ==7){
-            if(sProxy->getIsOn()) _display << "Sprinkler is still on" <<endl;
-            else{
-
-            }
-        }
+                _display << endl;
+                _display <<"Press Enter to move to next update" << endl << "Press ESC to exit " << endl;
 
 
+                char ch;
+                bool loop=false;
+
+                while(loop==false)
+                {
 
     }
 
+                    _display << "Water used as of " << current.time().toString() <<" " << sProxy->waterConsumptionPerCycle(on,current)/1000 << " litres" <<endl;
+                    std::this_thread::sleep_for(std::chrono::seconds(1));
 
 }
 
@@ -419,10 +449,20 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
            _input>>settemp;
            tProxy->setthesetpoint(settemp);
 
-           _display <<"Please enter Unit of measure 'F' for farenheit adm 'C' for Celcius"<<endl ;
-            std::cin>>uom;
+        }else if(_userInputSS ==6){
 
-            for (;;) {
+        }
+
+    }
+
+    if(sProxy->getIsOn()) {
+        sProxy->turnOff();
+        QDateTime forcedOff = QDateTime::currentDateTime();
+        totalOn = sProxy->waterConsumptionPerCycle(on,forcedOff)/(sProxy->getWaterConsumptionPerInterval()/5)/1000;
+    }
+    _display << endl;
+    _display << "The sprinkler was used for " << totalOn << " seconds including each cycle" << endl;
+    _display << "The sprinler used a total of " << sProxy->getWaterConsumptionPerInterval()*totalOn/9 << " litre(s) of water " << endl;
 
                 if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
                     break;

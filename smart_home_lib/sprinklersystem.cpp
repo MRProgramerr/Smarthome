@@ -40,6 +40,19 @@ bool SprinklerSystem::getIsOn()
     return _isOn;
 }
 
+double SprinklerSystem::waterConsumptionPerCycle(QDateTime on, QDateTime off)
+{
+
+
+    qint64 diff = on.msecsTo(off);
+
+    // Some arbitary rate of water flow
+    return diff * (getWaterConsumptionPerInterval()/9);
+
+
+}
+
+
 void SprinklerSystem::turnOn()
 {
     _isOn = true;
@@ -129,5 +142,6 @@ std::string SprinklerSystem::deviceType()
 {
     return "Sprinkler System";
 }
+
 
 
