@@ -40,7 +40,7 @@ private:
     int Value;
     double StartTemperature;
     std::string UoM;
-    double thesetpoint;
+
     MeasurementTemplate<double> *mt;
     MeasurementTemplate<std::vector<double>> *mt1;
     double plusminus = 0.00;
