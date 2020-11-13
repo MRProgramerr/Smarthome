@@ -95,6 +95,7 @@ private:
   double starttemp =0;
   std::string uom ="";
   double settemp = 0;
+  bool getupdate = true;
 };
 
 #endif // MAINMENU_H

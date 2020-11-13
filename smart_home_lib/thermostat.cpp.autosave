@@ -41,7 +41,7 @@ void Thermostat::storelastMeasurements(double addvalue){
     if(last5values.size()>5){
         last5values.erase(last5values.begin()+0);
     }
-    this->last5values.push_back(addvalue);
+    last5values.push_back(addvalue);
 
 }
 void Thermostat::setthesetpoint(double currentval){
