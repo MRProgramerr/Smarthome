@@ -330,6 +330,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
                 sProxy->turnOff();
                 off = QDateTime::currentDateTime();
                 _display << "Sprinkler System turned off! "<<endl;
+                _display << "Sprinkler System was on for: "<<sProxy->waterConsumptionPerCycle(on,off)/1000 <<" seconds " <<endl;
             }
 
             else {
