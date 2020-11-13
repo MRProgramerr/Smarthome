@@ -89,7 +89,19 @@ double ThermostatProxy::randomDouble()
     return _thermoStat->randomDouble();
 }
 
+void ThermostatProxy::setPortController(QString port)
+{
+    _thermoStat->setPortNumberController(port);
+}
+
+void ThermostatProxy::setIPAddressController(QString IPAddress)
+{
+    _thermoStat->setIPAddressController(IPAddress);
+}
+
 Device *ThermostatProxy::realDevice()
 {
     return _thermoStat;
 }
+
+

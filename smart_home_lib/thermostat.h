@@ -29,7 +29,7 @@ public:
     void warmer(double amount);
     void cooler(double amount);
     double randomDouble();
-    ~Thermostat();
+
     std::string deviceType();
     Device *realDevice();
 
@@ -40,7 +40,7 @@ private:
     int Value;
     double StartTemperature;
     std::string UoM;
-
+    double thesetpoint;
     MeasurementTemplate<double> *mt;
     MeasurementTemplate<std::vector<double>> *mt1;
     double plusminus = 0.00;
