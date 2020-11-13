@@ -83,4 +83,9 @@ void SprinklerSystemProxy::setIPAddressController(QString IPAddress)
     _sprinklerSystem->setIPAddressController(IPAddress);
 }
 
+double SprinklerSystemProxy::waterConsumptionPerCycle(QDateTime on, QDateTime off)
+{
+    return _sprinklerSystem->waterConsumptionPerCycle(on,  off);
+}
+
 
