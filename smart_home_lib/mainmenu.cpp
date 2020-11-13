@@ -381,17 +381,18 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 }
 
 
-    void MainMenu::mainMenuThermostat(ThermostatProxy *sProxy)
+    void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
     {
-        int _userInputSS =0;
-         double _waterCons = 0;
+        int _userInputTH =0;
+
           while(confirm != "Y" ||confirm != "y"){
             _display <<"Do you to change the -Update Frequency- default value: 3 seconds [Y/N]" <<endl;
              std::cin>>confirm;
 
              if(confirm =="Y" || confirm !="y" ){
                  _display<<"Enter the update frequency"<<endl;
-                    std::cin>>thermoupdatefrequency;
+                 _input>>thermoupdatefrequency;
+                 tProxy->setUpdateFrequency(thermoupdatefrequency);
              }
              else if(confirm =="N" ||confirm != "n"){
                  _display<<endl;
@@ -400,18 +401,45 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
                  _display<<"INVALID SELECTION!!"<<endl;
           }
 
+           _display <<"Please enter The setpoint"<<endl;
+           _input>>settemp;
+           tProxy->setthesetpoint(settemp);
+
+           _display <<"Please enter Unit of measure 'F' for farenheit adm 'C' for Celcius"<<endl ;
+            std::cin>>uom;
+
             for (;;) {
 
-                if (_waterCons >=1 && _waterCons <=5) {
+                if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
                     break;
                 } else {
-                    _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
-                    _input >> _waterCons;
-
+                    _display << "Invalid selection please select between [F/C] only" << endl;
+                    std::cin>>uom;
+                    tProxy->setUnitofMeasure(uom);
                 }
             }
+            _display<<"Please enter The Start Temperature"<<endl;
+            _input>>starttemp;
+            tProxy->setStartingTemperature(starttemp);
 
-            //sProxy->setWaterConsmptionPerInterval(_waterCons);
+            while(_userInputTH !=8){
+
+                _display << endl;
+                _display << "--------------- Sprinkler System Main Menu ---------------" << endl;
+
+                _display << endl;
+                _display << "Press 1 for last Measurement" << endl;
+                _display << "Press 2 for last 5 Measurement" << endl;
+                _display << "Press 3 to view the Setpoint" << endl;
+                _display << "Press 4 to view the Current State " << endl;
+                _display << "Press 5 to Increase the Setpoint" << endl;
+                _display << "Press 6 to Decrease the Setpoint" << endl;
+                _display << "Press 7 to Disable the temperature updates" << endl;
+                _display << "Press 8 to Enable the temperature updates " << endl;
+
+                _input >> _userInputTH;
+
+             }
 
 
 

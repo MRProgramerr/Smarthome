@@ -93,7 +93,8 @@ private:
   int thermoupdatefrequency = 3;
   std::string confirm ="";
   double starttemp =0;
-  std::string uom;
+  std::string uom ="";
+  double settemp = 0;
 };
 
 #endif // MAINMENU_H
