@@ -400,24 +400,23 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
 
                 char ch;
-                        bool loop=false;
+                bool loop=false;
 
-                      while(loop==false)
-                       {
+                while(loop==false)
+                {
 
-                          current =  QDateTime::currentDateTime();
+                    current =  QDateTime::currentDateTime();
 
-                          _display << "Water used as of " << current.time().toString() <<" " << sProxy->waterConsumptionPerCycle(on,current)/1000 << " litres" <<endl;
-                          std::this_thread::sleep_for(std::chrono::seconds(1));
+                    _display << "Water used as of " << current.time().toString() <<" " << sProxy->waterConsumptionPerCycle(on,current)/1000 << " litres" <<endl;
+                    std::this_thread::sleep_for(std::chrono::seconds(1));
 
-                        ch=getch();
+                    ch=getch();
 
 
 
-                        if(ch==27)
+                    if(ch==27)
                         loop=true;
-                       }
-
+                }
 
 
             }else{
@@ -430,8 +429,6 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
         }
 
-
-
     }
 
     if(sProxy->getIsOn()) {
@@ -442,9 +439,6 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
     _display << endl;
     _display << "The sprinkler was used for " << totalOn << " seconds including each cycle" << endl;
     _display << "The sprinler used a total of " << sProxy->getWaterConsumptionPerInterval()*totalOn/9 << " litre(s) of water " << endl;
-
-
-
 
 
 }
