@@ -268,6 +268,10 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 {
 
+    QDateTime on;
+    QDateTime off;
+
+
     int _userInputSS =0;
     double _waterCons = 0;
 
@@ -310,6 +314,8 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             if(!sProxy->getIsOn()) {
 
                 sProxy->turnOn();
+                on = QDateTime::currentDateTime();
+
                 _display << "Sprinkler System turned on! "<<endl;
             }
 
@@ -322,6 +328,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             if(sProxy->getIsOn()) {
 
                 sProxy->turnOff();
+                off = QDateTime::currentDateTime();
                 _display << "Sprinkler System turned off! "<<endl;
             }
 
