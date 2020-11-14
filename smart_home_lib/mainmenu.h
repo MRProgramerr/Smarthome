@@ -64,13 +64,13 @@ public:
   void mainMenuSprinklerSystem(SprinklerSystemProxy* sProxy);
 
   /**
-   * @brief mainMenuSprinklerSystem
-   * The main menu for the thermostat concrete
+   * @brief mainMenuThermostat
+   * The main menu for the sprinkler system concrete
    * device. Uses proxies to talk to the real device
    * for input device and output device.
    * @param proxy
    */
-   void mainMenuThermostat(ThermostatProxy* sProxy);
+  void mainMenuThermostat(ThermostatProxy* tProxy);
 
 public slots:
   /**
@@ -90,11 +90,12 @@ private:
   ProxyFactory* _proxyFactory = nullptr;
   QString _inputPort;
   int thermoupdatefrequency = 3;
-  std::string confirm ="";
-  double starttemp =0;
-  std::string uom ="";
-  double settemp = 0;
-  bool getupdate = true;
+   std::string confirm ="";
+   double starttemp =0;
+   std::string uom ="";
+   double settemp = 0;
+   bool getupdate = true;
+
 };
 
 #endif // MAINMENU_H

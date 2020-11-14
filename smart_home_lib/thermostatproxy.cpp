@@ -113,3 +113,5 @@ Device *ThermostatProxy::realDevice()
 {
     return _thermoStat;
 }
+
+

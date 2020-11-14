@@ -31,6 +31,7 @@ public:
     void cooler(double amount);
     void update();
     double randomDouble();
+
     std::string deviceType();
     Device *realDevice();
 
