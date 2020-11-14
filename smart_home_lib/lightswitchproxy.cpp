@@ -1,12 +1,15 @@
 #include "lightswitchproxy.h"
 
+LightSwitchProxy::LightSwitchProxy(QObject *parent) : QObject(parent)
+{
+
+}
 LightSwitchProxy::LightSwitchProxy(QString name)
 {
 
     LightSwitchDeviceFactory ldf(name);
 
      _lSwitch =  dynamic_cast<LightSwitch*>(_deviceFactory->createDevice(&ldf));
-
 
 }
 
@@ -23,6 +26,7 @@ void LightSwitchProxy::turnOff()
 void LightSwitchProxy::brighten()
 {
     _lSwitch->brighten();
+    emit send("Brightned");
 }
 
 void LightSwitchProxy::dim()
@@ -44,7 +48,6 @@ void LightSwitchProxy::setPortController(QString port)
 {
     _lSwitch->setPortNumberController(port);
 }
-
 
 
 void LightSwitchProxy::setIPAddressController(QString IPAddress)

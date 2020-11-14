@@ -80,6 +80,8 @@ public slots:
    */
   void run();
 
+  void listen(QString info);
+
 private:
   QTextStream &_display;
   QTextStream &_input;

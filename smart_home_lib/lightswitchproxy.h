@@ -6,84 +6,79 @@
 #include "proxyinterface.h"
 #include "lightswitchdevicefactory.h"
 #include "devicefactory.h"
+#include <QObject>
 
 
-/**
- * @brief The LightSwitchProxy class
- * @details This is the proxy for the lightswitch
- * This class will contain an instantiation of the real
- * device and will delegate the functions calls to it.
- */
+#include <QObject>
 
-class LightSwitchProxy : public LightSwitchProxyInterface
+class LightSwitchProxy : public QObject, public LightSwitchProxyInterface
 {
+    Q_OBJECT
 public:
-
-    /**
-     * @brief LightSwitchProxy
-     * @param name : The name of the lightswitch
-     * The constructor for the light Switch proxy
-     * The instantiation of the real device
-     * is done in the constructor.
-     */
+    explicit LightSwitchProxy(QObject *parent = nullptr);
     LightSwitchProxy(QString name);
 
-    /**
-     * @brief turnOn
-     * An overriden TurnOn Method
-     * Calls turnOn method on the real device
-     */
-    void turnOn() override;
 
     /**
-     * @brief turnOff
-     * An overriden TurnOff Method
-     * Calls turnOff method on the real device
-     */
-    void turnOff() override;
+         * @brief turnOn
+         * An overriden TurnOn Method
+         * Calls turnOn method on the real device
+         */
+        void turnOn() override;
 
-    /**
-     * @brief brighten
-     * Calls brigthen method on the real device
-     */
-    void brighten() override;
+        /**
+         * @brief turnOff
+         * An overriden TurnOff Method
+         * Calls turnOff method on the real device
+         */
+        void turnOff() override;
 
-    /**
-     * @brief dim
-     * Calls dim method on the real device
-     */
-    void dim() override;
+        /**
+         * @brief brighten
+         * Calls brigthen method on the real device
+         */
+        void brighten() override;
 
-    bool getIsOn() override;
+        /**
+         * @brief dim
+         * Calls dim method on the real device
+         */
+        void dim() override;
 
-    MeasurementTemplate<bool>  powerStatus() override;
+        bool getIsOn() override;
 
-    void setPortController(QString port);
-    void setIPAddressController(QString IPAddress) ;
+        MeasurementTemplate<bool>  powerStatus() override;
 
-private:
+        void setPortController(QString port);
+        void setIPAddressController(QString IPAddress) ;
 
+signals:
 
+        void send(QString data);
 
-    DeviceFactory* _deviceFactory;
-
-    /**
-     * @brief _lightSwitch
-     *
-     */
-    LightSwitch* _lSwitch;
-
-
-
+    private:
 
 
-    // ProxyInterface interface
-public:
-    Device *realDevice() override;
 
-    // LightSwitchProxyInterface interface
-public:
-    MeasurementTemplate<int> brightnessStatus() override;
-};
+        DeviceFactory* _deviceFactory;
+
+        /**
+         * @brief _lightSwitch
+         *
+         */
+        LightSwitch* _lSwitch;
+
+
+
+
+
+        // ProxyInterface interface
+    public:
+        Device *realDevice() override;
+
+        // LightSwitchProxyInterface interface
+    public:
+        MeasurementTemplate<int> brightnessStatus() override;
+    };
 
 #endif // LIGHTSWITCHPROXY_H
