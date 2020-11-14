@@ -37,6 +37,7 @@ public:
 
     MeasurementTemplate<double> *setpoint()override;
 
+    void setcurrentstate(std::string state) override;
     MeasurementTemplate<double> *currentState()override;
 
     void warmer(double amount)override;
@@ -44,6 +45,8 @@ public:
     void cooler(double amount)override;
 
     double randomDouble()override;
+    void update() override;
+
 
     void setPortController(QString port);
     void setIPAddressController(QString IPAddress) ;

@@ -25,9 +25,11 @@ public:
     void setthesetpoint(double temp);
     MeasurementTemplate<std::vector<double>> *last5Measurement();
     MeasurementTemplate<double> *setpoint();
+    void setcurrentstate(std::string state);
     MeasurementTemplate<double> *currentState();
     void warmer(double amount);
     void cooler(double amount);
+    void update();
     double randomDouble();
     std::string deviceType();
     Device *realDevice();
@@ -37,6 +39,7 @@ private:
     QString IP_Address;
     QString Port;
     int Value;
+    std::string cstate ="";
     double StartTemperature;
     std::string UoM;
     double thesetpoint;
