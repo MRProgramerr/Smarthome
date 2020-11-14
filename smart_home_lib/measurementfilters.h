@@ -58,6 +58,22 @@ public:
         }
     }
 
+    T ExactConversion(){
+        if(!isvalid(configuireval)){
+                return "*invalid*";
+         }
+
+        if(MeasurementTemplate<T>().value() == configuireval)
+            return configuireval;
+        else if(MeasurementTemplate<T>().value() == configuireval+(rand()%10+1))
+            return configuireval;
+        else if(MeasurementTemplate<T>().value() == configuireval-(rand()%10+1))
+            return configuireval;
+        else
+            return MeasurementTemplate<T>().value();
+
+    }
+
     T TempConversion(){
         if(MeasurementTemplate<T>::unitOfMeasure() == "C" || MeasurementTemplate<T>::unitOfMeasure() == "C")
           return  (MeasurementTemplate<T>::value() * (9.0/5.0f))+32;
