@@ -203,6 +203,8 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 {
 
 
+    connect(lProxy,SIGNAL(send(QString)),this,SLOT(listen(QString)));
+
     int _userInputLS = 0;
 
     while(_userInputLS !=6){
@@ -237,42 +239,26 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 
         if(_userInputLS == 1){
 
-            if(lProxy->getIsOn()){
-                _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
-
-            }else{
-
-                lProxy->turnOn();
-                _display <<"The light switch has turned on" << endl;
-            }
+           lProxy->turnOn();
 
         } else if(_userInputLS ==2){
 
-            if(!(lProxy->getIsOn())){
-                _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
 
-            }else{
+            lProxy->turnOff();
 
-                lProxy->turnOff();
-                _display <<"The light switch has turned off" << endl;
-            }
 
         } else if(_userInputLS ==3){
 
-            connect(lProxy,SIGNAL(send(QString)),this,SLOT(listen(QString)));
+
             lProxy->brighten();
-
-
-
 
 
         } else if(_userInputLS ==4){
 
             lProxy->dim();
-            _display << "The Brighness has been decreased to :" + lProxy->brightnessStatus().value().toString();
+
 
         } else if(_userInputLS == 5){
-
 
             if(lProxy->powerStatus().value().toString().toLower()=="true"){
                 _display << "Power Status : Turned ON" << endl;

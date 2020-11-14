@@ -15,23 +15,42 @@ LightSwitchProxy::LightSwitchProxy(QString name)
 
 void LightSwitchProxy::turnOn()
 {
-    _lSwitch->turnOn();
+
+    if(_lSwitch->getIsOn()){
+
+         emit send("I am already turned on");
+
+    }else{
+        _lSwitch->turnOn();
+        emit send("I have been turned on");
+    }
+
+
 }
 
 void LightSwitchProxy::turnOff()
 {
-    _lSwitch->turnOff();
+    if(_lSwitch->getIsOn()){
+
+         _lSwitch->turnOff();
+         emit send("I have been turned off");
+
+    }else{
+
+        emit send("I am already turned off");
+    }
 }
 
 void LightSwitchProxy::brighten()
 {
     _lSwitch->brighten();
-    emit send("Brightned");
+    emit send(&"I have been Brightned to" [ _lSwitch->getBrightnessLevel()]);
 }
 
 void LightSwitchProxy::dim()
 {
     _lSwitch->dim();
+    emit send(&"I have been dimmed to "[ _lSwitch->getBrightnessLevel()] );
 }
 
 bool LightSwitchProxy::getIsOn()

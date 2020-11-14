@@ -51,15 +51,14 @@ public:
 
         void setPortController(QString port);
         void setIPAddressController(QString IPAddress) ;
+        Device *realDevice() override;
+
+        MeasurementTemplate<int> brightnessStatus() override;
 
 signals:
 
         void send(QString data);
-
-    private:
-
-
-
+private:
         DeviceFactory* _deviceFactory;
 
         /**
@@ -70,15 +69,6 @@ signals:
 
 
 
-
-
-        // ProxyInterface interface
-    public:
-        Device *realDevice() override;
-
-        // LightSwitchProxyInterface interface
-    public:
-        MeasurementTemplate<int> brightnessStatus() override;
     };
 
 #endif // LIGHTSWITCHPROXY_H
