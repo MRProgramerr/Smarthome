@@ -71,6 +71,8 @@ public:
 
 signals:
 
+       void send(QString data);
+
 };
 
 #endif // THERMOSTATPROXY_H

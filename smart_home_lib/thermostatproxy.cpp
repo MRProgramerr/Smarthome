@@ -23,6 +23,9 @@ int ThermostatProxy::getUpdateFrequency()
 void ThermostatProxy::setUpdateFrequency(int value)
 {
     _thermoStat->setUpdateFrequency(value);
+    std::string signal = "Update Frequency set to " + std::to_string(value);
+    emit send(QString::fromStdString(signal));
+
 }
 
 std::string ThermostatProxy::unitofMeasure()
@@ -33,11 +36,15 @@ std::string ThermostatProxy::unitofMeasure()
 void ThermostatProxy::setUnitofMeasure(std::string unitofMeasure)
 {
      _thermoStat->setUnitofMeasure(unitofMeasure);
+     std::string signal = "Unit of measure set to " + unitofMeasure;
+     emit send(QString::fromStdString(signal));
 }
 
 void ThermostatProxy::setStartingTemperature(double starttemp)
 {
     _thermoStat->setStartingTemperature(starttemp);
+    std::string signal = "Starting Temp set to " + std::to_string(starttemp);
+    emit send(QString::fromStdString(signal));
 }
 
 double ThermostatProxy::getStartingTemperature()
