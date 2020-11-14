@@ -29,7 +29,6 @@ public:
     void warmer(double amount);
     void cooler(double amount);
     double randomDouble();
-    ~Thermostat();
     std::string deviceType();
     Device *realDevice();
 

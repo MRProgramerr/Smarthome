@@ -48,7 +48,6 @@ public:
     void setPortController(QString port);
     void setIPAddressController(QString IPAddress) ;
 
-    ~ThermostatProxy();
 private:
 
     DeviceFactory* _deviceFactory = nullptr;

@@ -81,7 +81,6 @@ public slots:
   void run();
 
 private:
-
   QTextStream &_display;
   QTextStream &_input;
   int _userInput = 0;
