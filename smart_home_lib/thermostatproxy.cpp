@@ -1,5 +1,11 @@
 #include "thermostatproxy.h"
 
+ThermostatProxy::ThermostatProxy(QObject *parent) : QObject(parent)
+{
+
+}
+#include "thermostatproxy.h"
+
 ThermostatProxy::ThermostatProxy(QString name)
 {
 
