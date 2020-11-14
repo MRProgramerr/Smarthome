@@ -37,6 +37,27 @@ public:
         }
     }
 
+    T MaxConversion(){
+        if(!isvalid(configuireval)){
+                return "*invalid*";
+    }
+        else if(getinclusive()){
+
+            if(MeasurementTemplate<T>().value() <= configuireval)
+                return configuireval;
+            else
+                return MeasurementTemplate<T>().value();
+        }
+
+        else if(!getinclusive()){
+
+            if(MeasurementTemplate<T>().value() < configuireval)
+                return configuireval;
+            else
+                return MeasurementTemplate<T>().value();
+        }
+    }
+
     T TempConversion(){
         if(MeasurementTemplate<T>::unitOfMeasure() == "C" || MeasurementTemplate<T>::unitOfMeasure() == "C")
           return  (MeasurementTemplate<T>::value() * (9.0/5.0f))+32;
