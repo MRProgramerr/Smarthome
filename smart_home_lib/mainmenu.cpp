@@ -93,7 +93,7 @@ void MainMenu::run()
 
 void MainMenu::listen(QString info)
 {
-    _display << "LightSwitch said.." << info << endl;
+    _display << "The Device said.." << info << endl;
 }
 
 
@@ -422,6 +422,11 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
 void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
 {
+
+    // Connects Light Switch proxy signals with the main menu
+    // slot to recieve state change informations.
+    connect(tProxy,SIGNAL(send(QString)),this,SLOT(listen(QString)));
+
     int _userInputTH =0;
 
     _display <<"Do you to change the -Update Frequency- default value: 3 seconds [Y/N]" <<endl;
