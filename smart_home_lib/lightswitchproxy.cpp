@@ -9,7 +9,7 @@ LightSwitchProxy::LightSwitchProxy(QString name)
 
     LightSwitchDeviceFactory ldf(name);
 
-     _lSwitch =  dynamic_cast<LightSwitch*>(_deviceFactory->createDevice(&ldf));
+    _lSwitch =  dynamic_cast<LightSwitch*>(_deviceFactory->createDevice(&ldf));
 
 }
 
@@ -18,7 +18,7 @@ void LightSwitchProxy::turnOn()
 
     if(_lSwitch->getIsOn()){
 
-         emit send("I am already turned on");
+        emit send("I am already turned on");
 
     }else{
         _lSwitch->turnOn();
@@ -32,8 +32,8 @@ void LightSwitchProxy::turnOff()
 {
     if(_lSwitch->getIsOn()){
 
-         _lSwitch->turnOff();
-         emit send("I have been turned off");
+        _lSwitch->turnOff();
+        emit send("I have been turned off");
 
     }else{
 
@@ -45,7 +45,7 @@ void LightSwitchProxy::brighten()
 {
     _lSwitch->brighten();
     std::string signal = "I have been brightened to " + std::to_string(_lSwitch->getBrightnessLevel());
-     emit send(QString::fromStdString(signal) );
+    emit send(QString::fromStdString(signal) );
 }
 
 void LightSwitchProxy::dim()

@@ -7,9 +7,12 @@
 #include "lightswitchdevicefactory.h"
 #include "devicefactory.h"
 #include <QObject>
-
-
 #include <QObject>
+
+/**
+ * @brief The LightSwitchProxy class
+ * A proxy for the light switch device
+ */
 
 class LightSwitchProxy : public QObject, public LightSwitchProxyInterface
 {
@@ -52,18 +55,59 @@ public:
          */
         bool getIsOn() override;
 
+        /**
+         * @brief powerStatus
+         * Returns whether the light switch
+         * is on or off as a  measurement object
+         * @return
+         */
         MeasurementTemplate<bool>  powerStatus() override;
 
+        /**
+         * @brief setPortController
+         * Setter for the port number
+         * @param port
+         */
         void setPortController(QString port);
+
+        /**
+         * @brief setIPAddressController
+         * setter for the IP address
+         * @param IPAddress
+         */
         void setIPAddressController(QString IPAddress) ;
+
+        /**
+         * @brief realDevice
+         * This function is used to retrieve a real
+         * device from the proxy
+         * @return
+         */
         Device *realDevice() override;
 
+        /**
+         * @brief brightnessStatus
+         * Returns the brigthness status of the light
+         * @return
+         */
         MeasurementTemplate<int> brightnessStatus() override;
 
+        /**
+         * @brief currentStatus
+         * Returns both power and brightness status
+         * of a lightswitch
+         */
         void currentStatus() ;
 
 signals:
 
+        /**
+         * @brief send
+         * This is a QT Signal
+         * which sends important data
+         * to be recieved by main menu slot
+         * @param data
+         */
         void send(QString data);
 private:
         DeviceFactory* _deviceFactory;

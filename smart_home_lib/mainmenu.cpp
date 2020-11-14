@@ -246,7 +246,7 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
         // send out a signal
         if(_userInputLS == 1){
 
-           lProxy->turnOn();
+            lProxy->turnOn();
 
         } else if(_userInputLS ==2){
 
@@ -265,13 +265,16 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
             lProxy->currentStatus();
 
         }
-
     }
 
 }
 
 void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 {
+
+    // Connects Light Switch proxy signals with the main menu
+    // slot to recieve state change informations.
+    connect(sProxy,SIGNAL(send(QString)),this,SLOT(listen(QString)));
 
     QDateTime on;
     QDateTime off;
@@ -317,39 +320,20 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
         if(_userInputSS ==1){
 
-            if(!sProxy->getIsOn()) {
+            sProxy->turnOn();
+            on = QDateTime::currentDateTime();
 
-                sProxy->turnOn();
-                on = QDateTime::currentDateTime();
-
-                _display << endl;
-                _display << "Sprinkler System turned on! "<<endl;
-            }
-
-            else {
-
-                _display << endl;
-                _display << "Sprinkler System already turned on! Did u mean turn off? "<<endl;
-            }
 
         }else if(_userInputSS ==2){
 
-            if(sProxy->getIsOn()) {
-
+            if(sProxy->getIsOn()){
                 sProxy->turnOff();
                 off = QDateTime::currentDateTime();
                 _display << endl;
-                _display << "Sprinkler System turned off! "<<endl;
                 _display << "Sprinkler System was on for: "<<sProxy->waterConsumptionPerCycle(on,off)/(sProxy->getWaterConsumptionPerInterval()/5)/1000 <<" seconds. " <<endl;
                 _display << "Sprinkler System used: "<<sProxy->waterConsumptionPerCycle(on,off)/1000 <<" litre(s) water. " <<endl;
                 totalOn += sProxy->waterConsumptionPerCycle(on,off)/(sProxy->getWaterConsumptionPerInterval()/9)/1000;
 
-
-            }
-
-            else {
-                _display << endl;
-                _display << "Sprinkler System already turned off! Did u mean turn on? "<<endl;
             }
 
         }else if(_userInputSS ==3){
@@ -371,9 +355,6 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
             sProxy->setWaterConsumptionPerInterval(_waterCons);
 
-            _display << endl;
-            _display << "Water consumption set to " << _waterCons << " litres per interval" << endl;
-
         }else if(_userInputSS ==4){
 
             double delaySeconds =0;
@@ -388,7 +369,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             _input >> durationSeconds;
 
             _display << endl;
-            _display << "System scheduled to turn on after " << delaySeconds << " for " << durationSeconds << " seconds duration" << endl;
+
             sProxy->schedule(QTime(0,0,delaySeconds),QTime(0,0,durationSeconds));
             _display << endl;
             _display << "Sprinkler System was on for: "<< durationSeconds <<" seconds. " <<endl;
@@ -416,8 +397,6 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
                     ch=getch();
 
-
-
                     if(ch==27)
                         loop=true;
                 }
@@ -431,15 +410,14 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
         }else if(_userInputSS ==6){
 
-            _display <<"Please enter The Unit Of Measurement F: Farenheit, C: Celcius"<<endl;
-            for (;;) {
-                std::cin>>uom;
+            for(auto elem : sProxy->currentState()){
 
-                if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
-                    break;
-                }
+                _display << elem->value().toString();
+            }
 
-            }}}
+
+        }
+    }
 }
 
 void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
@@ -486,7 +464,7 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
     while(_userInputTH != 9){
 
         _display << endl;
-        _display << "--------------- Sprinkler System Main Menu ---------------" << endl;
+        _display << "--------------- Thermostat System Main Menu ---------------" << endl;
 
         _display << endl;
         _display << "Press 1 for last Measurement" << endl;
