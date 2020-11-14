@@ -429,136 +429,137 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
 
     int _userInputTH =0;
 
-    _display <<"Do you want to change the -Update Frequency- default value: 3 seconds [Y/N]" <<endl;
+    _display <<"Do you to change the -Update Frequency- default value: 3 seconds [Y/N]" <<endl;
     for(;;){
+            std::cin>>confirm;
 
-        std::cin>>confirm;
-
-        if(confirm =="Y" || confirm =="y" ){
-            _display<<"Enter the update frequency"<<endl;
-            _input>>thermoupdatefrequency;
-            tProxy->setUpdateFrequency(thermoupdatefrequency);
-            break;
+            if(confirm =="Y" || confirm =="y" ){
+                _display<<"Enter the update frequency"<<endl;
+                _input>>thermoupdatefrequency;
+                tProxy->setUpdateFrequency(thermoupdatefrequency);
+                break;
+            }
+            else if(confirm =="N" ||confirm == "n"){
+                break;
+            }
+            else
+                _display<<"INVALID SELECTION!!"<<endl;
         }
-        else if(confirm =="N" ||confirm == "n"){
-            break;
-        }
-        else
-            _display<<"INVALID SELECTION!! select [Y/N] only"<<endl;
-    }
 
-    _display <<"Please enter The setpoint"<<endl;
-    _input>>settemp;
-    tProxy->setthesetpoint(settemp);
+        _display <<"Please enter The setpoint"<<endl;
+        _input>>settemp;
+        tProxy->setthesetpoint(settemp);
 
-    _display <<"Please enter The Unit Of Measurement F: Farenheit, C: Celcius"<<endl;
-    for (;;) {
+        _display <<"Please enter Unit of measure 'F' for farenheit adm 'C' for Celcius"<<endl ;
         std::cin>>uom;
-
-        if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
-            break;
-        }
-
-        else {
-            _display << "Invalid selection please select between [F/C] only" << endl;
-            std::cin>>uom;
-
-        }
-    }
-
-    tProxy->setUnitofMeasure(uom);
-
-    _display <<endl;
-    _display<<"Please enter The Start Temperature"<<endl;
-    _input>>starttemp;
-    tProxy->setStartingTemperature(starttemp);
-
-    while(_userInputTH != 9){
-
-        _display << endl;
-        _display << "--------------- Thermostat Main Menu ---------------" << endl;
-        _display << endl;
-        _display << "Press 1 for last Measurement" << endl;
-        _display << "Press 2 for last 5 Measurement" << endl;
-        _display << "Press 3 to view the Setpoint" << endl;
-        _display << "Press 4 to view the Current State " << endl;
-        _display << "Press 5 to Increase the Setpoint" << endl;
-        _display << "Press 6 to Decrease the Setpoint" << endl;
-        _display << "Press 7 to Disable the temperature updates" << endl;
-        _display << "Press 8 to Enable the temperature updates " << endl;
-        _display << "Press 9 to exit" << endl;
-
-        _input >> _userInputTH;
 
         for (;;) {
 
-            if (_userInputTH >=1 && _userInputTH <=9) {
+            if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
                 break;
             } else {
-                _display << "Please enter a valid option (1-9)" << endl;
-                _input >> _userInputTH;
-
+                _display << "Invalid selection please select between [F/C] only" << endl;
+                std::cin>>uom;
+                tProxy->setUnitofMeasure(uom);
             }
         }
+        _display<<"Please enter The Start Temperature"<<endl;
+        _input>>starttemp;
+        tProxy->setStartingTemperature(starttemp);
 
-        if(_userInputTH == 9 ) break;
+        while(_userInputTH != 9){
 
-        if(_userInputTH == 1 ){
+            tProxy->update();
+            std::this_thread::sleep_for(std::chrono::milliseconds(tProxy->getUpdateFrequency()));
 
-            std::cout<<tProxy->lastMeasurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
-            _display<<tProxy->lastMeasurement()->value().toString()<<endl;
+                  _display << endl;
+                  _display << "--------------- Thermostat Main Menu ---------------" << endl;
+                  _display << endl;
+                  _display << "Press 1 for last Measurement" << endl;
+                  _display << "Press 2 for last 5 Measurement" << endl;
+                  _display << "Press 3 to view the Setpoint" << endl;
+                  _display << "Press 4 to view the Current State " << endl;
+                  _display << "Press 5 to Increase the Setpoint" << endl;
+                  _display << "Press 6 to Decrease the Setpoint" << endl;
+                  _display << "Press 7 to Disable the temperature updates" << endl;
+                  _display << "Press 8 to Enable the temperature updates " << endl;
+                  _display << "Press 9 to exit" << endl;
 
-        }
+                  _input >> _userInputTH;
 
-        if(_userInputTH == 2 ){
-            std::cout<<tProxy->lastMeasurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
-            std::vector<MeasurementTemplate<double>> *m5 = new std::vector<MeasurementTemplate<double>>;
-            std::vector<MeasurementTemplate<double>>::iterator it;
+                  for (;;) {
 
-            for(it = m5->begin(); it!= m5->end(); it++)
-                std::cout<<it->value().String;
-        }
-        if(_userInputTH == 3 ){
-            std::cout<<tProxy->setpoint()->deviceName()+ " || " + tProxy->setpoint()->measurementType() + "|| " + tProxy->setpoint()->unitofMeasure() + " || ";
-            _display<<tProxy->setpoint()->value().toString()<<endl;
-        }
+                        if (_userInputTH >=1 && _userInputTH <=9) {
+                            break;
+                        } else {
+                            _display << "Please enter a valid option (1-9)" << endl;
+                            _input >> _userInputTH;
 
-        if(_userInputTH == 4 ){
-            if(getupdate == true){
-                std::cout<<tProxy->currentState()->deviceName()+ " || " + tProxy->currentState()->measurementType() + "|| " + tProxy->currentState()->unitofMeasure() + " || ";
-                _display<<tProxy->currentState()->value().toString()<<endl;
+                        }
+                    }
 
-            }
-            else {
-                _display<<"Updates are turned off"<<endl;
-                _display<<"**Press 8 to Enabble** "<<endl;
-            }
-        }
+                    if(_userInputTH == 9 ) break;
 
-        if(_userInputTH == 5 ){
-            _display<<" Please enter the amount"<<endl;
-            double amt=0;
-            std::cin>>amt;
-            tProxy->warmer(amt);
-            std::cout<<"Setpoint increased by "<<amt<<std::endl;
-        }
-        if(_userInputTH == 6 ){
-            _display<<" Please enter the amount"<<endl;
-            double amt=0;
-            std::cin>>amt;
-            tProxy->cooler(amt);
-            std::cout<<"Setpoint decreased by "<<amt<<std::endl;
-        }
-        if(_userInputTH == 7 ){
-            _display<<"Updates turned Off"<<endl;
-            getupdate = false;
-        }
+                    if(_userInputTH == 1 ){
 
-        if(_userInputTH == 8 ){
-            _display<<"Updates turned On"<<endl;
-            getupdate = true;
-        }
-    }
+                       std::cout<<" || "+tProxy->lastMeasurement()->deviceName()+ " || ";
+                       std::cout<<tProxy->lastMeasurement()->measurementType() + ": ";
+                       _display<<tProxy->lastMeasurement()->value().toString()<<endl;
+                        std::cout<<" °"+tProxy->lastMeasurement()->unitofMeasure();
+                    }
+
+                    if(_userInputTH == 2 ){
+                       std::cout<<tProxy->lastMeasurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
+                       std::vector<MeasurementTemplate<double>> *m5 = new std::vector<MeasurementTemplate<double>>;
+                       std::vector<MeasurementTemplate<double>>::iterator it;
+
+                       for(it = m5->begin(); it!= m5->end(); it++)
+                            std::cout<<it->value().String;
+                    }
+                     if(_userInputTH == 3 ){
+                        std::cout<<tProxy->setpoint()->deviceName()+ " || ";
+                        std::cout<<tProxy->setpoint()->measurementType() + ": ";
+                        _display<<tProxy->setpoint()->value().toString()<<endl;
+                         std::cout<<" °"+tProxy->setpoint()->unitofMeasure();
+                     }
+
+                     if(_userInputTH == 4 ){
+                         if(getupdate == true){
+                            std::cout<<tProxy->currentState()->deviceName()+ " || ";
+                            std::cout<<tProxy->currentState()->measurementType() + ": ";
+                            _display<<tProxy->currentState()->value().toString()<<endl;
+                             std::cout<<" °"+uom + tProxy->unitofMeasure();
+                         }
+                         else {
+                             _display<<"Updates are turned off"<<endl;
+                             _display<<"**Press 8 to Enabble** "<<endl;
+                         }
+                     }
+
+                     if(_userInputTH == 5 ){
+                        _display<<" Please enter the amount"<<endl;
+                        double amt=0;
+                        std::cin>>amt;
+                         tProxy->warmer(amt);
+                         std::cout<<"Setpoint increased by "<<amt<<std::endl;
+                     }
+                     if(_userInputTH == 6 ){
+                        _display<<" Please enter the amount"<<endl;
+                        double amt=0;
+                        std::cin>>amt;
+                         tProxy->cooler(amt);
+                         std::cout<<"Setpoint decreased by "<<amt<<std::endl;
+                     }
+                     if(_userInputTH == 7 ){
+                         _display<<"Updates turned Off"<<endl;
+                         getupdate = false;
+                     }
+
+                     if(_userInputTH == 8 ){
+                         _display<<"Updates turned On"<<endl;
+                         getupdate = true;
+                     }
+                }
 
 
 }
