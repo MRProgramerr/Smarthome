@@ -39,7 +39,9 @@ public:
     std::vector<MeasurementTemplate<double>*> waterUsage();
     Device *realDevice();
 
-     std::string deviceType();
+    std::string deviceType();
+
+    double waterConsumptionPerCycle(QDateTime on, QDateTime off);
 
 
 

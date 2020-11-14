@@ -38,6 +38,8 @@ public:
     void setPortController(QString port);
     void setIPAddressController(QString IPAddress) ;
 
+    double waterConsumptionPerCycle(QDateTime on, QDateTime off) override;
+
 
 
 private:

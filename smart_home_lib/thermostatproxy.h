@@ -45,7 +45,10 @@ public:
 
     double randomDouble()override;
 
-    ~ThermostatProxy();
+    void setPortController(QString port);
+    void setIPAddressController(QString IPAddress) ;
+
+
 private:
 
     DeviceFactory* _deviceFactory = nullptr;
@@ -56,6 +59,9 @@ private:
     // ProxyInterface interface
 public:
     Device *realDevice() override;
+
+    // ThermostatProxyInterface interface
+
 };
 
 #endif // THERMOSTATPROXY_H

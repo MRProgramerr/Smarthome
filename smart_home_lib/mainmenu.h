@@ -7,6 +7,7 @@
 #include <lightswitchproxy.h>
 #include "proxyfactory.h"
 #include "sprinklersystemproxy.h"
+#include "thermostatproxy.h"
 
 class MainMenu : public QObject
 {
@@ -62,6 +63,15 @@ public:
    */
   void mainMenuSprinklerSystem(SprinklerSystemProxy* sProxy);
 
+  /**
+   * @brief mainMenuThermostat
+   * The main menu for the sprinkler system concrete
+   * device. Uses proxies to talk to the real device
+   * for input device and output device.
+   * @param proxy
+   */
+  void mainMenuThermostat(ThermostatProxy* tProxy);
+
 public slots:
   /**
    * @brief run Begin executing the main menu.
@@ -80,6 +90,12 @@ private:
   QString _chosenDevice;
   ProxyFactory* _proxyFactory = nullptr;
   QString _inputPort;
+  int thermoupdatefrequency = 3;
+   std::string confirm ="";
+   double starttemp =0;
+   std::string uom ="";
+   double settemp = 0;
+   bool getupdate = true;
 
 };
 
