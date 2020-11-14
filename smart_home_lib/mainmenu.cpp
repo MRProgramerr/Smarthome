@@ -445,18 +445,13 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
         }else if(_userInputSS ==6){
 
-        }
+          _display <<"Please enter The Unit Of Measurement F: Farenheit, C: Celcius"<<endl;
+          for (;;) {
+              std::cin>>uom;
 
-    }
-
-    if(sProxy->getIsOn()) {
-        sProxy->turnOff();
-        QDateTime forcedOff = QDateTime::currentDateTime();
-        totalOn = sProxy->waterConsumptionPerCycle(on,forcedOff)/(sProxy->getWaterConsumptionPerInterval()/5)/1000;
-    }
-    _display << endl;
-    _display << "The sprinkler was used for " << totalOn << " seconds including each cycle" << endl;
-    _display << "The sprinler used a total of " << sProxy->getWaterConsumptionPerInterval()*totalOn/9 << " litre(s) of water " << endl;
+              if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
+                break;
+              }
 
 
 }
@@ -488,7 +483,7 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
                _display <<"Please enter Unit of measure 'F' for farenheit adm 'C' for Celcius"<<endl ;
                 std::cin>>uom;
 
-                for (;;) {
+              for (;;) {
 
                     if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
                         break;
@@ -590,8 +585,9 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
                      }
                 }
 
+          }
 
-}
+
 
 
 

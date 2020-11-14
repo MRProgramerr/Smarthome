@@ -69,6 +69,11 @@ MeasurementTemplate<double> *ThermostatProxy::setpoint()
     return _thermoStat->setpoint();
 }
 
+void ThermostatProxy::setcurrentstate(std::string state)
+{
+    return _thermoStat->setcurrentstate(state);
+}
+
 MeasurementTemplate<double> *ThermostatProxy::currentState()
 {
     return _thermoStat->currentState();
@@ -87,6 +92,11 @@ void ThermostatProxy::cooler(double amount)
 double ThermostatProxy::randomDouble()
 {
     return _thermoStat->randomDouble();
+}
+
+void ThermostatProxy::update()
+{
+    return _thermoStat->update();
 }
 
 void ThermostatProxy::setPortController(QString port)

@@ -21,6 +21,8 @@ public:
     virtual AbstractMeasurement *last5Measurement()=0;
     virtual AbstractMeasurement *setpoint()=0;
     virtual MeasurementTemplate<double> *currentState()=0;
+    virtual void setcurrentstate(std::string state)=0;
+    virtual void update()=0;
     virtual void warmer(double amount)=0;
     virtual void cooler(double amount)=0;
     virtual double randomDouble()=0;
