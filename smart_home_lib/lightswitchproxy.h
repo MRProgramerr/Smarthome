@@ -45,6 +45,11 @@ public:
          */
         void dim() override;
 
+
+        /**
+         * @brief getIsOn
+         * @return On if power of light is on
+         */
         bool getIsOn() override;
 
         MeasurementTemplate<bool>  powerStatus() override;
@@ -54,6 +59,8 @@ public:
         Device *realDevice() override;
 
         MeasurementTemplate<int> brightnessStatus() override;
+
+        void currentStatus() ;
 
 signals:
 

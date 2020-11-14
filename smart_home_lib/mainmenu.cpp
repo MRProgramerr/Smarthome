@@ -202,17 +202,19 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 {
 
-
+    // Connects Light Switch proxy signals with the main menu
+    // slot to recieve state change informations.
     connect(lProxy,SIGNAL(send(QString)),this,SLOT(listen(QString)));
 
+    // For user input
     int _userInputLS = 0;
 
+    // Until user doesnt exit
     while(_userInputLS !=6){
 
+        // Loops this menu
         _display << endl;
         _display << "--------------- Light Switch Main Menu ---------------" << endl;
-
-
         _display << "Press 1 to Turn on" << endl;
         _display << "Press 2 to Turn off" << endl;
         _display << "Press 3 to Brigthen" << endl;
@@ -221,9 +223,9 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
         _display << "Press 6 to exit" << endl;
 
 
-
         _input >> _userInputLS;
 
+        // Validation loop
         for (;;) {
 
             if (_userInputLS >=1 && _userInputLS <=6) {
@@ -235,47 +237,36 @@ void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
             }
         }
 
+        // If user exits
         if(_userInputLS ==6) break;
 
+        // Other options
+        // Calls out appt functions on the
+        // lightswitch proxy which
+        // send out a signal
         if(_userInputLS == 1){
 
            lProxy->turnOn();
 
         } else if(_userInputLS ==2){
 
-
             lProxy->turnOff();
-
 
         } else if(_userInputLS ==3){
 
-
             lProxy->brighten();
-
 
         } else if(_userInputLS ==4){
 
             lProxy->dim();
 
-
         } else if(_userInputLS == 5){
 
-            if(lProxy->powerStatus().value().toString().toLower()=="true"){
-                _display << "Power Status : Turned ON" << endl;
-
-            } else{
-                _display << "Power Status : Turned OFF" << endl;
-            }
-
-
-            _display << "Brightness Level: " << lProxy->brightnessStatus().value().toString()<<endl;
-
+            lProxy->currentStatus();
 
         }
 
     }
-
-
 
 }
 

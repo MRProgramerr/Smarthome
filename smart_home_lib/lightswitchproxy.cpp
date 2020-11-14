@@ -44,13 +44,17 @@ void LightSwitchProxy::turnOff()
 void LightSwitchProxy::brighten()
 {
     _lSwitch->brighten();
-    emit send(&"I have been Brightned to" [ _lSwitch->getBrightnessLevel()]);
+    std::string signal = "I have been brightened to " + std::to_string(_lSwitch->getBrightnessLevel());
+     emit send(QString::fromStdString(signal) );
 }
 
 void LightSwitchProxy::dim()
 {
     _lSwitch->dim();
-    emit send(&"I have been dimmed to "[ _lSwitch->getBrightnessLevel()] );
+
+    std::string signal = "I have been dimmed to " + std::to_string(_lSwitch->getBrightnessLevel());
+
+    emit send(QString::fromStdString(signal) );
 }
 
 bool LightSwitchProxy::getIsOn()
@@ -61,6 +65,7 @@ bool LightSwitchProxy::getIsOn()
 MeasurementTemplate<bool>  LightSwitchProxy::powerStatus()
 {
     return _lSwitch->powerStatus();
+
 }
 
 void LightSwitchProxy::setPortController(QString port)
@@ -81,5 +86,25 @@ Device *LightSwitchProxy::realDevice()
 
 MeasurementTemplate<int> LightSwitchProxy::brightnessStatus()
 {
+
     return _lSwitch->brightnessStatus();
+
 }
+
+void LightSwitchProxy::currentStatus()
+{
+
+    std::string signal;
+
+    if(_lSwitch->powerStatus().value().toString().toLower()=="true"){
+        signal += "I am turned on";
+    }else{
+        signal += "I am turned off";
+    }
+
+    signal += " and My brightness level is: " + std::to_string(_lSwitch->getBrightnessLevel());
+    emit send(QString::fromStdString(signal));
+}
+
+
+
