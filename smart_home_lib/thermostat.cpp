@@ -1,5 +1,6 @@
 #include "thermostat.h"
 
+
 Thermostat::Thermostat(QString name): Device(name)
 {
     this->Name = name;
@@ -87,6 +88,7 @@ void Thermostat::cooler(double amount){
 
 void Thermostat::update()
 {
+
     if(lastvalue >= thesetpoint - 0.5 && lastvalue <= thesetpoint + 0.5){
 
         plusminus = randomDouble();
@@ -99,7 +101,7 @@ void Thermostat::update()
 
         else
             currentvalue = currentvalue - randomDouble();
-        setcurrentstate("STABLE");
+         setcurrentstate("STABLE");
     }
 
     else if(lastvalue < thesetpoint + 0.5){
@@ -114,7 +116,7 @@ void Thermostat::update()
 
      }
 
-    else if(lastvalue > currentvalue + 0.5){
+    else if(lastvalue > thesetpoint + 0.5){
 
         lastvalue = currentvalue;
         storelastMeasurements(lastvalue);
@@ -126,6 +128,7 @@ void Thermostat::update()
         setcurrentstate("COOLING");
 
     }
+
 }
 
 double Thermostat::randomDouble()
