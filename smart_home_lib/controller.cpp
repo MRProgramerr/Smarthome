@@ -14,19 +14,28 @@ void Controller::registerDevice(QString deviceName, QString deviceType, QString 
     if(uniqueName == true)
     {
         if(deviceType.toLower() == "lightswitch"){
+
             ProxyInterface* lsp =  new LightSwitchProxy(deviceName);
+            lsp->realDevice()->setIPAddressController(URL);
             _listDevices.push_back(lsp);
-             emit send("Successfully registered " + deviceName + " as a lightswitch");
+            emit send("Successfully registered " + deviceName + " as a lightswitch");
+
         } else if(deviceType.toLower() == "thermostat"){
-             ProxyInterface* tp = new ThermostatProxy(deviceName);
+
+            ProxyInterface* tp = new ThermostatProxy(deviceName);
+            tp->realDevice()->setIPAddressController(URL);
             _listDevices.push_back(tp);
             emit send("Successfully registered " + deviceName + " as a thermostat");
+
         } else if(deviceType.toLower()== "sprinkler system"){
+
             ProxyInterface* sp=new SprinklerSystemProxy (deviceName);
+            sp->realDevice()->setIPAddressController(URL);
             _listDevices.push_back(sp);
             emit send("Successfully registered " + deviceName + " as a sprinkler system");
+
         } else{
-             emit send("No such device type");
+            emit send("No such device type");
         }
     }
     else{
@@ -34,34 +43,32 @@ void Controller::registerDevice(QString deviceName, QString deviceType, QString 
     }
 }
 
-std::vector<std::vector<std::string>> Controller::registeredDevices()
+std::string Controller::registeredDevices()
 {
-    //  A vector of vectors to store information about each device in the
-    // controller's list of devcices.
-    std::vector<std::vector<std::string>> output;
+
+    std::string output;
 
     if(_listDevices.size() != 0){
         for(auto elem: _listDevices){
 
 
-           std::string name = elem->realDevice()->getDeviceName().toUtf8().constData();
+            output += "Device Name: ";
+            output+= elem->realDevice()->getDeviceName().toUtf8().constData();
 
-           std::string URL = elem->realDevice()->getIPAddressController().toUtf8().constData();
+            output += " Device TYPE: ";
 
-           std::string Port = elem->realDevice()->getPortNumberController().toUtf8().constData();
+            output+= elem->realDevice()->deviceType()  ;
+            output += " Device PORT: ";
+            output+= elem->realDevice()->getIPAddressController().toUtf8().constData();
+
+            output+= "\n";
 
 
-           std::vector<std::string> deviceInfo;
-           deviceInfo.push_back(name);
-           deviceInfo.push_back(URL);
-           deviceInfo.push_back(Port);
-
-           output.push_back(deviceInfo);
 
         }
     }
     else{
-        std::cout << "No Registered Device...!" << std::endl;
+        output = "No Registered Device...!" ;
     }
 
     return output;
@@ -104,7 +111,7 @@ void Controller::unregisterDevice(QString deviceName)
     }
 
     else{
-         std::cout << "No registered devices to unregister" << std::endl;
+        std::cout << "No registered devices to unregister" << std::endl;
     }
 }
 
