@@ -18,6 +18,7 @@
 #include "thermostatproxyfactory.h"
 #include "thermostatproxy.h"
 #include "thermostat.h"
+#include "controllerfactory.h"
 
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
@@ -140,6 +141,10 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 
 
     if(chosenDevice == "Smart Home Controller"){
+
+        // Creates a controller object and
+        // then sends it as a parameter to the
+        // controller main menu
         Controller* c = new Controller(deviceName);
         c->setIPAddressController(inputDeviceUrl);
         c->setPortNumberController(inputPort);
@@ -225,9 +230,15 @@ void MainMenu::mainMenuController(Controller* controller)
 
         _input >> _userInputC;
 
+        // If exits
         if(_userInputC == 6)break;
 
+        // Other options
         else if(_userInputC == 1){
+
+            // Inputs the required paramters
+            // for registering a device to the
+            // controller
             QString deviceName;
             QString deviceType;
             QString URL;
@@ -237,9 +248,14 @@ void MainMenu::mainMenuController(Controller* controller)
             _input >> deviceType;
             _display << "Enter device URL" << endl;
             _input >> URL;
+
+            // Registers the device
             controller->registerDevice(deviceName, deviceType, URL);
         }
+
         else if(_userInputC == 2){
+
+            // Displays all the registered devices in the controller
             _display << QString::fromStdString(controller->registeredDevices());
         }
         else if(_userInputC == 3){
@@ -251,47 +267,60 @@ void MainMenu::mainMenuController(Controller* controller)
         }
 
         else if(_userInputC ==4){
-
+            controller->currentState("","");
         }
 
+        // This allows the user to interact with any registered device directly
+        // by passing the created device proxy into their relavant device menu.
         else if(_userInputC ==5){
 
-            int input = 0;
-            _display<<"--------------------------------------------------------"<<endl;
-            _display << "The Devices you can interact with are:" << endl;
-            _display << QString::fromStdString(controller->registeredDevices());
-            _display<<"--------------------------------------------------------"<<endl;
-            _display << "Choose from " << "1 and " <<  controller->getListDevices().size()<<endl;
-            _input >> input;
-            for (;;) {
+            if(controller->getListDevices().size() != 0){
+                int input = 0;
+                _display<<"--------------------------------------------------------"<<endl;
+                _display << "The Devices you can interact with are:" << endl;
+                _display << QString::fromStdString(controller->registeredDevices());
+                _display<<"--------------------------------------------------------"<<endl;
+                _display << "Choose from " << "1 and " <<  controller->getListDevices().size()<<endl;
+                _input >> input;
 
-                if (input >=1 && input <= (int)controller->getListDevices().size()) {
-                    break;
-                } else {
-                    _display << "Invalid input.. try again" << endl;
-                    _input >> input;
+                // Input validation loop
+                for (;;) {
+
+                    if (input >=1 && input <= (int)controller->getListDevices().size()) {
+                        break;
+                    } else {
+                        _display << "Invalid input.. try again" << endl;
+                        _input >> input;
+
+                    }
+                }
+
+                QString deviceType = QString::fromStdString(controller->getListDevices().at(input)->realDevice()->deviceType());
+
+                // Dynamic casting of the abstract devices to
+                // appropriate concrete devices and then
+                // calling out main menus
+                if(deviceType.toLower()=="lightswitch"){
+
+                    LightSwitchProxy* ls = dynamic_cast<LightSwitchProxy*>(controller->getListDevices().at(input-1));
+                    mainMenuLightSwitch(ls);
+
+                } else if(deviceType.toLower()=="sprinkler system"){
+
+                    SprinklerSystemProxy* ss = dynamic_cast<SprinklerSystemProxy*>(controller->getListDevices().at(input-1));
+                    mainMenuSprinklerSystem(ss);
+
+                } else if(deviceType.toLower()=="thermostat"){
+
+                    ThermostatProxy* tp = dynamic_cast<ThermostatProxy*>(controller->getListDevices().at(input-1));
+                    mainMenuThermostat(tp);
 
                 }
+
+            } else{
+                _display <<"No Registered devices..." << endl;
             }
 
-            QString deviceType = QString::fromStdString(controller->getListDevices().at(input)->realDevice()->deviceType());
-
-            if(deviceType.toLower()=="lightswitch"){
-
-                LightSwitchProxy* ls = dynamic_cast<LightSwitchProxy*>(controller->getListDevices().at(input-1));
-                mainMenuLightSwitch(ls);
-
-            } else if(deviceType.toLower()=="sprinkler system"){
-
-                SprinklerSystemProxy* ss = dynamic_cast<SprinklerSystemProxy*>(controller->getListDevices().at(input-1));
-                mainMenuSprinklerSystem(ss);
-
-            } else if(deviceType.toLower()=="thermostat"){
-
-                ThermostatProxy* tp = dynamic_cast<ThermostatProxy*>(controller->getListDevices().at(input-1));
-                mainMenuThermostat(tp);
-
-            }
 
         }
 
@@ -389,8 +418,11 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
     int _userInputSS =0;
     double _waterCons = 0;
 
+    _display << endl;
     _display <<"Enter water consumption per interval(litres) " <<endl;
     _input >> _waterCons;
+
+    // Validation loop
     for (;;) {
 
         if (_waterCons >=1 && _waterCons <=5) {
@@ -428,6 +460,8 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             on = QDateTime::currentDateTime();
 
 
+       // Turn off function records the time the sprinkler was turned on and
+       // uses it to calculate the water consumption for that interval
         }else if(_userInputSS ==2){
 
             if(sProxy->getIsOn()){
@@ -440,6 +474,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
             }
 
+        // Changing water consumption menu
         }else if(_userInputSS ==3){
 
             _display << endl;
@@ -482,13 +517,15 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         }else if(_userInputSS ==5){
 
 
+            // shows the live updates of the sprinkler each time the user hits enter.
+            // the user can press esc to get out of this menu
 
             if(sProxy->getIsOn()){
 
                 _display << endl;
                 _display <<"Press Enter to move to next update" << endl << "Press ESC to exit " << endl;
 
-
+                // Continues loop until enter/esc.
                 char ch;
                 bool loop=false;
 
@@ -572,6 +609,7 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
     _input>>starttemp;
     tProxy->setStartingTemperature(starttemp);
 
+    // User input output loop
     while(_userInputTH != 9){
 
         tProxy->update();
