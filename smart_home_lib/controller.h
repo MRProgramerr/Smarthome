@@ -9,6 +9,7 @@
 #include "proxyinterface.h"
 #include "thermostatproxy.h"
 #include "sprinklersystemproxy.h"
+#include "measurementfilters.h"
 
 /**
  * @brief The Controller class
@@ -69,8 +70,8 @@ public:
      * Adds a measruement filter to the information
      * received from the smart home device
      */
-    void addFilter();
-
+    template<class T>
+    void addFilter(QString name, MeasurementTemplate<T> type, std::string filtertype, T val);
     /**
      * @brief clearFilter
      * Removes a measurement filter

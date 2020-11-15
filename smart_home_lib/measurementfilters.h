@@ -7,14 +7,36 @@ template <class T>
 class MeasurementFilters : public MeasurementTemplate<T>
 {
 public:
-    MeasurementFilters(std::string DeviceName, std::string MeasurementType,std::string FilterType) : MeasurementTemplate<T>(DeviceName,MeasurementType, FilterType){}
+    MeasurementFilters(std::string DeviceName, MeasurementTemplate<T>* MeasurementType,std::string FilterType) : MeasurementTemplate<T>(DeviceName,MeasurementType, FilterType){
+            devicename = DeviceName;
+            Mtype = MeasurementType;
+            filtertype = FilterType;
+    }
     void setConfiguration(T conifguration){
         configuireval = conifguration;
     }
     T getConfiguration(){
         return configuireval;
     }
+    void setFilterType(std::string type){
+
+    }
     ~MeasurementFilters(){};
+
+    void run(){
+        if(filtertype == "1"){
+            TempConversion();
+        }
+        if(filtertype == "2"){
+            MinConversion();
+        }
+        if(filtertype =="3"){
+            MaxConversion();
+        }
+        if(filtertype == "4"){
+            ExactConversion();
+        }
+    }
 
     T MinConversion(){
         if(!isvalid(configuireval)){
@@ -22,18 +44,18 @@ public:
     }
         else if(getinclusive()){
 
-            if(MeasurementTemplate<T>().value() >= configuireval)
+            if(Mtype->value() >= configuireval)
                 return configuireval;
             else
-                return MeasurementTemplate<T>().value();
+                return Mtype->value();
         }
 
         else if(!getinclusive()){
 
-            if(MeasurementTemplate<T>().value() > configuireval)
+            if(Mtype->value().value() > configuireval)
                 return configuireval;
             else
-                return MeasurementTemplate<T>().value();
+                return Mtype->value();
         }
     }
 
@@ -43,18 +65,18 @@ public:
     }
         else if(getinclusive()){
 
-            if(MeasurementTemplate<T>().value() <= configuireval)
+            if(Mtype->value().value() <= configuireval)
                 return configuireval;
             else
-                return MeasurementTemplate<T>().value();
+                return Mtype->value().value();
         }
 
         else if(!getinclusive()){
 
-            if(MeasurementTemplate<T>().value() < configuireval)
+            if(Mtype->value().value() < configuireval)
                 return configuireval;
             else
-                return MeasurementTemplate<T>().value();
+                return Mtype->value().value();
         }
     }
 
@@ -63,22 +85,22 @@ public:
                 return "*invalid*";
          }
 
-        if(MeasurementTemplate<T>().value() == configuireval)
+        if(Mtype->value().value() == configuireval)
             return configuireval;
-        else if(MeasurementTemplate<T>().value() == configuireval+(rand()%10+1))
+        else if(Mtype->value().value() == configuireval+(rand()%10+1))
             return configuireval;
-        else if(MeasurementTemplate<T>().value() == configuireval-(rand()%10+1))
+        else if(Mtype->value().value() == configuireval-(rand()%10+1))
             return configuireval;
         else
-            return MeasurementTemplate<T>().value();
+            return Mtype->value().value();
 
     }
 
     T TempConversion(){
-        if(MeasurementTemplate<T>::unitOfMeasure() == "C" || MeasurementTemplate<T>::unitOfMeasure() == "C")
-          return  (MeasurementTemplate<T>::value() * (9.0/5.0f))+32;
+        if(Mtype->unitofMeasure() == "C" || Mtype->value()->unitOfMeasure() == "C")
+          return  (Mtype->value() * (9.0/5.0f))+32;
         else{
-            return (MeasurementTemplate<T>::value()- 32) *(5.0/9.0);
+            return (Mtype->value()- 32) *(5.0/9.0);
         }
 
 }
@@ -101,6 +123,9 @@ public:
 private:
     T configuireval ;
     bool Inc = true;
+    std::string filtertype;
+    std::string devicename;
+    MeasurementTemplate<T>* Mtype;
 };
 
 

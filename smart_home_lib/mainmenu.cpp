@@ -18,7 +18,7 @@
 #include "thermostatproxy.h"
 #include "thermostat.h"
 #include "controllerfactory.h"
-
+#include "measurementfilters.h"
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
     : QObject{parent}, _display{display}, _input{input}
