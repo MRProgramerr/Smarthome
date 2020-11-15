@@ -12,6 +12,7 @@
 
 
 
+
 class Controller : public Device
 {
     Q_OBJECT
@@ -20,7 +21,6 @@ public:
     void registerDevice(QString deviceName, QString deviceType, QString URL);
     std::vector<std::vector<std::string>> registeredDevices();
     void unregisterDevice(QString name);
-
     QString currentState(QString name,QString type);
 
 

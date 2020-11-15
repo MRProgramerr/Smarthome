@@ -1,5 +1,11 @@
 #include "thermostatproxy.h"
 
+ThermostatProxy::ThermostatProxy(QObject *parent) : QObject(parent)
+{
+
+}
+#include "thermostatproxy.h"
+
 ThermostatProxy::ThermostatProxy(QString name)
 {
 
@@ -17,6 +23,9 @@ int ThermostatProxy::getUpdateFrequency()
 void ThermostatProxy::setUpdateFrequency(int value)
 {
     _thermoStat->setUpdateFrequency(value);
+    std::string signal = "Update Frequency set to " + std::to_string(value);
+    emit send(QString::fromStdString(signal));
+
 }
 
 std::string ThermostatProxy::unitofMeasure()
@@ -27,11 +36,15 @@ std::string ThermostatProxy::unitofMeasure()
 void ThermostatProxy::setUnitofMeasure(std::string unitofMeasure)
 {
      _thermoStat->setUnitofMeasure(unitofMeasure);
+     std::string signal = "Unit of measure set to " + unitofMeasure;
+     emit send(QString::fromStdString(signal));
 }
 
 void ThermostatProxy::setStartingTemperature(double starttemp)
 {
     _thermoStat->setStartingTemperature(starttemp);
+    std::string signal = "Starting Temp set to " + std::to_string(starttemp);
+    emit send(QString::fromStdString(signal));
 }
 
 double ThermostatProxy::getStartingTemperature()
@@ -69,6 +82,11 @@ MeasurementTemplate<double> *ThermostatProxy::setpoint()
     return _thermoStat->setpoint();
 }
 
+void ThermostatProxy::setcurrentstate(std::string state)
+{
+    return _thermoStat->setcurrentstate(state);
+}
+
 MeasurementTemplate<double> *ThermostatProxy::currentState()
 {
     return _thermoStat->currentState();
@@ -89,7 +107,24 @@ double ThermostatProxy::randomDouble()
     return _thermoStat->randomDouble();
 }
 
+void ThermostatProxy::update()
+{
+    return _thermoStat->update();
+}
+
+void ThermostatProxy::setPortController(QString port)
+{
+    _thermoStat->setPortNumberController(port);
+}
+
+void ThermostatProxy::setIPAddressController(QString IPAddress)
+{
+    _thermoStat->setIPAddressController(IPAddress);
+}
+
 Device *ThermostatProxy::realDevice()
 {
     return _thermoStat;
 }
+
+

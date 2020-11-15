@@ -10,6 +10,13 @@
 #include "proxyfactory.h"
 #include "measurementtemplate.h"
 #include "abstractmeasurement.h"
+#include "sprinklersystemproxyfactory.h"
+#include "sprinklersystem.h"
+#include <QTimer>
+#include <conio.h>
+#include "thermostatproxyfactory.h"
+#include "thermostatproxy.h"
+#include "thermostat.h"
 
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
@@ -84,6 +91,11 @@ void MainMenu::run()
     QCoreApplication::instance()->quit();
 }
 
+void MainMenu::listen(QString info)
+{
+    _display << "The Device said.." << info << endl;
+}
+
 
 void MainMenu::detailedUserInput(QString chosenDevice)
 {
@@ -147,11 +159,38 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 
     } else if(chosenDevice == "Thermostat"){
 
-        // Logic here
+        // Creates a thermostat Factory
+        // and then uses it to create a concrete
+        // thermostat proxy object
+
+        ThermostatProxyFactory th(deviceName);
+        ThermostatProxy *tProxy = dynamic_cast<ThermostatProxy*>( _proxyFactory->createProxy(&th));
+
+        // Sets the paramters such as URL, Port
+        tProxy->setIPAddressController(inputDeviceUrl);
+        tProxy->setPortController(inputPort);
+
+        // Calls out the main menu for the
+        // light switch
+        mainMenuThermostat(tProxy);
+
 
     } else if(chosenDevice == "Sprinkler System"){
 
-        // Logic here
+        //Creates a sprinkler system proxy factory
+        // and then uses it to create a concrete
+        // Sprinkler proxy object
+        SprinklerSystemProxyFactory sdf(deviceName);
+        SprinklerSystemProxy* sProxy =  dynamic_cast<SprinklerSystemProxy*>( _proxyFactory->createProxy(&sdf));
+
+        sProxy->setIPAddressController(inputDeviceUrl);
+        sProxy->setPortController(inputPort);
+
+
+        // Calls out the main menu for the
+        // sprinkler system
+        mainMenuSprinklerSystem(sProxy);
+
 
     } else{
         _display << "Fatal error!" << endl;
@@ -163,76 +202,368 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
 {
 
+    // Connects Light Switch proxy signals with the main menu
+    // slot to recieve state change informations.
+    connect(lProxy,SIGNAL(send(QString)),this,SLOT(listen(QString)));
 
-        int _userInputLS = 0;
+    // For user input
+    int _userInputLS = 0;
 
-        while(_userInputLS !=6){
+    // Until user doesnt exit
+    while(_userInputLS !=6){
+
+        // Loops this menu
+        _display << endl;
+        _display << "--------------- Light Switch Main Menu ---------------" << endl;
+        _display << "Press 1 to Turn on" << endl;
+        _display << "Press 2 to Turn off" << endl;
+        _display << "Press 3 to Brigthen" << endl;
+        _display << "Press 4 to Dim" << endl;
+        _display << "Press 5 to view status" << endl;
+        _display << "Press 6 to exit" << endl;
 
 
-            _display << "--------------- Light Switch Main Menu ---------------" << endl;
+        _input >> _userInputLS;
 
+        // Validation loop
+        for (;;) {
 
-            _display << "Press 1 to Turn on" << endl;
-            _display << "Press 2 to Turn off" << endl;
-            _display << "Press 3 to Brigthen" << endl;
-            _display << "Press 4 to Dim" << endl;
-            _display << "Press 5 to view status" << endl;
-            _display << "Press 6 to exit" << endl;
+            if (_userInputLS >=1 && _userInputLS <=6) {
+                break;
+            } else {
+                _display << "Please enter a valid option (1-6)" << endl;
+                _input >> _userInputLS;
 
-
-
-            _input >> _userInputLS;
-
-            for (;;) {
-
-                if (_userInputLS >=1 && _userInputLS <=6) {
-                    break;
-                } else {
-                    _display << "Please enter a valid option (1-6)" << endl;
-                    _input >> _userInputLS;
-
-                }
             }
-
-            if(_userInputLS ==6) break;
-
-            if(_userInputLS == 1){
-
-                if(lProxy->getIsOn()){
-                    _display << "The Light Switch is already turned on? Do you mean turn off?" << endl;
-
-                }else{
-
-                    lProxy->turnOn();
-                    _display <<"The light switch has turned on" << endl;
-                }
-
-            } else if(_userInputLS ==2){
-
-                if(!(lProxy->getIsOn())){
-                    _display << "The Light Switch is already turned Off? Do you mean turn on?" << endl;
-
-                }else{
-
-                    lProxy->turnOff();
-                    _display <<"The light switch has turned off" << endl;
-                }
-            }
-            else{
-                _display<<"Invalid Input" <<endl;
-            }
-
-
-
         }
 
+        // If user exits
+        if(_userInputLS ==6) break;
 
+        // Other options
+        // Calls out appt functions on the
+        // lightswitch proxy which
+        // send out a signal
+        if(_userInputLS == 1){
+
+            lProxy->turnOn();
+
+        } else if(_userInputLS ==2){
+
+            lProxy->turnOff();
+
+        } else if(_userInputLS ==3){
+
+            lProxy->brighten();
+
+        } else if(_userInputLS ==4){
+
+            lProxy->dim();
+
+        } else if(_userInputLS == 5){
+
+            lProxy->currentStatus();
+
+        }
+    }
 
 }
 
+void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
+{
+
+    // Connects Light Switch proxy signals with the main menu
+    // slot to recieve state change informations.
+    connect(sProxy,SIGNAL(send(QString)),this,SLOT(listen(QString)));
+
+    QDateTime on;
+    QDateTime off;
+    QDateTime current;
+    double totalOn = 0;
+
+
+    int _userInputSS =0;
+    double _waterCons = 0;
+
+    _display <<"Enter water consumption per interval(litres) " <<endl;
+    _input >> _waterCons;
+    for (;;) {
+
+        if (_waterCons >=1 && _waterCons <=5) {
+            break;
+        } else {
+            _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
+            _input >> _waterCons;
+
+        }
+    }
+
+    sProxy->setWaterConsumptionPerInterval(_waterCons);
+
+    while(_userInputSS !=7){
 
 
 
+        _display << endl;
+        _display << "--------------- Sprinkler System Main Menu ---------------" << endl;
+
+        _display << endl;
+        _display << "Press 1 to Turn on" << endl;
+        _display << "Press 2 to Turn off" << endl;
+        _display << "Press 3 to change water consumption per interval" << endl;
+        _display << "Press 4 to schedule a timer" << endl;
+        _display << "Press 5 to view live water consumption updates" << endl;
+        _display << "Press 6 to view the current state of sprinkler" << endl;
+        _display << "Press 7 to exit " << endl;
+
+        _input >> _userInputSS;
+
+        if(_userInputSS ==1){
+
+            sProxy->turnOn();
+            on = QDateTime::currentDateTime();
+
+
+        }else if(_userInputSS ==2){
+
+            if(sProxy->getIsOn()){
+                sProxy->turnOff();
+                off = QDateTime::currentDateTime();
+                _display << endl;
+                _display << "Sprinkler System was on for: "<<sProxy->waterConsumptionPerCycle(on,off)/(sProxy->getWaterConsumptionPerInterval()/5)/1000 <<" seconds. " <<endl;
+                _display << "Sprinkler System used: "<<sProxy->waterConsumptionPerCycle(on,off)/1000 <<" litre(s) water. " <<endl;
+                totalOn += sProxy->waterConsumptionPerCycle(on,off)/(sProxy->getWaterConsumptionPerInterval()/9)/1000;
+
+            }
+
+        }else if(_userInputSS ==3){
+
+            _display << endl;
+            _display <<"Enter water consumption per interval(litres) " <<endl;
+            _input >> _waterCons;
+            for (;;) {
+
+                if (_waterCons >=1 && _waterCons <=5) {
+                    break;
+                } else {
+                    _display << endl;
+                    _display << "You dont wanna ruin your plants. Enter between 1 and 5 Litres" << endl;
+                    _input >> _waterCons;
+
+                }
+            }
+
+            sProxy->setWaterConsumptionPerInterval(_waterCons);
+
+        }else if(_userInputSS ==4){
+
+            double delaySeconds =0;
+            double durationSeconds =0;
+
+            _display << endl;
+            _display << "What is the delay after which you wanna turn the System?" << endl;
+            _input >> delaySeconds;
+
+            _display << endl;
+            _display << "What is the duration for which you wanna turn the System?" << endl;
+            _input >> durationSeconds;
+
+            _display << endl;
+
+            sProxy->schedule(QTime(0,0,delaySeconds),QTime(0,0,durationSeconds));
+            _display << endl;
+            _display << "Sprinkler System was on for: "<< durationSeconds <<" seconds. " <<endl;
+            _display << "Sprinkler System used: "<<durationSeconds*sProxy->getWaterConsumptionPerInterval()/9 <<" litre(s) water. " <<endl;
+
+        }else if(_userInputSS ==5){
+
+
+            if(sProxy->getIsOn()){
+
+                _display << endl;
+                _display <<"Press Enter to move to next update" << endl << "Press ESC to exit " << endl;
+
+
+                char ch;
+                bool loop=false;
+
+                while(loop==false)
+                {
+
+                    current =  QDateTime::currentDateTime();
+
+                    _display << "Water used as of " << current.time().toString() <<" " << sProxy->waterConsumptionPerCycle(on,current)/1000 << " litres" <<endl;
+                    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+                    ch=getch();
+
+                    if(ch==27)
+                        loop=true;
+                }
+
+
+            }else{
+                _display << endl;
+                _display << "Turn on the system to get updates" << endl;
+            }
+
+
+        }else if(_userInputSS ==6){
+
+            for(auto elem : sProxy->currentState()){
+
+                _display << elem->value().toString();
+            }
+
+
+        }
+    }
+}
+
+void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
+{
+
+    // Connects Light Switch proxy signals with the main menu
+    // slot to recieve state change informations.
+    connect(tProxy,SIGNAL(send(QString)),this,SLOT(listen(QString)));
+
+    int _userInputTH =0;
+
+    _display <<"Do you to change the -Update Frequency- default value: 3 seconds [y/n]" <<endl;
+    for(;;){
+            std::cin>>confirm;
+
+            if(confirm =="Y" || confirm =="y" ){
+                _display<<"Enter the update frequency"<<endl;
+                _input>>thermoupdatefrequency;
+                tProxy->setUpdateFrequency(thermoupdatefrequency);
+                break;
+            }
+            else if(confirm =="N" ||confirm == "n"){
+                break;
+            }
+            else
+                _display<<"INVALID SELECTION!! Select [y/n] only "<<endl;
+        }
+
+        _display <<"Please enter The setpoint"<<endl;
+        _input>>settemp;
+        tProxy->setthesetpoint(settemp);
+
+        _display <<"Please enter Unit of measure 'F' for farenheit adm 'C' for Celcius"<<endl ;
+        std::cin>>uom;
+
+        for (;;) {
+
+            if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
+                break;
+            } else {
+                _display << "Invalid selection please select between [F/C] only" << endl;
+                std::cin>>uom;
+                tProxy->setUnitofMeasure(uom);
+            }
+        }
+        _display<<"Please enter The Start Temperature"<<endl;
+        _input>>starttemp;
+        tProxy->setStartingTemperature(starttemp);
+
+        while(_userInputTH != 9){
+
+            tProxy->update();
+
+                  _display << endl;
+                  _display << "--------------- Thermostat Main Menu ---------------" << endl;
+                  _display << endl;
+                  _display << "Press 1 for last Measurement" << endl;
+                  _display << "Press 2 for last 5 Measurement" << endl;
+                  _display << "Press 3 to view the Setpoint" << endl;
+                  _display << "Press 4 to view the Current State " << endl;
+                  _display << "Press 5 to Increase the Setpoint" << endl;
+                  _display << "Press 6 to Decrease the Setpoint" << endl;
+                  _display << "Press 7 to Disable the temperature updates" << endl;
+                  _display << "Press 8 to Enable the temperature updates " << endl;
+                  _display << "Press 9 to exit" << endl;
+
+                  _input >> _userInputTH;
+
+                  for (;;) {
+
+                        if (_userInputTH >=1 && _userInputTH <=9) {
+                            break;
+                        } else {
+                            _display << "Please enter a valid option (1-9)" << endl;
+                            _input >> _userInputTH;
+
+                        }
+                    }
+
+                    if(_userInputTH == 9 ) break;
+
+                    if(_userInputTH == 1 ){
+
+                       std::cout<<" || "+tProxy->lastMeasurement()->deviceName()+ " || "<<std::endl;;
+                       std::cout<<tProxy->lastMeasurement()->measurementType() + ": ";
+                       _display<<tProxy->lastMeasurement()->value().toString();
+                        std::cout<<uom;
+                    }
+
+                    if(_userInputTH == 2 ){
+                       std::cout<<tProxy->lastMeasurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
+                       std::vector<MeasurementTemplate<double>> *m5 = new std::vector<MeasurementTemplate<double>>;
+                       std::vector<MeasurementTemplate<double>>::iterator it;
+
+                       for(it = m5->begin(); it!= m5->end(); it++)
+                            std::cout<<it->value().String;
+                    }
+                     if(_userInputTH == 3 ){
+                        std::cout<<" || "+tProxy->setpoint()->deviceName()+ " || "<<std::endl;;
+                        std::cout<<tProxy->setpoint()->measurementType() + ": ";
+                        std::cout<<uom;
+
+                        _display<<tProxy->setpoint()->value().toString();
+                     }
+
+                     if(_userInputTH == 4 ){
+                         if(getupdate == true){
+                            std::cout<<" || "+tProxy->currentState()->deviceName()+ " || "<<std::endl;
+                            std::cout<<tProxy->currentState()->measurementType() + ": "+tProxy->currentState()->unitofMeasure()+ " ";
+                            _display<<tProxy->currentState()->value().toString();
+                            std::cout<<uom;
+
+                         }
+                         else {
+                             _display<<"Updates are turned off"<<endl;
+                             _display<<"**Press 8 to Enabble** "<<endl;
+                         }
+                     }
+
+                     if(_userInputTH == 5 ){
+                        _display<<" Please enter the amount"<<endl;
+                        double amt=0;
+                        std::cin>>amt;
+                         tProxy->warmer(amt);
+                         std::cout<<"Setpoint increased by "<<amt<<std::endl;
+                     }
+                     if(_userInputTH == 6 ){
+                        _display<<" Please enter the amount"<<endl;
+                        double amt=0;
+                        std::cin>>amt;
+                         tProxy->cooler(amt);
+                         std::cout<<"Setpoint decreased by "<<amt<<std::endl;
+                     }
+                     if(_userInputTH == 7 ){
+                         _display<<"Updates turned Off"<<endl;
+                         getupdate = false;
+                     }
+
+                     if(_userInputTH == 8 ){
+                         _display<<"Updates turned On"<<endl;
+                         getupdate = true;
+                     }
+                }
+
+
+}
 
 
 

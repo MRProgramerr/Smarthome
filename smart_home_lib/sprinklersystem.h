@@ -39,7 +39,10 @@ public:
     std::vector<MeasurementTemplate<double>*> waterUsage();
     Device *realDevice();
 
-     std::string deviceType();
+    std::string deviceType();
+
+    double waterConsumptionPerCycle(QDateTime on, QDateTime off);
+
 
 
 
@@ -56,9 +59,15 @@ private:
     AbstractMeasurement *am = nullptr;
     std::vector<AbstractMeasurement*> abvector;
     MeasurementTemplate<QTime> *mtstate = nullptr;
+    MeasurementTemplate<QTime> *mtstate2 = nullptr;
+    MeasurementTemplate<QTime> *mtstate3 = nullptr;
     MeasurementTemplate<double> *mtusage = nullptr;
+    MeasurementTemplate<double> *mtusage2 = nullptr;
     std::vector<MeasurementTemplate<QTime>*> mtvectorstate;
     std::vector<MeasurementTemplate<double>*> mtvectorusage;
+    QDateTime onStamp;
+    QDateTime offStamp;
+
 
 
 };

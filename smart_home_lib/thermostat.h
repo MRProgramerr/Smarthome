@@ -6,6 +6,8 @@
 #include <QObject>
 #include <random>
 #include <thermostatproxyinterface.h>
+#include <chrono>
+#include <thread>
 
 class Thermostat : public Device, public ThermostatProxyInterface
 {
@@ -25,11 +27,13 @@ public:
     void setthesetpoint(double temp);
     MeasurementTemplate<std::vector<double>> *last5Measurement();
     MeasurementTemplate<double> *setpoint();
+    void setcurrentstate(std::string state);
     MeasurementTemplate<double> *currentState();
     void warmer(double amount);
     void cooler(double amount);
+    void update();
     double randomDouble();
-    ~Thermostat();
+
     std::string deviceType();
     Device *realDevice();
 
@@ -37,10 +41,11 @@ private:
     QString Name;
     QString IP_Address;
     QString Port;
-    int Value;
+    int Value = 3;
+    std::string cstate ="";
     double StartTemperature;
-    std::string UoM;
-
+    std::string UoM ="";
+    double thesetpoint;
     MeasurementTemplate<double> *mt;
     MeasurementTemplate<std::vector<double>> *mt1;
     double plusminus = 0.00;

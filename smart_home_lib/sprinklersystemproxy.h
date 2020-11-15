@@ -7,10 +7,13 @@
 #include "sprinklersystem.h"
 #include "sprinklerdevicefactory.h"
 
+#include <QObject>
 
-class SprinklerSystemProxy : public SprinklerSystemProxyInterface
+class SprinklerSystemProxy : public QObject, public SprinklerSystemProxyInterface
 {
+    Q_OBJECT
 public:
+    explicit SprinklerSystemProxy(QObject *parent = nullptr);
     SprinklerSystemProxy(QString name);
 
 
@@ -35,12 +38,29 @@ public:
     std::vector<MeasurementTemplate<double>*> waterUsage()override;
     Device *realDevice() override;
 
+    void setPortController(QString port);
+    void setIPAddressController(QString IPAddress) ;
+
+    double waterConsumptionPerCycle(QDateTime on, QDateTime off) override;
+
+signals:
+
+    /**
+     * @brief send
+     * This is a QT Signal
+     * which sends important data
+     * to be recieved by main menu slot
+     * @param data
+     */
+    void send(QString data);
+
 private:
 
-     DeviceFactory* _deviceFactory = nullptr;
+    DeviceFactory* _deviceFactory = nullptr;
 
-     SprinklerSystem* _sprinklerSystem = nullptr;
+    SprinklerSystem* _sprinklerSystem = nullptr;
 
 };
+
 
 #endif // SPRINKLERSYSTEMPROXY_H
