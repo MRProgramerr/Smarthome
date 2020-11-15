@@ -3,7 +3,8 @@ TEMPLATE = subdirs
 SUBDIRS += \
     LightSwitch \
     TestCsvFile \ \
-    testlightswitchproxy \
+    testlightswitchproxy \ \
+    testthermostatproxy
 
 
 
