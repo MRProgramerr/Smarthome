@@ -18,6 +18,7 @@
 #include "thermostatproxyfactory.h"
 #include "thermostatproxy.h"
 #include "thermostat.h"
+#include "controllerfactory.h"
 
 
 MainMenu::MainMenu(QTextStream &display, QTextStream &input, QObject *parent)
@@ -140,6 +141,10 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 
 
     if(chosenDevice == "Smart Home Controller"){
+
+        // Creates a controller object and
+        // then sends it as a parameter to the
+        // controller main menu
         Controller* c = new Controller(deviceName);
         c->setIPAddressController(inputDeviceUrl);
         c->setPortNumberController(inputPort);
@@ -207,54 +212,124 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 void MainMenu::mainMenuController(Controller* controller)
 {
     // connects Controller signas with main menu to recieve updates on registered devices
-     connect(controller,SIGNAL(send(QString)),this,SLOT(listen(QString)));
+    connect(controller,SIGNAL(send(QString)),this,SLOT(listen(QString)));
 
-     int _userInputC = 0;
+    int _userInputC = 0;
 
-     while(_userInputC != 5)
-     {
-         // Loops this menu
-         _display << endl;
-         _display << "--------------- Smart Home Controller Main Menu ---------------" << endl;
-         _display << "Press 1 to Register Device" << endl;
-         _display << "Press 2 to View Registered Devices" << endl;
-         _display << "Press 3 to Unregister Device" << endl;
-         _display << "Press 4 to view status of a device" << endl;
-         _display << "Press 5 to exit" << endl;
+    while(_userInputC != 6)
+    {
+        // Loops this menu
+        _display << endl;
+        _display << "--------------- Smart Home Controller Main Menu ---------------" << endl;
+        _display << "Press 1 to Register Device" << endl;
+        _display << "Press 2 to View Registered Devices" << endl;
+        _display << "Press 3 to Unregister Device" << endl;
+        _display << "Press 4 to view status of a device" << endl;
+        _display << "Press 5 to interact with a device directly" << endl;
+        _display << "Press 6 to exit" << endl;
 
-         _input >> _userInputC;
+        _input >> _userInputC;
 
-         if(_userInputC == 5)break;
+        // If exits
+        if(_userInputC == 6)break;
 
-         else if(_userInputC == 1){
-             QString deviceName;
-             QString deviceType;
-             QString URL;
-              _display << "Enter device name" << endl;
-              _input >> deviceName;
-              _display << "Enter device type" << endl;
-              _input >> deviceType;
-              _display << "Enter device URL" << endl;
-              _input >> URL;
-              controller->registerDevice(deviceName, deviceType, URL);
-         }
-         else if(_userInputC == 2){
-             _display << QString::fromStdString(controller->registeredDevices());
-         }
-         else if(_userInputC == 3){
-             QString deviceName;
-             QString deviceType;
-             _display << "Enter device name" << endl;
-             _input >> deviceName;
-             controller->unregisterDevice(deviceName);
-         }
+        // Other options
+        else if(_userInputC == 1){
 
-         else{
-             _display << "Please enter a valid option (1-5)" << endl;
-             _input >> _userInputC;
-         }
+            // Inputs the required paramters
+            // for registering a device to the
+            // controller
+            QString deviceName;
+            QString deviceType;
+            QString URL;
+            _display << "Enter device name" << endl;
+            _input >> deviceName;
+            _display << "Enter device type(lightswitch,sprinkler,thermostat)" << endl;
+            _input >> deviceType;
+            _display << "Enter device URL" << endl;
+            _input >> URL;
 
-     }
+            // Registers the device
+            controller->registerDevice(deviceName, deviceType, URL);
+        }
+
+        else if(_userInputC == 2){
+
+            // Displays all the registered devices in the controller
+            _display << QString::fromStdString(controller->registeredDevices());
+        }
+        else if(_userInputC == 3){
+            QString deviceName;
+            QString deviceType;
+            _display << "Enter device name" << endl;
+            _input >> deviceName;
+            controller->unregisterDevice(deviceName);
+        }
+
+        else if(_userInputC ==4){
+            controller->currentState("","");
+        }
+
+        // This allows the user to interact with any registered device directly
+        // by passing the created device proxy into their relavant device menu.
+        else if(_userInputC ==5){
+
+            if(controller->getListDevices().size() != 0){
+                int input = 0;
+                _display<<"--------------------------------------------------------"<<endl;
+                _display << "The Devices you can interact with are:" << endl;
+                _display << QString::fromStdString(controller->registeredDevices());
+                _display<<"--------------------------------------------------------"<<endl;
+                _display << "Choose from " << "1 and " <<  controller->getListDevices().size()<<endl;
+                _input >> input;
+
+                // Input validation loop
+                for (;;) {
+
+                    if (input >=1 && input <= (int)controller->getListDevices().size()) {
+                        break;
+                    } else {
+                        _display << "Invalid input.. try again" << endl;
+                        _input >> input;
+
+                    }
+                }
+
+                QString deviceType = QString::fromStdString(controller->getListDevices().at(input)->realDevice()->deviceType());
+
+                // Dynamic casting of the abstract devices to
+                // appropriate concrete devices and then
+                // calling out main menus
+                if(deviceType.toLower()=="lightswitch"){
+
+                    LightSwitchProxy* ls = dynamic_cast<LightSwitchProxy*>(controller->getListDevices().at(input-1));
+                    mainMenuLightSwitch(ls);
+
+                } else if(deviceType.toLower()=="sprinkler system"){
+
+                    SprinklerSystemProxy* ss = dynamic_cast<SprinklerSystemProxy*>(controller->getListDevices().at(input-1));
+                    mainMenuSprinklerSystem(ss);
+
+                } else if(deviceType.toLower()=="thermostat"){
+
+                    ThermostatProxy* tp = dynamic_cast<ThermostatProxy*>(controller->getListDevices().at(input-1));
+                    mainMenuThermostat(tp);
+
+                }
+
+            } else{
+                _display <<"No Registered devices..." << endl;
+            }
+
+
+        }
+
+        else{
+            _display << "Please enter a valid option (1-6)" << endl;
+            _input >> _userInputC;
+        }
+
+    }
 }
 
 void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
@@ -343,8 +418,11 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
     int _userInputSS =0;
     double _waterCons = 0;
 
+    _display << endl;
     _display <<"Enter water consumption per interval(litres) " <<endl;
     _input >> _waterCons;
+
+    // Validation loop
     for (;;) {
 
         if (_waterCons >=1 && _waterCons <=5) {
@@ -382,6 +460,8 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
             on = QDateTime::currentDateTime();
 
 
+       // Turn off function records the time the sprinkler was turned on and
+       // uses it to calculate the water consumption for that interval
         }else if(_userInputSS ==2){
 
             if(sProxy->getIsOn()){
@@ -394,6 +474,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
             }
 
+        // Changing water consumption menu
         }else if(_userInputSS ==3){
 
             _display << endl;
@@ -436,12 +517,15 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         }else if(_userInputSS ==5){
 
 
+            // shows the live updates of the sprinkler each time the user hits enter.
+            // the user can press esc to get out of this menu
+
             if(sProxy->getIsOn()){
 
                 _display << endl;
                 _display <<"Press Enter to move to next update" << endl << "Press ESC to exit " << endl;
 
-
+                // Continues loop until enter/esc.
                 char ch;
                 bool loop=false;
 
@@ -489,136 +573,137 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
 
     _display <<"Do you to change the -Update Frequency- default value: 3 seconds [y/n]" <<endl;
     for(;;){
-            std::cin>>confirm;
+        std::cin>>confirm;
 
-            if(confirm =="Y" || confirm =="y" ){
-                _display<<"Enter the update frequency"<<endl;
-                _input>>thermoupdatefrequency;
-                tProxy->setUpdateFrequency(thermoupdatefrequency);
-                break;
-            }
-            else if(confirm =="N" ||confirm == "n"){
-                break;
-            }
-            else
-                _display<<"INVALID SELECTION!! Select [y/n] only "<<endl;
+        if(confirm =="Y" || confirm =="y" ){
+            _display<<"Enter the update frequency"<<endl;
+            _input>>thermoupdatefrequency;
+            tProxy->setUpdateFrequency(thermoupdatefrequency);
+            break;
         }
+        else if(confirm =="N" ||confirm == "n"){
+            break;
+        }
+        else
+            _display<<"INVALID SELECTION!! Select [y/n] only "<<endl;
+    }
 
-        _display <<"Please enter The setpoint"<<endl;
-        _input>>settemp;
-        tProxy->setthesetpoint(settemp);
+    _display <<"Please enter The setpoint"<<endl;
+    _input>>settemp;
+    tProxy->setthesetpoint(settemp);
 
-        _display <<"Please enter Unit of measure 'F' for farenheit adm 'C' for Celcius"<<endl ;
-        std::cin>>uom;
+    _display <<"Please enter Unit of measure 'F' for farenheit adm 'C' for Celcius"<<endl ;
+    std::cin>>uom;
+
+    for (;;) {
+
+        if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
+            break;
+        } else {
+            _display << "Invalid selection please select between [F/C] only" << endl;
+            std::cin>>uom;
+            tProxy->setUnitofMeasure(uom);
+        }
+    }
+    _display<<"Please enter The Start Temperature"<<endl;
+    _input>>starttemp;
+    tProxy->setStartingTemperature(starttemp);
+
+    // User input output loop
+    while(_userInputTH != 9){
+
+        tProxy->update();
+
+        _display << endl;
+        _display << "--------------- Thermostat Main Menu ---------------" << endl;
+        _display << endl;
+        _display << "Press 1 for last Measurement" << endl;
+        _display << "Press 2 for last 5 Measurement" << endl;
+        _display << "Press 3 to view the Setpoint" << endl;
+        _display << "Press 4 to view the Current State " << endl;
+        _display << "Press 5 to Increase the Setpoint" << endl;
+        _display << "Press 6 to Decrease the Setpoint" << endl;
+        _display << "Press 7 to Disable the temperature updates" << endl;
+        _display << "Press 8 to Enable the temperature updates " << endl;
+        _display << "Press 9 to exit" << endl;
+
+        _input >> _userInputTH;
 
         for (;;) {
 
-            if (uom == "C" || uom == "F" || uom == "f" || uom == "c") {
+            if (_userInputTH >=1 && _userInputTH <=9) {
                 break;
             } else {
-                _display << "Invalid selection please select between [F/C] only" << endl;
-                std::cin>>uom;
-                tProxy->setUnitofMeasure(uom);
+                _display << "Please enter a valid option (1-9)" << endl;
+                _input >> _userInputTH;
+
             }
         }
-        _display<<"Please enter The Start Temperature"<<endl;
-        _input>>starttemp;
-        tProxy->setStartingTemperature(starttemp);
 
-        while(_userInputTH != 9){
+        if(_userInputTH == 9 ) break;
 
-            tProxy->update();
+        if(_userInputTH == 1 ){
 
-                  _display << endl;
-                  _display << "--------------- Thermostat Main Menu ---------------" << endl;
-                  _display << endl;
-                  _display << "Press 1 for last Measurement" << endl;
-                  _display << "Press 2 for last 5 Measurement" << endl;
-                  _display << "Press 3 to view the Setpoint" << endl;
-                  _display << "Press 4 to view the Current State " << endl;
-                  _display << "Press 5 to Increase the Setpoint" << endl;
-                  _display << "Press 6 to Decrease the Setpoint" << endl;
-                  _display << "Press 7 to Disable the temperature updates" << endl;
-                  _display << "Press 8 to Enable the temperature updates " << endl;
-                  _display << "Press 9 to exit" << endl;
+            std::cout<<" || "+tProxy->lastMeasurement()->deviceName()+ " || "<<std::endl;;
+            std::cout<<tProxy->lastMeasurement()->measurementType() + ": ";
+            _display<<tProxy->lastMeasurement()->value().toString();
+            std::cout<<uom;
+        }
 
-                  _input >> _userInputTH;
+        if(_userInputTH == 2 ){
+            std::cout<<tProxy->lastMeasurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
+            std::vector<MeasurementTemplate<double>> *m5 = new std::vector<MeasurementTemplate<double>>;
+            std::vector<MeasurementTemplate<double>>::iterator it;
 
-                  for (;;) {
+            for(it = m5->begin(); it!= m5->end(); it++)
+                std::cout<<it->value().String;
+        }
+        if(_userInputTH == 3 ){
+            std::cout<<" || "+tProxy->setpoint()->deviceName()+ " || "<<std::endl;;
+            std::cout<<tProxy->setpoint()->measurementType() + ": ";
+            std::cout<<uom;
 
-                        if (_userInputTH >=1 && _userInputTH <=9) {
-                            break;
-                        } else {
-                            _display << "Please enter a valid option (1-9)" << endl;
-                            _input >> _userInputTH;
+            _display<<tProxy->setpoint()->value().toString();
+        }
 
-                        }
-                    }
+        if(_userInputTH == 4 ){
+            if(getupdate == true){
+                std::cout<<" || "+tProxy->currentState()->deviceName()+ " || "<<std::endl;
+                std::cout<<tProxy->currentState()->measurementType() + ": "+tProxy->currentState()->unitofMeasure()+ " ";
+                _display<<tProxy->currentState()->value().toString();
+                std::cout<<uom;
 
-                    if(_userInputTH == 9 ) break;
+            }
+            else {
+                _display<<"Updates are turned off"<<endl;
+                _display<<"**Press 8 to Enabble** "<<endl;
+            }
+        }
 
-                    if(_userInputTH == 1 ){
+        if(_userInputTH == 5 ){
+            _display<<" Please enter the amount"<<endl;
+            double amt=0;
+            std::cin>>amt;
+            tProxy->warmer(amt);
+            std::cout<<"Setpoint increased by "<<amt<<std::endl;
+        }
+        if(_userInputTH == 6 ){
+            _display<<" Please enter the amount"<<endl;
+            double amt=0;
+            std::cin>>amt;
+            tProxy->cooler(amt);
+            std::cout<<"Setpoint decreased by "<<amt<<std::endl;
+        }
+        if(_userInputTH == 7 ){
+            _display<<"Updates turned Off"<<endl;
+            getupdate = false;
+        }
 
-                       std::cout<<" || "+tProxy->lastMeasurement()->deviceName()+ " || "<<std::endl;;
-                       std::cout<<tProxy->lastMeasurement()->measurementType() + ": ";
-                       _display<<tProxy->lastMeasurement()->value().toString();
-                        std::cout<<uom;
-                    }
-
-                    if(_userInputTH == 2 ){
-                       std::cout<<tProxy->lastMeasurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
-                       std::vector<MeasurementTemplate<double>> *m5 = new std::vector<MeasurementTemplate<double>>;
-                       std::vector<MeasurementTemplate<double>>::iterator it;
-
-                       for(it = m5->begin(); it!= m5->end(); it++)
-                            std::cout<<it->value().String;
-                    }
-                     if(_userInputTH == 3 ){
-                        std::cout<<" || "+tProxy->setpoint()->deviceName()+ " || "<<std::endl;;
-                        std::cout<<tProxy->setpoint()->measurementType() + ": ";
-                        std::cout<<uom;
-
-                        _display<<tProxy->setpoint()->value().toString();
-                     }
-
-                     if(_userInputTH == 4 ){
-                         if(getupdate == true){
-                            std::cout<<" || "+tProxy->currentState()->deviceName()+ " || "<<std::endl;
-                            std::cout<<tProxy->currentState()->measurementType() + ": "+tProxy->currentState()->unitofMeasure()+ " ";
-                            _display<<tProxy->currentState()->value().toString();
-                            std::cout<<uom;
-
-                         }
-                         else {
-                             _display<<"Updates are turned off"<<endl;
-                             _display<<"**Press 8 to Enabble** "<<endl;
-                         }
-                     }
-
-                     if(_userInputTH == 5 ){
-                        _display<<" Please enter the amount"<<endl;
-                        double amt=0;
-                        std::cin>>amt;
-                         tProxy->warmer(amt);
-                         std::cout<<"Setpoint increased by "<<amt<<std::endl;
-                     }
-                     if(_userInputTH == 6 ){
-                        _display<<" Please enter the amount"<<endl;
-                        double amt=0;
-                        std::cin>>amt;
-                         tProxy->cooler(amt);
-                         std::cout<<"Setpoint decreased by "<<amt<<std::endl;
-                     }
-                     if(_userInputTH == 7 ){
-                         _display<<"Updates turned Off"<<endl;
-                         getupdate = false;
-                     }
-
-                     if(_userInputTH == 8 ){
-                         _display<<"Updates turned On"<<endl;
-                         getupdate = true;
-                     }
-                }
+        if(_userInputTH == 8 ){
+            _display<<"Updates turned On"<<endl;
+            getupdate = true;
+        }
+    }
 
 
 }

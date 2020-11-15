@@ -6,8 +6,7 @@
 /**
  * @brief The DeviceInfo class/struct
  *
- * TODO: This is just a placeholder so that the MessageFactory can
- * reference it. You need to implement it properly.
+ *
  */
 class DeviceInfo
 {
