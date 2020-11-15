@@ -6,6 +6,9 @@
 #include <iostream>
 #include <math.h>
 
+/**
+ * The template class for measurementsd
+ */
 
 template <class T>
 class MeasurementTemplate : public AbstractMeasurement

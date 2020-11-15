@@ -19,6 +19,12 @@ class LightSwitchProxy : public QObject, public LightSwitchProxyInterface
     Q_OBJECT
 public:
     explicit LightSwitchProxy(QObject *parent = nullptr);
+
+    /**
+     * @brief LightSwitchProxy
+     * @param name
+     * The constructor for the light switch proxy
+     */
     LightSwitchProxy(QString name);
 
 
@@ -27,99 +33,99 @@ public:
          * An overriden TurnOn Method
          * Calls turnOn method on the real device
          */
-        void turnOn() override;
+    void turnOn() override;
 
-        /**
+    /**
          * @brief turnOff
          * An overriden TurnOff Method
          * Calls turnOff method on the real device
          */
-        void turnOff() override;
+    void turnOff() override;
 
-        /**
+    /**
          * @brief brighten
          * Calls brigthen method on the real device
          */
-        void brighten() override;
+    void brighten() override;
 
-        /**
+    /**
          * @brief dim
          * Calls dim method on the real device
          */
-        void dim() override;
+    void dim() override;
 
 
-        /**
+    /**
          * @brief getIsOn
          * @return On if power of light is on
          */
-        bool getIsOn() override;
+    bool getIsOn() override;
 
-        /**
+    /**
          * @brief powerStatus
          * Returns whether the light switch
          * is on or off as a  measurement object
          * @return
          */
-        MeasurementTemplate<bool>  powerStatus() override;
+    MeasurementTemplate<bool>  powerStatus() override;
 
-        /**
+    /**
          * @brief setPortController
          * Setter for the port number
          * @param port
          */
-        void setPortController(QString port);
+    void setPortController(QString port);
 
-        /**
+    /**
          * @brief setIPAddressController
          * setter for the IP address
          * @param IPAddress
          */
-        void setIPAddressController(QString IPAddress) ;
+    void setIPAddressController(QString IPAddress) ;
 
-        /**
+    /**
          * @brief realDevice
          * This function is used to retrieve a real
          * device from the proxy
          * @return
          */
-        Device *realDevice() override;
+    Device *realDevice() override;
 
-        /**
+    /**
          * @brief brightnessStatus
          * Returns the brigthness status of the light
          * @return
          */
-        MeasurementTemplate<int> brightnessStatus() override;
+    MeasurementTemplate<int> brightnessStatus() override;
 
-        /**
+    /**
          * @brief currentStatus
          * Returns both power and brightness status
          * of a lightswitch
          */
-        void currentStatus() ;
+    void currentStatus() ;
 
 signals:
 
-        /**
+    /**
          * @brief send
          * This is a QT Signal
          * which sends important data
          * to be recieved by main menu slot
          * @param data
          */
-        void send(QString data);
+    void send(QString data);
 private:
-        DeviceFactory* _deviceFactory;
+    DeviceFactory* _deviceFactory;
 
-        /**
+    /**
          * @brief _lightSwitch
          *
          */
-        LightSwitch* _lSwitch;
+    LightSwitch* _lSwitch;
 
 
 
-    };
+};
 
 #endif // LIGHTSWITCHPROXY_H

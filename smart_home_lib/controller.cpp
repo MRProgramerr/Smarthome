@@ -9,24 +9,36 @@ void Controller::registerDevice(QString deviceName, QString deviceType, QString 
     bool uniqueName = true;
     int length = _listDevices.size();
     for(int i = 0; i < length; i++){
-        std::cout << _listDevices[i]->realDevice() << std::endl;
+        if(_listDevices[i]->realDevice()->getDeviceName() == deviceName)
+        {
+            uniqueName = false;
+        }
     }
     if(uniqueName == true)
     {
         if(deviceType.toLower() == "lightswitch"){
+
             ProxyInterface* lsp =  new LightSwitchProxy(deviceName);
+            lsp->realDevice()->setIPAddressController(URL);
             _listDevices.push_back(lsp);
-             emit send("Successfully registered " + deviceName + " as a lightswitch");
+            emit send("Successfully registered " + deviceName + " as a lightswitch");
+
         } else if(deviceType.toLower() == "thermostat"){
-             ProxyInterface* tp = new ThermostatProxy(deviceName);
+
+            ProxyInterface* tp = new ThermostatProxy(deviceName);
+            tp->realDevice()->setIPAddressController(URL);
             _listDevices.push_back(tp);
             emit send("Successfully registered " + deviceName + " as a thermostat");
-        } else if(deviceType.toLower()== "sprinkler system"){
+
+        } else if(deviceType.toLower()== "sprinkler"){
+
             ProxyInterface* sp=new SprinklerSystemProxy (deviceName);
+            sp->realDevice()->setIPAddressController(URL);
             _listDevices.push_back(sp);
             emit send("Successfully registered " + deviceName + " as a sprinkler system");
+
         } else{
-             emit send("No such device type");
+            emit send("No such device type");
         }
     }
     else{
@@ -34,34 +46,30 @@ void Controller::registerDevice(QString deviceName, QString deviceType, QString 
     }
 }
 
-std::vector<std::vector<std::string>> Controller::registeredDevices()
+std::string Controller::registeredDevices()
 {
-    //  A vector of vectors to store information about each device in the
-    // controller's list of devcices.
-    std::vector<std::vector<std::string>> output;
+
+    std::string output;
 
     if(_listDevices.size() != 0){
         for(auto elem: _listDevices){
 
 
-           std::string name = elem->realDevice()->getDeviceName().toUtf8().constData();
+            output += "Device Name: ";
+            output+= elem->realDevice()->getDeviceName().toUtf8().constData();
 
-           std::string URL = elem->realDevice()->getIPAddressController().toUtf8().constData();
+            output += " Device TYPE: ";
 
-           std::string Port = elem->realDevice()->getPortNumberController().toUtf8().constData();
+            output+= elem->realDevice()->deviceType();
+            output += " Device PORT: ";
+            output+= elem->realDevice()->getIPAddressController().toUtf8().constData();
 
-
-           std::vector<std::string> deviceInfo;
-           deviceInfo.push_back(name);
-           deviceInfo.push_back(URL);
-           deviceInfo.push_back(Port);
-
-           output.push_back(deviceInfo);
+            output+= "\n";
 
         }
     }
     else{
-        std::cout << "No Registered Device...!" << std::endl;
+        emit send( "No Registered Device...!" );
     }
 
     return output;
@@ -99,12 +107,12 @@ void Controller::unregisterDevice(QString deviceName)
         }
         // if the specified device name was not found in the lise
         if(found == false){
-            std::cout << "No such device to unregister" << std::endl;
+            emit send( "No such device to unregister" );
         }
     }
 
     else{
-         std::cout << "No registered devices to unregister" << std::endl;
+        emit send("No registered devices to unregister");
     }
 }
 
@@ -114,10 +122,13 @@ QString Controller::currentState(QString name,QString type){
     // if name and type are left blank
     // returns current state of every device in the list
     if(name == "" && type == ""){
+
+        QString output;
+
         for (int i = 0; i < length ; i++){
             QString deviceType = QString::fromStdString(_listDevices[i]->realDevice()->deviceType());
             if(deviceType.toLower() == "lightswitch"){
-                // return summary of currentstate from lightswitch proxy of that device
+
             }
             else if(deviceType.toLower() == "thermostat"){
                 // return summary of currentstate from thermostat proxy of that device
@@ -193,4 +204,9 @@ QString Controller::currentState(QString name,QString type){
 std::string Controller::deviceType()
 {
     return "Controller";
+}
+
+std::vector<ProxyInterface *> Controller::getListDevices()
+{
+    return _listDevices;
 }

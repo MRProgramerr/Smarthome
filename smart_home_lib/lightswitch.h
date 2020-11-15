@@ -76,12 +76,29 @@ public:
      */
     void brighten() ;
 
+    /**
+     * @brief powerStatus
+     * @return True if power is turned on, else false
+     */
     MeasurementTemplate<bool> powerStatus();
 
+    /**
+     * @brief brightnessStatus
+     * @return The brightness level of the light switch
+     */
     MeasurementTemplate<int> brightnessStatus();
 
+    /**
+     * @brief realDevice : An inherited method
+     * @return itself
+     *
+     */
     Device *realDevice();
 
+    /**
+     * @brief deviceType
+     * @return "LightSwitch"
+     */
     std::string deviceType();
 
 

@@ -98,7 +98,7 @@ public:
      * @brief last5Measurement
      * @return the 5 most recent temperature Measurements from the Thermostat
      */
-    MeasurementTemplate<QString> *last5Measurement();
+    MeasurementTemplate<std::vector<double>> *last5Measurement();
 
     /**
      * @brief setpoint

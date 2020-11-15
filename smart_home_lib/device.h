@@ -58,6 +58,10 @@ public:
      */
     virtual ~Device(){};
 
+    /**
+     * @brief deviceType
+     * @return The device type for each concrete device implemntation
+     */
     virtual std::string deviceType() =0;
 
 
