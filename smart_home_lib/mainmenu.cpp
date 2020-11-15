@@ -14,7 +14,6 @@
 #include "sprinklersystemproxyfactory.h"
 #include "sprinklersystem.h"
 #include <QTimer>
-#include <conio.h>
 #include "thermostatproxyfactory.h"
 #include "thermostatproxy.h"
 #include "thermostat.h"
@@ -450,7 +449,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         _display << "Press 4 to schedule a timer" << endl;
         _display << "Press 5 to view live water consumption updates" << endl;
         _display << "Press 6 to view the current state of sprinkler" << endl;
-        _display<<  "Press 7 to view Water Usage";
+        _display<<  "Press 7 to view Water Usage" <<endl;
         _display << "Press 8 to exit " << endl;
 
         _input >> _userInputSS;
@@ -523,25 +522,34 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
             if(sProxy->getIsOn()){
 
-                _display << endl;
-                _display <<"Press Enter to move to next update" << endl << "Press ESC to exit " << endl;
+                int _inputCount;
 
-                // Continues loop until enter/esc.
-                char ch;
-                bool loop=false;
 
-                while(loop==false)
+                _display << "How many updates do you want to see?" <<endl;
+                _input >> _inputCount;
+
+                // Validation loop
+                for (;;) {
+
+                    if (_inputCount >=1 && _inputCount <=50) {
+                        break;
+                    } else {
+                        _display << "Invalid..." << endl;
+                        _input >> _inputCount;
+
+                    }
+                }
+
+
+                for(int i = 0; i <_inputCount ; i++)
                 {
 
                     current =  QDateTime::currentDateTime();
 
                     _display << "Water used as of " << current.time().toString() <<" " << sProxy->waterConsumptionPerCycle(on,current)/1000 << " litres" <<endl;
+
                     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-                    ch=getch();
-
-                    if(ch==27)
-                        loop=true;
                 }
 
 
@@ -562,12 +570,10 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         }
          if(_userInputSS ==7){
 
-             for(int i = 0 ;i <sProxy->waterUsage().size();i++){
-                 _display<< "Current Water Usage:"<<sProxy->waterUsage()[i]->value().toString();
-                 _display<<"Total Water Usage:"<<sProxy->waterUsage()[i+1]->value().toString();
-//                 qDeleteAll(sProxy->waterUsage());
-                 break;
-             }
+            _display << "Sprinkler system was used for a total of " << totalOn/2 << " Seconds." <<endl;
+            _display << "Sprinkler system used a total of " << totalOn*sProxy->getWaterConsumptionPerInterval()/9 << " Litres of water." <<endl;
+
+
          }
     }
 }
