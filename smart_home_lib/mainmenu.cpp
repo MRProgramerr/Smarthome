@@ -665,8 +665,7 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
             _display<<"taken at"+tProxy->last5Measurement()->timeStamp().toString();
             _display<<" || "<<QString::fromStdString(tProxy->last5Measurement()->deviceName())<<" || ";
              _display<<"    "<<QString::fromStdString(tProxy->last5Measurement()->measurementType())<<endl;
-            _display<<"     "+tProxy->last5Measurement()->value().toString();
-            _display<<QString::fromStdString(uom);
+            _display<<tProxy->last5Measurement()->value().toString();
         }
         if(_userInputTH == 3 ){
             _display<<"taken at"+tProxy->setpoint()->timeStamp().toString();

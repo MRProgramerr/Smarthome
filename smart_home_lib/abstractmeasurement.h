@@ -50,6 +50,11 @@ public:
      * @return The measurement type
      */
     std::string measurementType() ;
+    /**
+     * @brief timeStamp
+     * sets The current date and time
+     */
+    void settimestamp();
 
     /**
      * @brief timeStamp
@@ -89,7 +94,7 @@ private:
 
     std::string _deviceName = "";
     std::string _measurementType = "";
-
+    QDateTime time;
     std::string _unitofMeasure ="";
     bool _isFiltered = true;
 

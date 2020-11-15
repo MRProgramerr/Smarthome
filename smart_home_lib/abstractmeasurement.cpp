@@ -16,6 +16,10 @@ std::string AbstractMeasurement::unitofMeasure()
     return _unitofMeasure;
 }
 
+void AbstractMeasurement::settimestamp(){
+    time = QDateTime::currentDateTime();
+
+}
 void AbstractMeasurement::setUnitofMeasure( std::string unitofMeasure)
 {
     _unitofMeasure = unitofMeasure;
@@ -28,7 +32,7 @@ std::string AbstractMeasurement::measurementType()
 
 QDateTime AbstractMeasurement::timeStamp()
 {
-    return QDateTime::currentDateTime();
+    return time;
 }
 
 AbstractMeasurement *AbstractMeasurement::rawMeasurement()
