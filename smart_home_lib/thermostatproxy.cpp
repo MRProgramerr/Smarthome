@@ -72,7 +72,7 @@ void ThermostatProxy::setthesetpoint(double temp)
     _thermoStat->setthesetpoint(temp);
 }
 
-MeasurementTemplate<QString> *ThermostatProxy::last5Measurement()
+MeasurementTemplate<std::vector<double>> *ThermostatProxy::last5Measurement()
 {
     return _thermoStat->last5Measurement();
 }
