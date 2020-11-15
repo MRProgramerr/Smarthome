@@ -566,16 +566,13 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
                        std::cout<<" || "+tProxy->lastMeasurement()->deviceName()+ " || "<<std::endl;;
                        std::cout<<tProxy->lastMeasurement()->measurementType() + ": ";
                        _display<<tProxy->lastMeasurement()->value().toString();
-                        std::cout<<uom;
                     }
 
                     if(_userInputTH == 2 ){
-                       std::cout<<tProxy->lastMeasurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
-                       std::vector<MeasurementTemplate<double>> *m5 = new std::vector<MeasurementTemplate<double>>;
-                       std::vector<MeasurementTemplate<double>>::iterator it;
-
-                       for(it = m5->begin(); it!= m5->end(); it++)
-                            std::cout<<it->value().String;
+                       std::cout<<tProxy->last5Measurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
+                       QString s = QVariant(tProxy->last5Measurement()->value()).toString();
+                       std::cout<<s.toStdString();
+                        std::cout<<uom;
                     }
                      if(_userInputTH == 3 ){
                         std::cout<<" || "+tProxy->setpoint()->deviceName()+ " || "<<std::endl;;

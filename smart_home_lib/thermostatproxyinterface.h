@@ -3,6 +3,12 @@
 #include "proxyinterface.h"
 #include "measurementtemplate.h"
 
+/**
+ * @brief The ThermostatProxyInterface class
+ * An interface which defines the various functions
+ * Used for the proxy pattern
+ */
+
 class ThermostatProxyInterface : public ProxyInterface
 {
 public:
@@ -18,7 +24,7 @@ public:
     virtual void setlastMeasurement(double value)=0;
     virtual void storelastMeasurements(double addvalue)=0;
     virtual void setthesetpoint(double temp)=0;
-    virtual AbstractMeasurement *last5Measurement()=0;
+    virtual MeasurementTemplate<QString> *last5Measurement()=0;
     virtual AbstractMeasurement *setpoint()=0;
     virtual MeasurementTemplate<double> *currentState()=0;
     virtual void setcurrentstate(std::string state)=0;

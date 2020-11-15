@@ -53,10 +53,14 @@ MeasurementTemplate<double> *Thermostat::lastMeasurement(){
     mt->setValue(lastvalue);
     return mt;
 }
-MeasurementTemplate<std::vector<double>> *Thermostat::last5Measurement(){
+MeasurementTemplate<QString> *Thermostat::last5Measurement(){
 
-    mt1 = new MeasurementTemplate<std::vector<double>>(Name.toStdString(),"last 5 Measurements ",UoM);
-    mt1->setValue(last5values);
+    mt1 = new MeasurementTemplate<QString>(Name.toStdString(),"last 5 Measurements ",UoM);
+    QString str = " ";
+    for(int i = 0; i<last5values.size();i++){
+        str.append(QString::number(last5values[i])+"\n");
+ }
+    mt1->setValue(str);
     return mt1;
 }
 MeasurementTemplate<double> *Thermostat::setpoint(){
