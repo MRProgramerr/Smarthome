@@ -4,6 +4,7 @@ SUBDIRS += \
     LightSwitch \
     TestCsvFile \ \
     testlightswitchproxy \ \
+    testsprinklersystemproxy \
     testthermostatproxy
 
 
