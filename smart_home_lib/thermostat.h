@@ -167,10 +167,10 @@ private:
     std::string UoM ="";
     double thesetpoint;
     MeasurementTemplate<double> *mt;
-    MeasurementTemplate<QString> *mt1;
+    MeasurementTemplate<std::vector<double>> *mt1;
     double plusminus = 0.00;
     double currentvalue = 0.00;
-    QList<double> last5values;
+    std::vector<double> last5values;
     double lastvalue = 0.00;
     double Temp = 0.00;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))}; //random nuber generator
