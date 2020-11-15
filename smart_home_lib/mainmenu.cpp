@@ -266,7 +266,8 @@ void MainMenu::mainMenuController(Controller* controller)
         }
 
         else if(_userInputC ==4){
-            controller->currentState("","");
+
+            _display << "Not fully implemented.." << endl;
         }
 
         // This allows the user to interact with any registered device directly
