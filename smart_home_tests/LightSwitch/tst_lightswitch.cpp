@@ -2,6 +2,8 @@
 #include "lightswitch.h"
 // add necessary includes here
 
+
+
 class lightswitch : public QObject
 {
     Q_OBJECT
