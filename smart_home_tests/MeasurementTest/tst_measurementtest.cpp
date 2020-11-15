@@ -58,6 +58,7 @@ void MeasurementTest::measurementDoubleTest()
 {
     QVariant q{1.66};
     MeasurementTemplate<double> test("LightSwitch","Brightness","");
+    test.setPrecision(10);
     test.setValue(1.6567847);
 
     QCOMPARE(test.value(),q);
