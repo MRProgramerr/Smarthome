@@ -295,12 +295,12 @@ void MainMenu::mainMenuController(Controller* controller)
                     }
                 }
 
-                QString deviceType = QString::fromStdString(controller->getListDevices().at(input)->realDevice()->deviceType());
+                QString deviceType = QString::fromStdString(controller->getListDevices().at(input-1)->realDevice()->deviceType());
 
                 // Dynamic casting of the abstract devices to
                 // appropriate concrete devices and then
                 // calling out main menus
-                if(deviceType.toLower()=="lightswitch"){
+                if(deviceType.toLower()=="light switch"){
 
                     LightSwitchProxy* ls = dynamic_cast<LightSwitchProxy*>(controller->getListDevices().at(input-1));
                     mainMenuLightSwitch(ls);
