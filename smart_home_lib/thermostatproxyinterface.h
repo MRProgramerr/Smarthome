@@ -3,6 +3,12 @@
 #include "proxyinterface.h"
 #include "measurementtemplate.h"
 
+/**
+ * @brief The ThermostatProxyInterface class
+ * An interface which defines the various functions
+ * Used for the proxy pattern
+ */
+
 class ThermostatProxyInterface : public ProxyInterface
 {
 public:

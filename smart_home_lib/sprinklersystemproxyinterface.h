@@ -5,9 +5,16 @@
 #include <QObject>
 #include "measurementtemplate.h"
 
+/**
+ * @brief The SprinklerSystemProxyInterface class
+ * An interface which defines the various functions
+ * Used for the proxy pattern
+ */
+
 class SprinklerSystemProxyInterface : public ProxyInterface
 {
 public:
+
     virtual ~SprinklerSystemProxyInterface(){};
 
     virtual int getUpdateFrequency() =0;
