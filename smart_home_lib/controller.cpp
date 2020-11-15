@@ -9,23 +9,24 @@ void Controller::registerDevice(QString deviceName, QString deviceType, QString 
     bool uniqueName = true;
     int length = _listDevices.size();
     for(int i = 0; i < length; i++){
-        if(_listDevices[i]->realDevice()->getDeviceName() == deviceName){
-            uniqueName = false;
-        }
+        std::cout << _listDevices[i]->realDevice() << std::endl;
     }
     if(uniqueName == true)
     {
         if(deviceType.toLower() == "lightswitch"){
             LightSwitchProxy lsp(deviceName);
             _listDevices.push_back(&lsp);
+             emit send("Successfully registered " + deviceName + " as a lightswitch");
         } else if(deviceType.toLower() == "thermostat"){
             ThermostatProxy tp(deviceName);
             _listDevices.push_back(&tp);
+            emit send("Successfully registered " + deviceName + " as a thermostat");
         } else if(deviceType.toLower()== "sprinkler system"){
             SprinklerSystemProxy sp(deviceName);
             _listDevices.push_back(&sp);
+            emit send("Successfully registered " + deviceName + " as a sprinkler system");
         } else{
-            std::cout << "No such device to register" << std::endl;
+             emit send("No such device type");
         }
     }
     else{
@@ -82,7 +83,7 @@ void Controller::unregisterDevice(QString deviceName)
         // loop through the copy list and registers every device from that list besides the one being unregistered
         for (int i = 0; i < length ; i++){
             // when the device name in the copy list of devices is not the same as the removed device name
-            if(deviceName != _copyListDevices[i]->realDevice()->getDeviceName()){
+            if(deviceName != _copyListDevices[i]->realDevice()->getDeviceName().toUtf8().constData()){
 
                 // converts device type std::string to a qstring so it can be used to register devices
                 QString type = QString::fromStdString(_copyListDevices[i]->realDevice()->deviceType());
@@ -93,6 +94,7 @@ void Controller::unregisterDevice(QString deviceName)
             else{
                 // if the specified device name is found
                 found = true;
+                emit send("Successfully unregistered " + deviceName);
             }
         }
         // if the specified device name was not found in the lise

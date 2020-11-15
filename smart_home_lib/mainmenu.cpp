@@ -6,6 +6,7 @@
 #include <QCoreApplication>
 #include "lightswitchproxy.h"
 #include <iostream>
+#include <sstream>
 #include "lightswitchproxyfactory.h"
 #include "proxyfactory.h"
 #include "measurementtemplate.h"
@@ -139,7 +140,11 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 
 
     if(chosenDevice == "Smart Home Controller"){
-        // Logic here
+        Controller* c = new Controller(deviceName);
+        c->setIPAddressController(inputDeviceUrl);
+        c->setPortNumberController(inputPort);
+        mainMenuController(c);
+
 
     } else if(chosenDevice == "Light Switch"){
 
@@ -197,6 +202,59 @@ void MainMenu::initialisingDevice(QString chosenDevice, QString deviceName,QStri
 
     }
 
+}
+
+void MainMenu::mainMenuController(Controller* controller)
+{
+    // connects Controller signas with main menu to recieve updates on registered devices
+     connect(controller,SIGNAL(send(QString)),this,SLOT(listen(QString)));
+
+     int _userInputC = 0;
+
+     while(_userInputC != 5)
+     {
+         // Loops this menu
+         _display << endl;
+         _display << "--------------- Smart Home Controller Main Menu ---------------" << endl;
+         _display << "Press 1 to Register Device" << endl;
+         _display << "Press 2 to View Registered Devices" << endl;
+         _display << "Press 3 to Unregister Device" << endl;
+         _display << "Press 4 to view status of a device" << endl;
+         _display << "Press 5 to exit" << endl;
+
+         _input >> _userInputC;
+
+         if(_userInputC == 5)break;
+
+         else if(_userInputC == 1){
+             QString deviceName;
+             QString deviceType;
+             QString URL;
+              _display << "Enter device name" << endl;
+              _input >> deviceName;
+              _display << "Enter device type" << endl;
+              _input >> deviceType;
+              _display << "Enter device URL" << endl;
+              _input >> URL;
+              controller->registerDevice(deviceName, deviceType, URL);
+         }
+         else if(_userInputC == 2){
+             controller->registeredDevices();
+         }
+         else if(_userInputC == 3){
+             QString deviceName;
+             QString deviceType;
+             _display << "Enter device name" << endl;
+             _input >> deviceName;
+             controller->unregisterDevice(deviceName);
+         }
+
+         else{
+             _display << "Please enter a valid option (1-5)" << endl;
+             _input >> _userInputC;
+         }
+
+     }
 }
 
 void MainMenu::mainMenuLightSwitch(LightSwitchProxy* lProxy)
