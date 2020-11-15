@@ -9,7 +9,10 @@ void Controller::registerDevice(QString deviceName, QString deviceType, QString 
     bool uniqueName = true;
     int length = _listDevices.size();
     for(int i = 0; i < length; i++){
-        std::cout << _listDevices[i]->realDevice() << std::endl;
+        if(_listDevices[i]->realDevice()->getDeviceName() == deviceName)
+        {
+            uniqueName = false;
+        }
     }
     if(uniqueName == true)
     {
