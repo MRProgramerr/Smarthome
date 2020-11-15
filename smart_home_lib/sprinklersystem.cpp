@@ -123,10 +123,12 @@ std::vector<MeasurementTemplate<double> *> SprinklerSystem::waterUsage()
        mtusage = new MeasurementTemplate<double>(Name.toStdString(),"Water Usage","L");
        mtusage->setValue(getWaterConsumptionPerInterval());
        mtvectorusage.push_back(mtusage);
+       mtusage->setPrecision(100);
 
        mtusage2 = new MeasurementTemplate<double>(Name.toStdString(),"Lifetime Water Consumption","L");
-       mtusage->setValue(getlifetimeConsumption());
-       mtvectorusage.push_back(mtusage);
+       mtusage2->setValue(getlifetimeConsumption());
+       mtusage2->setPrecision(1);
+       mtvectorusage.push_back(mtusage2);
 
        return mtvectorusage;
 }

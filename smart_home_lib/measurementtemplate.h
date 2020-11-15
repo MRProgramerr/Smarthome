@@ -45,13 +45,23 @@ public:
     }
 
     QVariant value(){
-        return std::round(_value*100)/100;
+        return std::round(_value*Precision*10)/(Precision*10);
     }
+
+void setPrecision(int prec)
+{
+    Precision = prec;
+
+}
+ int getPrecision()
+{
+    return Precision;
+}
 
 
 private:
     double _value = 0.00;
-
+int Precision;
 };
 
 
