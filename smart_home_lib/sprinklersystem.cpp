@@ -28,7 +28,7 @@ void SprinklerSystem::setWaterConsumptionPerInterval(double value)
 
 double SprinklerSystem::getlifetimeConsumption()
 {
-   return totalConsumption;
+    return totalConsumption;
 }
 void SprinklerSystem::setlifetimeConsumption(double value){
 
@@ -72,20 +72,20 @@ void SprinklerSystem::schedule(QTime delay, QTime duration)
 
     setcurrrentState("SCHEDULED");
 
-        std::async(std::launch::async, [=] () {
+    std::async(std::launch::async, [=] () {
 
-            std::this_thread::sleep_for(std::chrono::seconds{delay.second()});
+        std::this_thread::sleep_for(std::chrono::seconds{delay.second()});
 
-            this->turnOn();
-            std::cout << "Sprinkler System turned on"<< std::endl;
-        } );
+        this->turnOn();
+        std::cout << "Sprinkler System turned on"<< std::endl;
+    } );
 
-        std::this_thread::sleep_for( std::chrono::seconds{duration.second()});
-            this->turnOff();
-            std::cout << "Sprinkler System turned off"<< std::endl;
+    std::this_thread::sleep_for( std::chrono::seconds{duration.second()});
+    this->turnOff();
+    std::cout << "Sprinkler System turned off"<< std::endl;
 
-            // Some arbitary rate of water usage
-            std::cout << "Sprinkler System used" << (_waterConsumptionPerInterval*duration.second()/15) << " litre(s) of water " << std::endl;
+    // Some arbitary rate of water usage
+    std::cout << "Sprinkler System used" << (_waterConsumptionPerInterval*duration.second()/15) << " litre(s) of water " << std::endl;
 
 
 }
@@ -120,21 +120,25 @@ std::vector<MeasurementTemplate<QTime>*> SprinklerSystem::currentState()
 
 std::vector<MeasurementTemplate<double> *> SprinklerSystem::waterUsage()
 {
-       mtusage = new MeasurementTemplate<double>(Name.toStdString(),"Water Usage","L");
-       mtusage->setValue(getWaterConsumptionPerInterval());
-       mtvectorusage.push_back(mtusage);
+    mtusage = new MeasurementTemplate<double>(Name.toStdString(),"Water Usage","L");
+    mtusage->setValue(getWaterConsumptionPerInterval());
+    mtvectorusage.push_back(mtusage);
+    mtusage->setPrecision(100);
 
-       mtusage2 = new MeasurementTemplate<double>(Name.toStdString(),"Lifetime Water Consumption","L");
-       mtusage->setValue(getlifetimeConsumption());
-       mtvectorusage.push_back(mtusage);
+    mtusage2 = new MeasurementTemplate<double>(Name.toStdString(),"Lifetime Water Consumption","L");
+    mtusage2->setValue(getlifetimeConsumption());
+    mtusage2->setPrecision(1);
+    mtvectorusage.push_back(mtusage2);
 
-       return mtvectorusage;
+
+
+    return mtvectorusage;
 }
 
 
 Device *SprinklerSystem::realDevice()
 {
- return this;
+    return this;
 }
 
 

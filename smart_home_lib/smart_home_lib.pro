@@ -90,9 +90,3 @@ unix {
     INSTALLS += target
 }
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../xbin/ -lqhttp-embed
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../xbin/ -lqhttp-embed
-else:unix: LIBS += -L$$OUT_PWD/../xbin/ -lqhttp-embed
-
-INCLUDEPATH += $$PWD/../qhttp-embed
-DEPENDPATH += $$PWD/../qhttp-embed
