@@ -19,7 +19,7 @@ class Controller : public Device
 public:
     Controller(QString name);
     void registerDevice(QString deviceName, QString deviceType, QString URL);
-    std::vector<std::vector<std::string>> registeredDevices();
+    std::vector<std::string> registeredDevices();
     void unregisterDevice(QString name);
     QString currentState(QString name,QString type);
 
@@ -27,7 +27,7 @@ public:
     void addFilter();
     void clearFilter();
 
-     std::string deviceType();
+    std::string deviceType();
 
 
     // REST API
@@ -36,7 +36,11 @@ public:
 
 private:
 
+
+
     std::vector<ProxyInterface*> _listDevices;
+    std::vector<std::string> _output;
+    int idDevice = 0;
 
 
 signals:

@@ -232,14 +232,16 @@ void MainMenu::mainMenuController(Controller* controller)
              QString URL;
               _display << "Enter device name" << endl;
               _input >> deviceName;
-              _display << "Enter device type" << endl;
+              _display << "Enter device type(lightswitch,thermostat,sprinkler)" << endl;
               _input >> deviceType;
               _display << "Enter device URL" << endl;
               _input >> URL;
               controller->registerDevice(deviceName, deviceType, URL);
          }
          else if(_userInputC == 2){
-             controller->registeredDevices();
+             for(auto elem: controller->registeredDevices()){
+                 _display<< QString::fromStdString(elem) << endl;
+             }
          }
          else if(_userInputC == 3){
              QString deviceName;
