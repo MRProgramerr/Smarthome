@@ -37,6 +37,7 @@ SOURCES += \
         lightswitchproxy.cpp \
         lightswitchproxyfactory.cpp \
         mainmenu.cpp \
+        measurementfilters.cpp \
         measurementtemplate.cpp \
         proxyabstractfactory.cpp \
         proxyfactory.cpp \
@@ -68,6 +69,7 @@ HEADERS += \
         lightswitchproxy.h \
         lightswitchproxyfactory.h \
         mainmenu.h \
+        measurementfilters.h \
         measurementtemplate.h \
         proxyabstractfactory.h \
         proxyfactory.h \

@@ -487,7 +487,7 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
 
     int _userInputTH =0;
 
-    _display <<"Do you to change the -Update Frequency- default value: 3 seconds [Y/N]" <<endl;
+    _display <<"Do you to change the -Update Frequency- default value: 3 seconds [y/n]" <<endl;
     for(;;){
             std::cin>>confirm;
 
@@ -501,7 +501,7 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
                 break;
             }
             else
-                _display<<"INVALID SELECTION!!"<<endl;
+                _display<<"INVALID SELECTION!! Select [y/n] only "<<endl;
         }
 
         _display <<"Please enter The setpoint"<<endl;
@@ -528,7 +528,6 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
         while(_userInputTH != 9){
 
             tProxy->update();
-            std::this_thread::sleep_for(std::chrono::milliseconds(tProxy->getUpdateFrequency()));
 
                   _display << endl;
                   _display << "--------------- Thermostat Main Menu ---------------" << endl;
@@ -560,10 +559,10 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
 
                     if(_userInputTH == 1 ){
 
-                       std::cout<<" || "+tProxy->lastMeasurement()->deviceName()+ " || ";
+                       std::cout<<" || "+tProxy->lastMeasurement()->deviceName()+ " || "<<std::endl;;
                        std::cout<<tProxy->lastMeasurement()->measurementType() + ": ";
-                       _display<<tProxy->lastMeasurement()->value().toString()<<endl;
-                        std::cout<<" °"+tProxy->lastMeasurement()->unitofMeasure();
+                       _display<<tProxy->lastMeasurement()->value().toString();
+                        std::cout<<uom;
                     }
 
                     if(_userInputTH == 2 ){
@@ -575,18 +574,20 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
                             std::cout<<it->value().String;
                     }
                      if(_userInputTH == 3 ){
-                        std::cout<<tProxy->setpoint()->deviceName()+ " || ";
+                        std::cout<<" || "+tProxy->setpoint()->deviceName()+ " || "<<std::endl;;
                         std::cout<<tProxy->setpoint()->measurementType() + ": ";
-                        _display<<tProxy->setpoint()->value().toString()<<endl;
-                         std::cout<<" °"+tProxy->setpoint()->unitofMeasure();
+                        std::cout<<uom;
+
+                        _display<<tProxy->setpoint()->value().toString();
                      }
 
                      if(_userInputTH == 4 ){
                          if(getupdate == true){
-                            std::cout<<tProxy->currentState()->deviceName()+ " || ";
-                            std::cout<<tProxy->currentState()->measurementType() + ": ";
-                            _display<<tProxy->currentState()->value().toString()<<endl;
-                             std::cout<<" °"+uom + tProxy->unitofMeasure();
+                            std::cout<<" || "+tProxy->currentState()->deviceName()+ " || "<<std::endl;
+                            std::cout<<tProxy->currentState()->measurementType() + ": "+tProxy->currentState()->unitofMeasure()+ " ";
+                            _display<<tProxy->currentState()->value().toString();
+                            std::cout<<uom;
+
                          }
                          else {
                              _display<<"Updates are turned off"<<endl;
