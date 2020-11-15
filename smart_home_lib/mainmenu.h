@@ -8,8 +8,7 @@
 #include "proxyfactory.h"
 #include "sprinklersystemproxy.h"
 #include "thermostatproxy.h"
-#include "controller.h"
-#include "controllerfactory.h"
+#include "devicecontroller.h"
 
 
 class MainMenu : public QObject
@@ -75,7 +74,8 @@ public:
    */
     void mainMenuThermostat(ThermostatProxy* tProxy);
 
-    void mainMenuController(Controller* controller);
+    void mainMenuController(DeviceController* controller);
+
 
 public slots:
     /**
