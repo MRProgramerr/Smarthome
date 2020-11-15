@@ -170,9 +170,8 @@ private:
     MeasurementTemplate<QString> *mt1;
     double plusminus = 0.00;
     double currentvalue = 0.00;
-    QList<double> last5values;
     double lastvalue = 0.00;
-    double Temp = 0.00;
+    QList<double> last5values;
     std::mt19937 _randomGenerator{uint32_t(time(nullptr))}; //random nuber generator
     std::uniform_real_distribution<double> _realDistribution{0.0, 0.5};
 
