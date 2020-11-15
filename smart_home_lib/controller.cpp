@@ -210,3 +210,12 @@ std::vector<ProxyInterface *> Controller::getListDevices()
 {
     return _listDevices;
 }
+
+template<class T>
+void Controller::addFilter(QString name, MeasurementTemplate<T> type, std::string filtertype, T val)
+{
+   for(const auto& dev : _listDevices){
+   if(dev->realDevice()->getDeviceName() == name)
+    MeasurementFilters(name.toStdString(), type, filtertype, val);
+}
+}
