@@ -75,6 +75,12 @@ public:
    */
     void mainMenuThermostat(ThermostatProxy* tProxy);
 
+    /**
+     * @brief mainMenuController
+     * the main menu for the controller. allows various
+     * options to user.
+     * @param controller
+     */
     void mainMenuController(Controller* controller);
 
 public slots:

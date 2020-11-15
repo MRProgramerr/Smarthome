@@ -85,6 +85,10 @@ public:
      */
     std::string deviceType();
 
+    /**
+     * @brief getListDevices
+     * @return A list of all the devices proxies stored
+     */
     std::vector<ProxyInterface*> getListDevices();
 
 
