@@ -39,6 +39,11 @@ private:
     std::vector<ProxyInterface*> _listDevices;
 
 
+signals:
+    void send(QString data);
+
+
+
 };
 
 #endif // CONTROLLER_H

@@ -8,6 +8,9 @@
 #include "proxyfactory.h"
 #include "sprinklersystemproxy.h"
 #include "thermostatproxy.h"
+#include "controller.h"
+#include "controllerfactory.h"
+
 
 class MainMenu : public QObject
 {
@@ -72,6 +75,8 @@ public:
    */
     void mainMenuThermostat(ThermostatProxy* tProxy);
 
+    void mainMenuController(Controller* controller);
+
 public slots:
     /**
    * @brief run Begin executing the main menu.
@@ -87,6 +92,7 @@ public slots:
    * @param info
    */
     void listen(QString info);
+
 
 private:
     QTextStream &_display;
