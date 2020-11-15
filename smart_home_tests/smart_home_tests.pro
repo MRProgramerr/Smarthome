@@ -9,6 +9,7 @@ SUBDIRS += \
     SprinklerTest \
     TestCsvFile \
     Thermostat \
+    testsprinklersystemproxy\
 
 
 
