@@ -78,7 +78,7 @@ public:
     /**
      * @copydoc Thermostat::last5Measurement()
      */
-    MeasurementTemplate<std::vector<double>> *last5Measurement()override;
+    MeasurementTemplate<QString> *last5Measurement()override;
 
     /**
      * @copydoc Thermostat::setpoint()
