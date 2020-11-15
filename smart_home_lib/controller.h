@@ -19,7 +19,7 @@ class Controller : public Device
 public:
     Controller(QString name);
     void registerDevice(QString deviceName, QString deviceType, QString URL);
-    std::vector<std::vector<std::string>> registeredDevices();
+    std::string registeredDevices();
     void unregisterDevice(QString name);
     QString currentState(QString name,QString type);
 
