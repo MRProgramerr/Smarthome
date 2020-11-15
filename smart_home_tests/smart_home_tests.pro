@@ -4,10 +4,10 @@ SUBDIRS += \
     ControllerTest \
     DeviceFactoryTest \
     LightSwitch \
-    TestCsvFile \ \
-    testlightswitchproxy \ \
-    testsprinklersystemproxy \
-    testthermostatproxy
+    MeasurementTest \
+    ProxyFactoryTest \
+    SprinklerTest \
+    TestCsvFile \
 
 
 
