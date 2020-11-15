@@ -295,12 +295,12 @@ void MainMenu::mainMenuController(Controller* controller)
                     }
                 }
 
-                QString deviceType = QString::fromStdString(controller->getListDevices().at(input)->realDevice()->deviceType());
+                QString deviceType = QString::fromStdString(controller->getListDevices().at(input-1)->realDevice()->deviceType());
 
                 // Dynamic casting of the abstract devices to
                 // appropriate concrete devices and then
                 // calling out main menus
-                if(deviceType.toLower()=="lightswitch"){
+                if(deviceType.toLower()=="light switch"){
 
                     LightSwitchProxy* ls = dynamic_cast<LightSwitchProxy*>(controller->getListDevices().at(input-1));
                     mainMenuLightSwitch(ls);
@@ -436,7 +436,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
     sProxy->setWaterConsumptionPerInterval(_waterCons);
 
-    while(_userInputSS !=7){
+    while(_userInputSS !=8){
 
 
 
@@ -450,7 +450,8 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         _display << "Press 4 to schedule a timer" << endl;
         _display << "Press 5 to view live water consumption updates" << endl;
         _display << "Press 6 to view the current state of sprinkler" << endl;
-        _display << "Press 7 to exit " << endl;
+        _display<<  "Press 7 to view Water Usage";
+        _display << "Press 8 to exit " << endl;
 
         _input >> _userInputSS;
 
@@ -559,6 +560,15 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
 
 
         }
+         if(_userInputSS ==7){
+
+             for(int i = 0 ;i <sProxy->waterUsage().size();i++){
+                 _display<< "Current Water Usage:"<<sProxy->waterUsage()[i]->value().toString();
+                 _display<<"Total Water Usage:"<<sProxy->waterUsage()[i+1]->value().toString();
+//                 qDeleteAll(sProxy->waterUsage());
+                 break;
+             }
+         }
     }
 }
 

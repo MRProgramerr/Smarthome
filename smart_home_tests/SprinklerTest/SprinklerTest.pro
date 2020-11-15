@@ -6,8 +6,7 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES +=  tst_testlightswitchproxy.cpp
-
+SOURCES +=  tst_sprinklertest.cpp
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../smart_home_lib/release/ -lsmart_home_lib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../smart_home_lib/debug/ -lsmart_home_lib
 else:unix: LIBS += -L$$OUT_PWD/../../smart_home_lib/ -lsmart_home_lib

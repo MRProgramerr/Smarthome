@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES +=  tst_testthermostatproxy.cpp
+SOURCES +=  tst_measurementtest.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../smart_home_lib/release/ -lsmart_home_lib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../smart_home_lib/debug/ -lsmart_home_lib

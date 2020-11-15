@@ -11,6 +11,8 @@
 #include "abstractmeasurement.h"
 #include "sprinklersystemproxyinterface.h"
 
+
+
 /**
  * @brief The SprinklerSystem class
  * Concrete implementation of the sprinkler device
@@ -152,6 +154,7 @@ private:
     std::vector<MeasurementTemplate<double>*> mtvectorusage;
     QDateTime onStamp;
     QDateTime offStamp;
+
 
 
 
