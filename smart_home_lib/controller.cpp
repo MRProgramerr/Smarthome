@@ -14,16 +14,16 @@ void Controller::registerDevice(QString deviceName, QString deviceType, QString 
     if(uniqueName == true)
     {
         if(deviceType.toLower() == "lightswitch"){
-            LightSwitchProxy lsp(deviceName);
-            _listDevices.push_back(&lsp);
+            ProxyInterface* lsp =  new LightSwitchProxy(deviceName);
+            _listDevices.push_back(lsp);
              emit send("Successfully registered " + deviceName + " as a lightswitch");
         } else if(deviceType.toLower() == "thermostat"){
-            ThermostatProxy tp(deviceName);
-            _listDevices.push_back(&tp);
+             ProxyInterface* tp = new ThermostatProxy(deviceName);
+            _listDevices.push_back(tp);
             emit send("Successfully registered " + deviceName + " as a thermostat");
         } else if(deviceType.toLower()== "sprinkler system"){
-            SprinklerSystemProxy sp(deviceName);
-            _listDevices.push_back(&sp);
+            ProxyInterface* sp=new SprinklerSystemProxy (deviceName);
+            _listDevices.push_back(sp);
             emit send("Successfully registered " + deviceName + " as a sprinkler system");
         } else{
              emit send("No such device type");

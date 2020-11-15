@@ -239,7 +239,11 @@ void MainMenu::mainMenuController(Controller* controller)
               controller->registerDevice(deviceName, deviceType, URL);
          }
          else if(_userInputC == 2){
-             controller->registeredDevices();
+             for(auto& row:controller->registeredDevices()){
+                for(auto& col:row){
+                    std::cout << col << std::endl;;
+                }
+             }
          }
          else if(_userInputC == 3){
              QString deviceName;
