@@ -33,8 +33,8 @@ double Thermostat::getStartingTemperature()
 }
 
 void Thermostat::setStartingTemperature(double starttemp){
-    StartTemperature = starttemp;
-}
+    currentvalue = starttemp;
+   }
 void Thermostat::setlastMeasurement(double value){
     this->lastvalue = value;
 }
@@ -51,6 +51,7 @@ void Thermostat::setthesetpoint(double currentval){
 MeasurementTemplate<double> *Thermostat::lastMeasurement(){
     mt = new MeasurementTemplate<double>(Name.toStdString(),"last Measurement",UoM);
     mt->setValue(lastvalue);
+    mt->settimestamp();
     return mt;
 }
 MeasurementTemplate<QString> *Thermostat::last5Measurement(){
@@ -61,12 +62,14 @@ MeasurementTemplate<QString> *Thermostat::last5Measurement(){
         str.append(QString::number(last5values[i])+"\n");
  }
     mt1->setValue(str);
+    mt1->settimestamp();
     return mt1;
 }
 MeasurementTemplate<double> *Thermostat::setpoint(){
 
     mt = new MeasurementTemplate<double>(Name.toStdString(),"temperature setpoint",UoM);
     mt->setValue(thesetpoint);
+    mt->settimestamp();
     return mt;
 }
 
@@ -78,6 +81,7 @@ MeasurementTemplate<double> *Thermostat::currentState(){
 
      mt = new MeasurementTemplate<double>(Name.toStdString(),"Current State",cstate);
      mt->setValue(currentvalue);
+     mt->settimestamp();
      return mt;
 
 }

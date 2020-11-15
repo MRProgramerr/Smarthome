@@ -8,8 +8,6 @@ SUBDIRS += \
     ProxyFactoryTest \
     SprinklerTest \
     TestCsvFile \
-    Thermostat \
-    testsprinklersystemproxy\
 
 
 

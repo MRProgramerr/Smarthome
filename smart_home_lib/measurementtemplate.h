@@ -62,7 +62,7 @@ public:
 
 private:
     double _value = 0.00;
-    int _precission=0;
+    int _precission=1;
 
 };
 

@@ -449,7 +449,7 @@ void MainMenu::mainMenuSprinklerSystem(SprinklerSystemProxy *sProxy)
         _display << "Press 4 to schedule a timer" << endl;
         _display << "Press 5 to view live water consumption updates" << endl;
         _display << "Press 6 to view the current state of sprinkler" << endl;
-        _display<<  "Press 7 to view Water Usage" <<endl;
+        _display<<  "Press 7 to view Water Usage"<<endl;
         _display << "Press 8 to exit " << endl;
 
         _input >> _userInputSS;
@@ -660,34 +660,34 @@ void MainMenu::mainMenuThermostat(ThermostatProxy *tProxy)
 
         if(_userInputTH == 1 ){
 
-            std::cout<<" || "+tProxy->lastMeasurement()->deviceName()+ " || "<<std::endl;;
-            std::cout<<tProxy->lastMeasurement()->measurementType() + ": ";
-            _display<<tProxy->lastMeasurement()->value().toString();
-            std::cout<<uom;
+            _display<<"taken at"+tProxy->lastMeasurement()->timeStamp().toString()<<endl;
+           _display<<" || "<<QString::fromStdString(tProxy->lastMeasurement()->deviceName())<< " || "<<endl;
+           _display<<QString::fromStdString(tProxy->lastMeasurement()->measurementType())<< ": ";
+            _display<<"    "+tProxy->lastMeasurement()->value().toString();
+            _display<<QString::fromStdString(uom);
         }
 
         if(_userInputTH == 2 ){
-            std::cout<<tProxy->lastMeasurement()->deviceName()+ " || " + tProxy->lastMeasurement()->measurementType() + "|| " + tProxy->lastMeasurement()->unitofMeasure() + " || ";
-            std::vector<MeasurementTemplate<double>> *m5 = new std::vector<MeasurementTemplate<double>>;
-            std::vector<MeasurementTemplate<double>>::iterator it;
-
-            for(it = m5->begin(); it!= m5->end(); it++)
-                std::cout<<it->value().String;
+            _display<<"taken at"+tProxy->last5Measurement()->timeStamp().toString();
+            _display<<" || "<<QString::fromStdString(tProxy->last5Measurement()->deviceName())<<" || ";
+             _display<<"    "<<QString::fromStdString(tProxy->last5Measurement()->measurementType())<<endl;
+            _display<<tProxy->last5Measurement()->value().toString();
         }
         if(_userInputTH == 3 ){
-            std::cout<<" || "+tProxy->setpoint()->deviceName()+ " || "<<std::endl;;
-            std::cout<<tProxy->setpoint()->measurementType() + ": ";
-            std::cout<<uom;
-
+            _display<<"taken at"+tProxy->setpoint()->timeStamp().toString();
+            _display<<" || "<<QString::fromStdString(tProxy->setpoint()->deviceName())<<" || "<<endl;
+            _display<<QString::fromStdString(tProxy->setpoint()->measurementType())<<": ";
             _display<<tProxy->setpoint()->value().toString();
+            _display<<QString::fromStdString(uom);
         }
 
         if(_userInputTH == 4 ){
             if(getupdate == true){
-                std::cout<<" || "+tProxy->currentState()->deviceName()+ " || "<<std::endl;
-                std::cout<<tProxy->currentState()->measurementType() + ": "+tProxy->currentState()->unitofMeasure()+ " ";
+                _display<<"taken at"+tProxy->currentState()->timeStamp().toString();
+                _display<<" || "<<QString::fromStdString(tProxy->currentState()->deviceName())<<" || "<<endl;
+                 _display<<QString::fromStdString(tProxy->currentState()->measurementType())<< ": "<<QString::fromStdString(tProxy->currentState()->unitofMeasure())<<" ";
                 _display<<tProxy->currentState()->value().toString();
-                std::cout<<uom;
+                _display<<QString::fromStdString(uom);
 
             }
             else {
