@@ -1,13 +1,12 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    ControllerTest \
-    DeviceFactoryTest \
+#    Controller \
     LightSwitch \
-    MeasurementTest \
-    ProxyFactoryTest \
-    SprinklerTest \
+#    Measurement \
+#    SprinklerSystem \
     TestCsvFile \
+    Thermostat \
 
 
 
